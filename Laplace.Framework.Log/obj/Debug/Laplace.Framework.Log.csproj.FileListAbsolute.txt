@@ -1,0 +1,7 @@
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\bin\Debug\Laplace.Framework.Log.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\bin\Debug\Laplace.Framework.Log.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\bin\Debug\log4net.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\bin\Debug\log4net.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\obj\Debug\Laplace.Framework.Log.csprojResolveAssemblyReference.cache
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\obj\Debug\Laplace.Framework.Log.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Log\obj\Debug\Laplace.Framework.Log.pdb

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑姓名</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://wx.bingtuanego.com/vendor/bootstrapv3/css/bs-col-sys.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://wx.bingtuanego.com/vendor/css/ratchet.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://wx.bingtuanego.com/css/app.css">
+    <link rel="stylesheet" type="text/css" href="http://wx.bingtuanego.com/css/mycss.css" />
+    <link rel="stylesheet" type="text/css" href="http://wx.bingtuanego.com/css/swiper.min.css" />
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/function.js"></script>
+</head>
+<body class="addressbody">
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+    <header class="bar bar-nav bg-bule b-n">
+        <a href='@Url.Action("SetList")' class="icon icon-goback pull-left"></a>
+        <h1 class="title c-white">更改联系人姓名</h1>
+    </header>
+    <div class="content container form-box mt-80" style="margin-top: 60px!important;">
+        <form action='@Url.Action("SetName")' method="POST">
+            <div class="input-box pt-20 clearfix">
+                <span class="icon icon-ren"></span>
+                <input class="b-n b-b-2-gray c-gray2 pull-right mb-35 pl-0 w-95" name="userName" placeholder=" 请输入联系人姓名" type="text" value="">
+                <input type="submit" name="sub" class="btn btn-block button-bule b-n btn-public mb-35 c-gray3 f-normal" vaue="提交">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

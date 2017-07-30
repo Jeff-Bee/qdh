@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>销售报表(线下)</title>
+</head>
+<body>
+    <div style="width:100%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;销售报表(线下)
+        </div>
+        <div>
+            <div style="height:25px;line-height:25px;margin-bottom:10px;"><span style="float:left;margin-left:10px;display:none;"> [日期 ： <label id="OSR_start_time">2016-09-02</label> 至 <label id="OSR_end_time">2016-10-03</label>]</span><span style="float:left;margin-left:20px;"><input id="OSR_Customer" style="height:20px;width:100px;" /> </span><span style="float:left;margin-left:20px;"><input id="OSR_startTime" style="width:100px;height:20px;" /> 至 <input id="OSR_endTime" style="width:100px;height:20px;" /><a class="easyui-linkbutton" iconCls="icon-search" style="margin-left:20px;margin-right:10px;" onclick="OSRSearch()" title="查询"></a><a class="easyui-linkbutton" iconCls="icon-print" title="导出" onclick="ExportOSR()"></a> </span><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton" style="display:none" iconCls="icon-config-yellow">列配置</a> </span><span style="float:right;margin-right:10px;display:none;"><input type="checkbox" id="" style="vertical-align: middle;" />自动刷新&nbsp;<input id="" style="height:20px;width:100px;" /> </span> </div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="OSR_List">
+                <table id="OSR_OrderList"></table>
+            </div>
+            <div style="width:100%;margin-top:10px;height:25px;line-height:25px;"><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" style="display:none">打印(F7)</a>&nbsp;<a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('销售报表(线下)')">退出(X)</a> </span> </div>
+        </div>
+    </div>
+    <script src="~/Scripts/OffLineSaleReport.js"></script>
+</body>
+</html>

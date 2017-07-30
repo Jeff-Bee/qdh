@@ -1,0 +1,85 @@
+﻿
+
+@{
+    ViewBag.Title = "登录信息";
+    Layout = "~/Views/Shared/BaseToolBarView.cshtml";
+}
+
+@*<div class="container-fluid">*@
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-xs-6">
+
+        </div>
+    </div>
+
+
+    <h2>
+        欢迎登录,您的 SessionID: @Session.SessionID
+    </h2>
+    @{
+        TimeSpan SessTimeOut = new TimeSpan(0, 0, System.Web.HttpContext.Current.Session.Timeout, 0, 0);
+    }
+    <p>
+        @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+    </p>
+
+
+    <div>
+
+    </div>
+
+
+    <div class="row">
+        @*<aside class="col-sm-4 no-padding-column">
+                <div class="collapse navbar-nav navbar-collapse navbar-collapse-2 left-menu " id="left-menu">
+                    <ul class="nav nav-list primary">
+                        <li> <a href="Index.cshtml" target="windows">@Request.Url</a> </li>
+                        <li> <a>@Request.UserAgent</a> </li>
+                        <li> <a>@Request.UserHostAddress</a> </li>
+                        <li> <a>@Request.UserHostName</a> </li>
+                        <li> <a>@Request.Browser.ScreenCharactersHeight * @Request.Browser.ScreenCharactersHeight </a> </li>
+
+                    </ul>
+                </div>
+            </aside>*@
+
+        <div class="col-sm-8">
+            @{
+                if (Session["lastTime"] != null)
+                {
+                    <p>
+                        上次访问时间:   @Session["lastTime"]
+                    </p>
+                }
+
+                if (Session["lastId"] != null)
+                {
+                    <p>
+                        上次访问Id:   @Session["lastId"]
+                    </p>
+                }
+
+
+                Session["lastTime"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                Session["lastId"] = Session.SessionID;
+
+                <p>
+
+
+                    session 有效期 @SessTimeOut.TotalMinutes 分钟
+                </p>
+            }
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</div>

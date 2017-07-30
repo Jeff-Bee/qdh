@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>进货报表</title>
+   
+</head>
+<body>
+    <div style="width:100%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;进货报表
+        </div>
+        <div>
+            <div style="height:25px;line-height:25px;margin-bottom:10px;"><span style="float:left;margin-left:20px;"><input id="POR_Customer" style="height:20px;width:100px;" /> </span><span style="float:left;margin-left:20px;"><input id="POR_startTime" style="width:100px;height:20px;" /> 至 <input id="POR_endTime" style="width:100px;height:20px;" /><input type="text" class="pol_txt" style="width:160px;margin-left:10px;margin-right:10px;" id="POR_SearchContent" /><a class="easyui-linkbutton" iconCls="icon-search" onclick="SearchPOR()"></a> </span><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton" style="display:none" iconCls="icon-config-yellow">列配置</a> </span></div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="POR_List">
+                <table id="POR_OrderList"></table>
+            </div>
+            <div style="width:100%;margin-top:10px;height:25px;line-height:25px;"><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" style="display:none">打印(F7)</a>&nbsp;<a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('进货报表')">退出(X)</a> </span> </div>
+        </div>
+
+        <form id="POR_ShowDetail" style="display:none;">
+            <div class="div_row">
+                <span class="span_left">订单编号:</span>
+                <span style="float:left;"><input type="text" class="pol_txt" id="por_Code" /> </span>
+                <span class="span_left">供货单位:</span>
+                <span style="float:left;"><input type="text" class="pol_txt" id="por_Supplier" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="span_left">摘要:</span>
+                <span style="float:left;"><input type="text" class="pol_txt" id="por_Notes" /></span>
+                <span class="span_left">订单金额:</span>
+                <span style="float:left;"><input type="text" class="pol_txt" id="por_TotalAmount" /> </span>
+            </div>
+            <div style="clear:both;">
+                <table id="por_productList" style="height:120px;overflow:auto;"></table>
+            </div>
+            <div style="width:100%;margin-top:10px;height:25px;line-height:25px;"><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" style="display:none">打印(F7)</a>&nbsp;<a class="easyui-linkbutton lbtn_a color_red" onclick="por_product_listClose()">关闭</a> </span> </div>
+        </form>
+
+    </div>
+    <script src="~/Scripts/PurchaseOrderReport.js"></script>
+</body>
+</html>

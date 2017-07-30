@@ -1,0 +1,394 @@
+﻿@using Laplace.LiteCOS.Model
+@model Laplace.LiteCOS.Wechat.Areas.Product.Models.SellersGoodsViewModel
+
+@{
+    if (Model != null)
+    {
+        ViewBag.Title = @Model.SellerInfo.CompanyName;
+    }
+    else
+    {
+        ViewBag.Title = "欢迎试用";
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="save" content="history">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/metro/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/mobile.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/icon.css">
+
+
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.min.js"></script>
+    @Scripts.Render("~/bundles/easyuiScript")
+
+
+
+    @Styles.Render("~/Styles/weuiCss")
+    @Scripts.Render("~/Script/weui")
+
+
+    <script type="text/javascript" src="~/Scripts/jquery.json.min.js"></script>
+    @*<link rel="stylesheet" type="text/css" href="~/css/style.css">*@
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+
+
+</head>
+<body>
+    <div class="easyui-navpanel" id="pageCategory">
+        <header>
+            <div class="m-toolbar">
+                <span id="pageCategory-title" class="m-title">
+                    @ViewBag.Title
+                </span>
+            </div>
+        </header>
+        <div id="pageCategoryContent" style="height: 100%;">
+            <aside id="categoryList" class="class_tree">
+
+                <ul>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (ProductClassInfo classInfo in Model.ProductClassInfos)
+                            {
+                                <li class="category-li" data-classid="@classInfo.ClassId" data-sellerid="@classInfo.SellerId">
+                                    <a href="javascript:;">
+                                        <strong>@classInfo.Name</strong>
+                                    </a>
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </aside>
+
+
+
+
+            @{
+                if (Model != null)
+                {
+                    foreach (ProductClassInfo classInfo in Model.ProductClassInfos)
+                    {
+                        <div class="category_cont" id='category_cont_@classInfo.ClassId'>
+
+                        </div>
+                    }
+                }
+            }
+
+
+
+
+
+        </div>
+
+        <footer>
+            <a class="cartMenu" href="@Url.RouteUrl(new {controller="Product",action= "PreviewOrder"})">
+                我的订单
+            </a>
+            <a class="cartMenu" onclick="addToCert()" href="javascript:;" style="border-left: solid 1px grey;position: relative">
+                <div style="text-align: center;position: relative">
+                    <img src="/images/cart.png" style="height: 36px" alt="" />
+                    <span id="badge_cart" class="weui-badge cartcount" style="position: absolute; top: 0.2em; right: 2.4em;">0</span>
+                </div>
+            </a>
+            <a class="cartMenu" onclick="onSettlement()">
+                <button>
+                    去结算
+                </button>
+            </a>
+        </footer>
+    </div>
+
+
+    <script>
+        function showToast(text) {
+            var $toast = $('#toast');
+            if ($toast.css('display') != 'none') return;
+            $("#toastInfo").html(text);
+            $toast.fadeIn(100);
+            setTimeout(function () {
+                $toast.fadeOut(100);
+            }, 2000);
+
+        }
+
+        function showWarnToast(text) {
+            var $toast = $('#toast-warn');
+            if ($toast.css('display') != 'none') return;
+            $("#toastInfo-warn").html(text);
+            $toast.fadeIn(100);
+            setTimeout(function () {
+                $toast.fadeOut(100);
+            }, 2000);
+        }
+
+
+
+    </script>
+
+
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content" id="toastInfo">...</p>
+        </div>
+    </div>
+
+
+    <div id="toast-warn" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast" style="margin-top: 10px;">
+            <i class="weui-icon-warn weui-icon_msg"></i>
+            <p class="weui-toast__content" id="toastInfo-warn"></p>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+
+
+
+
+            //   loadFirstCategoryProducts();
+
+            loadAllCategory();
+
+
+
+
+
+            $(".class_tree ul li").click(function () {
+                //  var liindex = $(".class_tree ul li").index(this);
+                $(this).addClass("current_style").siblings().removeClass("current_style");
+                var classid = $(this).data("classid");
+                showClass(classid);
+
+                //$(".tab_proList dd").eq(liindex).fadeIn(150).siblings(".tab_proList dd").hide();
+            });
+
+            $(".class_tree ul li").eq(0).click();
+
+
+        });
+
+
+
+
+
+        ////加载第一个分类下的所有产品
+        //function loadFirstCategoryProducts() {
+        //    var cate = $("li.category-li").first();
+        //    loadProductOfClass($(cate).data("classid"), $(cate).data("sellerid"));
+        //}
+
+        //loadAllCategory();
+
+        function loadAllCategory() {
+            $("li.category-li").each(function () {
+                loadProductOfClass($(this).data("classid"), $(this).data("sellerid"));
+            });
+        }
+
+
+
+
+        function loadProductOfClass(classid, sellId) {
+            var url = "@Url.RouteUrl(new { action = "GetCategorysProduct", controller = "Product"})";
+            url += "?classId=" + classid;
+            url += "&sellerId=" + sellId;
+            // alert(url);
+            var data = {};
+            $.post(url, data, function (result) {
+                $("#category_cont_" + classid).html(result);
+                calculateCertCount();
+            });
+        }
+
+
+        function showClass(classid) {
+            $(".category_cont").css("display", "none");
+            $("#category_cont_" + classid).css("display", "block");
+        }
+
+
+
+    </script>
+
+
+
+    <script>
+
+        function decrease(sender) {
+            var row = $(sender).parent().parent();
+            var lineCount = $(row).find(".lineCount").val();
+            if (lineCount > 0) {
+                $(row).find(".lineCount").val(lineCount - 1);
+                $(row).find(".lineCount").attr("value", lineCount - 1);
+
+            }
+            calculateCertCount();
+
+        }
+
+        function increase(sender) {
+            var row = $(sender).parent().parent();
+            var lineCount = $(row).find(".lineCount").val();
+            var coun = parseInt(lineCount);
+            $(row).find(".lineCount").val(coun + 1);
+            $(row).find(".lineCount").attr("value", coun + 1);
+
+            calculateCertCount();
+        }
+
+        function calculateCertCount() {
+
+            var count = 0;
+            $(".productinfo").each(function () {
+               // count += caculateLine(this);
+            });
+            // alert("calculateCertCount" + count);
+            $("#badge_cart").html(count);
+        }
+
+        function caculateLine(productInfo) {
+            var lineCount = $(productInfo).find(".lineCount").val();
+            var coun = parseInt(lineCount);
+            return coun;
+        }
+
+    </script>
+
+
+
+
+
+    <script>
+
+
+        //生成购物车中的一行信息
+        function getCartLine(productInfo) {
+            var lineCount = $(productInfo).find(".lineCount").val();
+            var coun = parseInt(lineCount);
+            //var price = parseFloat($(productInfo).data("price"));
+            var sellerid = parseInt($(productInfo).data("sellerid"));
+            var productid = parseInt($(productInfo).data("productid"));
+            //var name = $(productInfo).data("productname");
+            var obj = { SellerId: sellerid, ProductId: productid, ProductQuantity: coun };
+            return obj;
+        }
+
+
+
+
+        ///添加商品到购物车
+        function addToCert() {
+
+            var curCount = parseInt($("#badge_cart").html());
+            if (curCount == 0) {
+                showWarnToast("什么也没有买~");
+                return false;
+            }
+
+
+            var mOrders = new Array();
+            var count = 0;
+            $(".productinfo").each(function () {
+                mOrders[count++] = getCartLine(this);
+            });
+
+            var url = "@Url.RouteUrl(new { controller = "Product", action = "AddGoodsToCart"})";
+            var orderdetail = $.toJSON(mOrders);
+            //  alert(orderdetail);
+            //  console.log(params);
+            $.post(url, { cartLines: orderdetail }, function (data) {
+                if (data.IsSuccess) {
+                    window.location = "@Url.RouteUrl(new {action = "ShoppingCert", controller = "Product"})";
+                    showToast("成功添加到购物车");
+                } else {
+                    showWarnToast(data.Msg);
+                }
+            });
+        }
+    </script>
+
+
+
+
+
+    <script>
+        //结算
+        function onSettlement() {
+            //  alert($.toJSON(111));
+            var mOrders = new Array();
+
+            var count = 0;
+
+            $(".productinfo").each(function () {
+                mOrders[count++] = settleLine(this);
+            });
+
+
+            var orderdetail = $.toJSON(mOrders);
+
+            var url = "@Url.RouteUrl(new {controller="Product",action="AddSellerOrdersToDb"})";
+            $.post(url, { orderdetail: orderdetail }, function (data) {
+                if (data.IsSuccess) {
+                    window.location = "@Url.RouteUrl(new {controller="Product",action= "PreviewOrder"})";
+                    showToast("订单已生成");
+                } else {
+                    showWarnToast(data.Msg);
+                }
+            });
+
+
+        }
+
+
+
+
+
+
+
+        function settleLine(productInfo) {
+
+            var lineCount = $(productInfo).find(".lineCount").val();
+            var coun = parseInt(lineCount);
+            var price = parseFloat($(productInfo).data("price"));
+            var sellerid = parseInt($(productInfo).data("sellerid"));
+            var productid = parseInt($(productInfo).data("productid"));
+            var productunit = $(productInfo).data("productunit");
+            var name = $(productInfo).data("productname");
+            var obj = { Price: price, SellerId: sellerid, ProductId: productid, ProductQuantity: coun, ProductName: name, ProductUnit: productunit };
+            return obj;
+        }
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

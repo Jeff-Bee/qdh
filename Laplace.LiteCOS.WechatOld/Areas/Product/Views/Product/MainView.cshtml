@@ -1,0 +1,101 @@
+﻿
+@model Laplace.LiteCOS.Model.BuyerInfo
+@{
+    if (Model != null)
+    {
+        ViewBag.Title = "欢迎" + @Model.ContactName + "使用";
+    }
+    else
+    {
+        ViewBag.Title = "欢迎试用";
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/metro/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/mobile.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/icon.css">
+
+
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.min.js"></script>
+    @Scripts.Render("~/bundles/easyuiScript")
+
+
+
+    @Styles.Render("~/Styles/weuiCss")
+    @Scripts.Render("~/Script/weui")
+
+
+    <script type="text/javascript" src="~/Scripts/jquery.json.min.js"></script>
+    @*<link rel="stylesheet" type="text/css" href="~/css/style.css">*@
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+</head>
+<body>
+
+
+
+    <div class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <span class="m-title">@ViewBag.Title</span>
+            </div>
+        </header>
+        <div>
+            <span style="padding-left: 20px;">您的卖家</span>
+            <div style="background: #ddd; height: 1px;"></div>
+            <div id="selllist">
+            </div>
+        </div>
+
+        @*<footer>
+                <div class="m-toolbar">
+
+                </div>
+            </footer>*@
+    </div>
+
+
+
+    <script>
+        function onClickSeller(sellerId, companyName) {
+            //alert(sellerId);    
+            loadCategory(sellerId);
+        }
+
+
+        function loadCategory(sellerId) {
+            var url = "@Url.RouteUrl(new { action = "ShowSellersGoods", controller = "Product" })";
+            url += "?sellerId=" + sellerId;
+            //        url += "?classId=" + classid;
+            //        url += "&sellerId=" + sellId;
+
+            window.location = url;
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            loadSellerList();
+        });
+        function loadSellerList() {
+            //alert("classid:" + classid + ":" + sellId);
+            var url = "@Url.RouteUrl(new { action = "SellerListView", controller = "Product"})";
+            //        url += "?classId=" + classid;
+            //        url += "&sellerId=" + sellId;
+            var data = {};
+            $.post(url, data, function (result) {
+                //console.log("result"+result);
+                //console.log("data"+data);
+                $("#selllist").html(result);
+            });
+        }
+    </script>
+</body>
+</html>

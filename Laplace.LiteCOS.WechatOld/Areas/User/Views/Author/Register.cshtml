@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "注册";
+    Layout = "~/Views/Shared/BaseToolBarView.cshtml";
+}
+
+
+@section HtmlHeader
+{
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+}
+
+<style>
+    .unable {
+        background: grey;
+        color: white;
+    }
+</style>
+
+<script>
+
+    var count = 10;
+
+    function countdown() {
+        $("#btnGetCode").val(count + "s后再次获取");
+        count--;
+        if (count > 0) {
+            setTimeout("countdown()", 1000);
+        } else {
+            //$("#btnGetCode").removeClass("unable");
+            //$("#btnGetCode").removeAttr("disabled");
+            $('#btnGetCode').linkbutton('enable');
+            $("#btnGetCode").val("获取验证码");
+        }
+    }
+
+    function GetRegisterCode(sender) {
+        $('#btnGetCode').linkbutton('disable');
+        count = 90;
+        countdown();
+
+        function errorFunc(XMLHttpRequest, textStatus, errorThrown) {
+            //XMLHttpRequest.readyState: 状态码的意思
+            //0 － （未初始化）还没有调用send()方法
+            //1 － （载入）已调用send()方法，正在发送请求
+            //2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+            //3 － （交互）正在解析响应内容
+            //4 － （完成）响应内容解析完成，可以在客户端调用了
+
+
+
+            console.log("status:" + XMLHttpRequest.status);
+            console.log("readyState:" + XMLHttpRequest.readyState);
+            console.log("textStatus:" + textStatus);
+
+
+
+            //  $("#txtRegisterCode").textbox('setValue', "error:" + XMLHttpRequest.readyState);
+        }
+
+   
+        var num = $("#txtPhoneNumber").val();
+
+        $.ajax({
+            type: "POST",
+            url: 'GetRegisterCode',
+            data: "{ 'phoneNumber':'" + num + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+
+            if (data.Success) {
+                showToast("验证码已发送,请注意查收");
+            } else {
+                showWarnToast("验证码获取失败");
+            }
+        }
+    }
+
+</script>
+
+
+<style>
+    .validation-summary-errors {
+        background: darkorange;
+        color: white;
+        line-height: 30px;
+        padding-left: 20px;
+    }
+</style>
+
+
+
+@using (Html.BeginForm(new { ViewBag.ReturnUrl }))
+{
+
+
+    @Html.ValidationSummary(false, "", new { @class = "bg-danger text-danger" })
+
+
+    
+
+    <div style="margin:20px auto;width:100px;height:100px;border-radius:100px;overflow:hidden">
+        <img src="~/images/login1.png" style="margin:0;width:100%;height:100%;">
+    </div>
+    <div style="padding: 0 20px">
+
+        <div style="margin-bottom: 10px">
+            <input id="txtPhoneNumber" class="easyui-textbox" name="PhoneNumber" data-options="prompt:'请输入手机号',iconCls:'icon-man'" style="width: 100%; height: 38px">
+        </div>
+
+        <div style="margin-bottom: 10px">
+            <input id="txtRegisterCode" class="easyui-textbox" name="RegisterCode" data-options="prompt:'请输入验证码',iconCls:'icon-man'" style="width: 50%; height: 38px">
+            <input id="btnGetCode" class="easyui-linkbutton" style="width: 30%; margin-left: 40px; height: 38px" type="button" value="获取验证码" onclick="GetRegisterCode(this)">
+        </div>
+
+        @*<div style="margin-bottom: 10px">
+                <input class="easyui-textbox" name="LoginName" data-options="prompt:'请输入登录名',iconCls:'icon-man'" style="width: 100%; height: 38px">
+            </div>*@
+
+        <div style="margin-bottom: 10px">
+            <input class="easyui-passwordbox" name="Password" data-options="prompt:'请输入密码'" style="width: 100%; height: 38px">
+        </div>
+
+        <div>
+            <input class="easyui-passwordbox" name="PasswordAgain" data-options="prompt:'请再次输入密码'" style="width: 100%; height: 38px">
+        </div>
+
+
+
+        <div style="text-align: center; margin-top: 30px">
+            <input type="submit" value="注册" class="weui-btn weui-btn_primary" onclick="click"/>
+        </div>
+
+
+        <div style="text-align: center; margin-top: 30px; text-align: center;">
+            @Html.ActionLink("登录","Login")
+        </div>
+
+
+    </div>
+
+}

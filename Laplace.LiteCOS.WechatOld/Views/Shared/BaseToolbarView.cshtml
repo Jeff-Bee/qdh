@@ -1,0 +1,96 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/metro/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/mobile.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/icon.css">
+
+
+    @*    @Styles.Render("~/Content/EasyUI/themes/easyuiCss")*@
+    @Styles.Render("~/Styles/weuiCss")
+
+
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.min.js"></script>
+    @Scripts.Render("~/bundles/easyuiScript")
+    @Scripts.Render("~/Script/weui")
+
+    <script src="/Scripts/js.cookie.js" type="text/javascript"></script>
+
+    @RenderSection("HtmlHeader", false)
+</head>
+<body>
+    <div class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <span class="m-title">@ViewBag.Title</span>
+            </div>
+        </header>
+        <div>
+            @RenderBody()
+        </div>
+        @RenderSection("HtmlFooter", false)
+        @*<footer>
+            <div class="m-toolbar">
+              
+            </div>
+        </footer>*@
+    </div>
+
+
+    <script>
+    function showToast(text) {
+        var $toast = $('#toast');
+        if ($toast.css('display') != 'none') return;
+        $("#toastInfo").html(text);     
+        $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+
+    }
+
+    function showWarnToast(text) {
+        var $toast = $('#toast-warn');
+        if ($toast.css('display') != 'none') return;
+        $("#toastInfo-warn").html(text);
+        $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+    }
+
+
+
+    </script>
+
+
+<div id="toast" style="display: none;">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">       
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content" id="toastInfo">已发送验证码</p>
+    </div>
+</div>
+
+
+<div id="toast-warn" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-warn weui-icon_msg"></i>
+          
+            <p class="weui-toast__content" id="toastInfo-warn"></p>
+        </div>
+    </div>
+
+
+</body>
+</html>

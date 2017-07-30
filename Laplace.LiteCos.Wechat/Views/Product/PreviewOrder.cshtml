@@ -1,0 +1,281 @@
+﻿@using System.Web.Optimization
+@model List<Laplace.LiteCos.Wechat.Models.SellerOrderRunViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>我的订单</title>
+    @Styles.Render("~/Style/weui")
+
+
+
+    <script src="/js/jquery-1.8.3.min.js"></script>
+
+    @Scripts.Render("~/Script/weui")
+
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link href="/css/jd_cart.css" rel="stylesheet" type="text/css" />
+    <link href="/css/site.css" rel="stylesheet" type="text/css" />
+
+    @*<link href="/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>*@
+
+
+
+</head>
+<body>
+    <!--顶部通栏-->
+    <div class="topBar">
+        <a href="#" onclick="goBack()" style="float: left;">
+            <img src="/images/back.png" class="ic-back" />
+        </a>
+        <h3 style="margin-right: 55px;">我的订单</h3>
+    </div>
+    <div class="container" style="margin-top: 45px;">
+        <div class="page">
+            <div class="page__hd">
+
+            </div>
+            <div class="page__bd">
+
+                <div class="weui-tab">
+                    <div class="weui-navbar" style="position: fixed;top: 45px;">
+                        <div class="weui-navbar__item weui-bar__item_on" data-ordertype="1">
+                            <span>待确认</span>
+                        </div>
+                        <div class="weui-navbar__item" data-ordertype="2">
+                            <span>待收货</span>
+                        </div>
+                        <div class="weui-navbar__item" data-ordertype="3">
+                            <span>已完成</span>
+                        </div>
+                    </div>
+                    <div class="weui-tab__panel">
+                        <div class="order-list" id="order1">
+
+                        </div>
+
+                        <div class="order-list" id="order2">
+
+                        </div>
+                        <div class="order-list" id="order3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<a href="javascript:;" class="weui-btn weui-btn_primary">确认订单</a>*@
+        </div>
+    </div>
+
+
+    <div class="jd_win">
+        <div class="jd_win_box">
+            <div class="jd_win_tit">确定取消该订单吗？</div>
+            <div class="jd_btn clearfix">
+                <a href="#" class="cancle f_left">取消</a>
+                <a href="#" class="submit f_right">确定</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script id="deleteCartline">
+
+        var that;
+        var m_orderid;
+        var m_sellerid;
+        var receive;
+
+        function cancelOrder(orderid, sellerid) {
+            m_orderid = orderid;
+            m_sellerid = sellerid;
+            receive = false;
+            $('.jd_win .jd_win_tit').html("确定取消该订单吗?");
+            $('.jd_win').show();
+
+        }
+
+        function payOrder() {
+            showWarnToast("试运营期间<br/>暂不支持线上支付操作");
+        }
+
+
+
+
+
+        function receiveOrder(orderid, sellerid) {
+            m_orderid = orderid;
+            m_sellerid = sellerid;
+            receive = true;
+            $('.jd_win .jd_win_tit').html("确认收货吗?");
+            $('.jd_win').show();
+
+        }
+        
+
+
+
+
+        $('.cancle').on('click', function () {
+            $('.jd_win').hide();
+            $('.delete_up').css('transform', 'none');
+        });
+
+
+        $('.submit').on('click', function () {
+            var params = { orderId: m_orderid, sellerId: m_sellerid };
+            var url = "@Url.RouteUrl(new {controller = "Order", action = "CancelOrder"})";
+           // alert(url);
+
+            if (receive) {
+                url = "@Url.RouteUrl(new {controller = "Order", action = "ConfirmReceive"})";                
+            }
+
+            $.post(url, params, function (data) {
+                if (data.IsSuccess) {
+                    //重新加载我的订单
+                    if (receive) {
+                        loadProductOfClass(2);
+                        loadProductOfClass(3);
+                    } else {
+                        loadProductOfClass(1);
+                    }
+                    $('.jd_win').hide();
+                    showToast(data.Msg);
+                } else {
+                    $('.jd_win').hide();
+                    showWarnToast(data.Msg);
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+    <script>
+    function showToast(text) {
+        var $toast = $('#toast');
+        if ($toast.css('display') != 'none') return;
+        $("#toastInfo").html(text);
+        $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+
+    }
+
+    function showWarnToast(text) {
+        var $toast = $('#toast-warn');
+        if ($toast.css('display') != 'none') return;
+        $("#toastInfo-warn").html(text);
+        $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+    }
+
+
+
+    </script>
+
+
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content" id="toastInfo">已发送验证码</p>
+        </div>
+    </div>
+
+
+    <div id="toast-warn" style="display: none; ">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast" style="min-width: 200px; padding-top: 10px;color: white">
+            <i class="weui-icon-warn weui-icon_msg"></i>
+            <p class="weui-toast__content" id="toastInfo-warn"></p>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function goBack() {
+            history.go(-1);
+        }
+
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            loadAllCategory();
+            $(".order-list").hide();
+
+            $('.weui-navbar__item').on('click', function () {
+                $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+
+
+                var orderType = $(this).data("ordertype");
+                //alert("#order" + orderType);
+                $("#order" + orderType).siblings().hide();
+                $("#order" + orderType).show();
+
+                //loadProductOfClass(orderType);
+            });
+
+    
+
+            var statusIndex = @ViewBag.Status - 2;
+
+            //alert("status:" + statusIndex);
+
+            $('.weui-navbar__item').eq(statusIndex).click();
+        });
+
+
+        function loadAllCategory() {
+
+            $(".weui-navbar__item").each(function () {
+                loadProductOfClass($(this).data("ordertype"));
+            });
+        }
+
+
+
+        function loadProductOfClass(ordertype) {
+            //alert(ordertype);
+            var url = "@Url.RouteUrl(new { action = "GetOrdersByType", controller = "Product"})";
+            url += "?ordertype=" + ordertype;
+            var data = {};
+            $.post(url, data, function (result) {
+                //alert(result);
+                $("#order" + ordertype).html(result);
+            });
+        }
+
+
+
+    </script>
+
+
+</body>
+</html>

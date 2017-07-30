@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>商品进货</title>
+    <style type="text/css">
+       
+    </style>
+</head>
+<body>
+    <div style="width:99%;"> 
+         <div class="pol_title"><span style="float:left;font-size:16px;margin-left:20px;">进货单</span><span style="float:right;margin-right:10px;">录入日期&nbsp;<input id="pol_data" style="height:22px;" class="pol_txt" />&nbsp;编号 <input type="text" id="pol_code" value="@ViewBag.OrderListCode" class="pol_txt" style="width:120px;" /> <a href="javascript:;" class="easyui-linkbutton" style="display:none;" iconCls="icon-config-yellow">列配置</a>  </span> </div>
+        <div class="pol_search">&nbsp;&nbsp;供货单位 <input id="pol_PurchaseUnit" class="pol_txt" style="height:22px;" name="pol_PurchaseUnit" />&nbsp;经手人 <input type="text" class="pol_txt" id="pol_guy" />&nbsp;摘要 <input type="text" class="pol_txt" style="width:200px;" id="pol_abstract" />&nbsp;附加说明 <input type="text" style="width:200px;"  class="pol_txt" id="pol_translated" /></div>
+        <div class="pol_body" id="pol_body" style="height:400px;overflow:auto;border:1px solid #ddd">
+            <table id="pol_list">
+
+            </table>
+        </div>
+        <div class="pol_row">
+            <input type="hidden" id="hid_SellerId" />
+            <span style="float:left;">制单人:<label id="originator">@ViewBag.Name</label></span> <span style="float:right;">合计金额: <label id="pol_total_cash">0.00</label> </span>&nbsp;&nbsp;<span style="float:right;margin-right:30px;">合计数量: <label id="pol_total_num">0</label> </span> 
+        </div>
+        <div class="pol_row">
+            <div style="float:left;">
+                <span style="float:left;">付款账户 <input type="text" id="payAccount" class="pol_txt" /></span><span style="float:left;">付款金额</span> <span style="float:left;padding-top:4px;"><input type="text" class="easyui-numberbox pol_txt" id="payCount" style="height:22px;line-height:22px;" data-options="min:0,precision:2" value="0" /> </span>
+            </div>
+            <div style="float:right;text-align:right;">
+                <a href="#" class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>&nbsp;&nbsp;<a href="#" class="easyui-linkbutton lbtn_a color_red" onclick="pol_Save()" style="width:85px;">保存|退出(X)</a>&nbsp;&nbsp;
+            </div>
+        </div>
+       
+    </div>
+
+    <form id="selectProduct" style="display:none;width:600px;">
+        <input type="hidden" id="hid_pol_type" value="0" />
+        <div style="line-height:30px;">
+            &nbsp;<input id="pol_product_search" class="pol_txt" style="height:22px" />&nbsp;&nbsp;<input type="text" id="pol_add_scontent" class="pol_txt" />&nbsp;<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="pol_add_search()"></a>
+        </div>
+        <div style="height:400px;">
+            <table id="pol_Product" style="height:390px;">
+
+            </table>
+        </div>
+        <div style="line-height:30px;width:100%;">
+            <span style="float:left;">
+                &nbsp;<a href="#" class="easyui-linkbutton lbtn_a" id="addInProduct">选中(K)</a>
+            </span>
+            <span style="float:right;">
+                <a href="#" class="lbtn_a" id="enterNext">进入下级</a>&nbsp;<a href="#" class="lbtn_a" id="returnUp">返回上级</a>&nbsp;<a href="#" class="easyui-linkbutton lbtn_a" onclick="POL_Close()">关闭(X)</a>
+            </span>
+        </div>
+    </form>
+
+    <script src="/Scripts/PurchaseOrderList.js"></script>
+</body>
+</html>

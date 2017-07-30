@@ -1,0 +1,17 @@
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Laplace.Framework.dll.config
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Laplace.Framework.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Laplace.Framework.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Dapper.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\DapperExtensions.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\FSLib.Extension.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\FSLib.Network.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\log4net.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Newtonsoft.Json.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Dapper.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\FSLib.Extension.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\FSLib.Network.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\log4net.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\bin\Debug\Newtonsoft.Json.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\obj\Debug\Laplace.Framework.csprojResolveAssemblyReference.cache
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\obj\Debug\Laplace.Framework.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework\obj\Debug\Laplace.Framework.pdb

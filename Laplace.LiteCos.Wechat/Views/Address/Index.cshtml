@@ -1,0 +1,48 @@
+﻿@model Laplace.LiteCOS.Model.BuyerInfo
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收货地址</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/mycss.css">
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/function.js"></script>
+</head>
+<body class="addressbody">
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+    <div class="contbody whitebg">
+        <header class="bar bar-nav bg-bule b-n">
+            <a href='@Url.Action("Index","Account")' class="icon icon-goback pull-left"></a>
+            <a href='@Url.Action("Add")' class="pull-right edit">添加地址</a>
+            <h1 class="title c-white">收货地址</h1>
+        </header>
+        <div class="mt-56">
+            <ul class="xl_det_ul addressinfoul">
+                <li class="addressinfoli">
+                    <dl class="addressperson_dl fl">
+                        <dt>@Model.ContactName</dt>
+                        <dd class="li_tit">@Model.MobilePhone</dd>
+                        <dd class="clearfix">
+                            <div class="address_ddbox clearfix">
+                                <span class="address_ddIco fl"></span>
+                                <div class="address_ddprodiv">
+                                    <p class="address_ddpro">@Model.Address</p>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <span class="more"><a href='@Url.Action("Edit")?tid=0&id=10800&account=@Model.MobilePhone&address=@Model.Address&name=@Model.ContactName&province_id=41&city_id=4101&area_id=410102'>&gt;</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

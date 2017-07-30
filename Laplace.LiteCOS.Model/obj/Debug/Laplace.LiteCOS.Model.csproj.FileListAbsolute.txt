@@ -1,0 +1,10 @@
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\Laplace.LiteCOS.Model.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\Laplace.LiteCOS.Model.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\Dapper.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\DapperExtensions.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\Laplace.LiteCOS.Common.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\Laplace.LiteCOS.Common.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\bin\Debug\Dapper.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\obj\Debug\Laplace.LiteCOS.Model.csprojResolveAssemblyReference.cache
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\obj\Debug\Laplace.LiteCOS.Model.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Model\obj\Debug\Laplace.LiteCOS.Model.pdb

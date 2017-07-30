@@ -1,0 +1,72 @@
+﻿@using Laplace.LiteCOS.Model
+@model List<SellerInfo>
+
+
+
+<style>
+    #selllist .list-image {
+        width: 64px;
+        height: 64px;
+        border: 0;
+        margin-right: 5px;
+        float: left;
+    }
+
+    #selllist .list-header {
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    #selllist .list-content {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: 5px;
+    }
+</style>
+
+
+
+
+
+<ul class="m-list">
+    @{
+        if (Model != null)
+        {
+            foreach (SellerInfo sellerInfo in Model)
+            {
+                <li>
+                    <a onclick="onClickSeller('@sellerInfo.SellerId','@sellerInfo.CompanyName')">
+                        <img class="list-image" src="/images/coca.jpg" alt="" />
+                        <div class="list-header">@sellerInfo.CompanyName</div>
+                        <div class="list-content">
+                            <div>联系人: @sellerInfo.ContactName</div>
+                            <div>联系电话: @sellerInfo.MobilePhone</div>
+                        </div>
+                    </a>
+
+                </li>
+            }
+        }
+    }
+</ul>
+
+
+
+<script>
+    function onClickSeller(sellerId, companyName) {
+        //alert(sellerId);
+        loadCategory(sellerId);
+    }
+
+
+    function loadCategory(sellerId) {
+        var url = "@Url.RouteUrl(new { action = "List", controller = "Goods" })";
+        url += "?sellerId=" + sellerId;
+        //        url += "?classId=" + classid;
+        //        url += "&sellerId=" + sellId;
+
+        window.location = url;
+    }
+</script>
+

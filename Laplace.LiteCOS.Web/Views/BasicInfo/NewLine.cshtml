@@ -1,0 +1,103 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>图片轮播</title>
+</head>
+<body>
+    <div style="width:99.5%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;图片轮播
+        </div>
+        <div style="width:100%;border:1px solid #ccc;height:50px;line-height:50px;">
+            <span style="float:left;margin-left:30px;">当前选中的信息<input type="text" style="width:150px;margin-left:10px;" id="NL_SelectRmark" /> </span>
+        </div>
+        <div>
+            <input type="hidden" id="NL_hid_Id" />
+            <div style="height:400px;overflow:auto;border:1px solid #ddd;" id="NL_CXList">
+                <table id="NL_List"></table>
+            </div>
+            <div style="width:100%;margin-top:5px;line-height:30px;">
+                <span style="float:left;width:60%;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="AddOrEditNL()">空白新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="EditFormNL(0)">复制新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="EditFormNL(1)">修改</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="DeleteNL()">删除</a>&nbsp;&nbsp;
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+                </span>
+                <span style="float:right;">
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                    <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('图片轮播')">退出(X)</a>
+                </span>
+            </div>
+        </div>
+
+        <div id="NL_AddInfo" style="display:none;padding-top:5px;">
+            <div style="width:100%;margin:0 auto;clear:both;">
+                <span class="span_left"><b style="color:red;">*</b>图片:</span><span style="float:left;width:80%">
+                    <form id="NL_imgform1" action="/BasicInfo/fileUpload" method="post" enctype="multipart/form-data">
+                        <span style="float:left;width:95%;border:1px solid #ccc;padding:5px;">
+                            <img style="width:100%;height:100px;" id="NL_picUrl1" />
+                            <input type="file" name="NL_file1" style="width:75%;height:22px;float:left;" onchange="NL_savePic($(this),1)" />
+                            <a class="easyui-linkbutton lbtn_a" style="float:left;" name="del1" onclick="NL_delPicture(1)">删除</a>
+                            <input type="hidden" name="NL_picSrc1" id="NL_picSrc1" />
+                            <input type="hidden" name="NL_picId1" id="NL_picId1" />
+                        </span>
+                    </form>
+                </span>
+
+            </div>
+
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>标题:</span><span style="float:left;"><input type="text" id="NL_Title" style="width:312px;" class="pol_txt" /> </span>
+            </div>
+
+            <div class="div_row" style="clear:both;">
+                <span class="span_left"><b style="color:red;">*</b>内容:</span><span style="float:left;width:81%;"><textarea id="NL_content" style="width:95%" cols="25" rows="6"></textarea> </span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left" style="width:85px;"><input type="radio" name="nl_stype" id="nl_productType" style="margin-right:5px;" />关联商品:</span><span style="float:left;"><input id="NL_ConnectionProduct" class="pol_txt" style="height:22px;" /> </span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left" style="width:85px;"><input type="radio" name="nl_stype" id="nl_linkType" style="margin-right:5px;" />关联链接:</span><span style="float:left;"> <input type="text" id="NL_Url" class="pol_txt" style="width:270px;" /> </span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left" style="width:85px;"><input type="radio" name="nl_stype" id="nl_autoColse" style="margin-right:5px;" checked="checked" />自动关闭:</span><span style="float:left;"><input id="nl_closeTime" class="easyui-numberspinner pol_txt" value="5" style="height:27px;width:60px;margin-top:5px;" /> 秒后自动关闭页面</span>
+            </div>
+            <div class="div_row" style="clear:both;display:none;">
+                <span class="span_left"><b style="color:red;">*</b>接收终端:</span><span style="float:left;"><input id="NL_ReceiveType" style="height:22px;" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row" style="clear:both;display:none;">
+                <span class="span_left"><b style="color:red;">*</b>有效时间:</span><span style="float:left;"><input id="NL_PushedStartTime" class="pol_txt" style="height:22px;" /></span><span class="span_left" style="width:35px;margin-left:25px;text-align:left;">到</span><span style="float:left;"><input id="NL_PushedEndTime" style="height:22px;" class="pol_txt" /> </span>
+            </div>
+
+            <div class="div_row" style="clear:both;display:none;">
+                <span class="span_left" style="width:85px;">备注:</span><span style="float:left"><input type="text" id="NL_Notes" class="pol_txt" style="width:270px;" /> </span>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:center;">
+                <a class="easyui-linkbutton" onclick="NL_AddSave(1)" id="addNL">保存并新增</a> <a class="easyui-linkbutton" onclick="NL_AddSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="addNLClose()">关闭(X)</a>
+            </div>
+        </div>
+
+        <form id="NL_SelectProduct" style="display:none;">
+            <div style="height:28px;line-height:28px"><input id="NL_Search" style="height:22px;" />  <input type="text" id="NL_Content" class="userTxt" /> <a class="easyui-linkbutton" iconCls="icon-search" onclick="NL_searchProduct()"></a> </div>
+            <table id="NL_SelectProduct_list"></table>
+            <div style="width:100%;margin-top:20px;">
+                <span style="float:left;margin-left:10px;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="NL_SProduct()">选中</a>
+                </span>
+                <span style="float:right;margin-right:10px;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="NL_SelectProduct_Close()">关闭(X)</a>
+                </span>
+            </div>
+        </form>
+    </div>
+    <script src="~/Scripts/NewLine.js"></script>
+</body>
+</html>

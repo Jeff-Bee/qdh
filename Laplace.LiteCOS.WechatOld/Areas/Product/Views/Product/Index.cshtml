@@ -1,0 +1,113 @@
+﻿@using Laplace.LiteCOS.Model
+@model List<SellerInfo>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/easyuiCss")
+    @Styles.Render("~/Styles/weuiCss")
+
+
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.min.js"></script>
+    @Scripts.Render("~/bundles/easyuiScript")
+
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="~/Styles/framework7/framework7.ios.min.css">
+    <link rel="stylesheet" href="~/Styles/framework7/framework7.ios.colors.min.css">
+
+
+</head>
+<body>
+    <div class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <span class="m-title">@ViewBag.Title</span>
+            </div>
+        </header>
+
+        <div>
+            <ul class="m-list"> 
+                    @{
+                        if (Model != null && Model.Count > 0)
+                        {
+                            foreach (SellerInfo sellerInfo in Model)
+                            {
+                                <li>
+                                    <a href="#p2" class="item-link" onclick="loadProduct(@sellerInfo.SellerId)">
+                                        <div class="item-content">
+                                            <div class="item-media">
+                                                <img src="~/images/ic_seller.png" />
+                                            </div>
+
+                                            <div class="item-inner">
+                                                <div class="item-title">@(sellerInfo.CompanyName + " : " + sellerInfo.ContactName)</div>
+                                                <div class="item-after">联系电话： @sellerInfo.MobilePhone</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">暂无卖家 </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+            </ul>
+        </div>
+    </div>
+
+
+    <div id="p2" class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <div class="m-left">
+                    <a href="#" class="easyui-linkbutton m-back" data-options="plain:true,outline:true,back:true">返回</a>
+                </div>
+                <div class="m-title">产品列表</div>
+            </div>
+
+           
+        </header>
+        <div id="productList">
+            @Html.ActionLink("购物车", "ShoppingCert");
+
+            @*@Html.Action("ProductOfSeller", new { sellerId = 1 });*@
+        </div>
+
+
+     
+
+    </div>
+
+<script>
+    function loadProduct(sellerid) {
+        @*var mvcstr=  @Html.Action("ProductOfSeller", new { sellerId = sellerid });*@
+        //$("#p2 .m-title").html(companyName);
+        console.log("loadProduct" + sellerid);
+        //$("#productList").html(mvcstr);
+
+     
+    }
+</script>
+
+</body>
+</html>

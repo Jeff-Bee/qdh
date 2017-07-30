@@ -1,0 +1,210 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>在线支付设置</title>
+</head>
+<body>
+    <div style="width:99.5%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;在线支付设置
+        </div>
+        <div class="nav-tab" style="margin-left:20px;margin-bottom:20px;">
+            <ul class="clearfix">
+                <li class="on"><a href="javascript:;">在线支付</a></li>
+                @*<li style="margin-left:10px;margin-right:10px;">|</li>
+                <li><a href="javascript:;">线下支付</a></li>*@
+            </ul>
+        </div>
+        <div id="OnLinePayment">
+            <div class="onlinepay-list clearfix" style="margin-left:20px;">
+                <ul>
+                    <input type="hidden" name="token" value="175a4aeb15eda29f3c7c17d3326adfa9" autocomplete="off">
+
+                    <li class="onlinepay-item enabled">
+                        <div class="onlinepay-item-header clearfix" style="height:45px;margin-top:15px;">
+                            <div class="fl" style="width:240px;"><i class="icon-onlinepay icon-onlinepay-zhifubao" style="background-position: 0 -44px;"></i></div>
+                            <div class="fr onlinepay-status" id="PM_ZFB_NoOpen" style="">
+                                <p class="">未开通</p>
+                            </div>
+                            <div style="margin-left:215px;position:relative;display:none;cursor:default" onclick="PM_ZFB_Change()" id="PM_ZFB_Open_On">
+                                <i class="icon-onlinepay-checkbox" style="margin-top:5px;"></i>
+                                <span class="check-txt">启用</span>
+                            </div>
+                            <div style="margin-left:215px;position:relative;display:none;cursor:default" onclick="PM_ZFB_Change()" id="PM_ZFB_Open_Off">
+                                <i class="icon-onlinepay-checkbox_off" style="margin-top:5px;"></i>
+                                <span class="check-txt">停用</span>
+                            </div>
+
+
+
+                        </div>
+                        <div class="onlinepay-item-body">
+                            <p class="" style="" id="Pm_ZFB_ZH_NoOpen">需开通企业支付宝账号，仅支持以企业对公账户作为收款账户。交易手续费由支付宝公司向收款方收取。</p>
+                            <div class="account clearfix" style="margin-top:15px;display:none" id="Pm_ZFB_ZH_Open">
+                                <div class="account-txt" title="123125224665" id="PM_ZFB_UNanme">123125224665</div>
+                                <div class="account-opt">
+                                    <a href="javascript:void(0)" class="btn-alipay-modify btn-sign" onclick="PM_ZFB_Edit()">修改</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="onlinepay-item-footer clearfix" id="PM_ZFB_Bottom_NoOpen">
+                            <a href="/docs/支付宝在线收款服务说明v1.0.pdf?201606151605" target="_blank" download="/docs/支付宝在线收款服务说明v1.0.pdf?201606151605" style="width:180px;" class="fl onlinepay-tip">开通向导</a>
+                            <div class="fr"><a class="ui-btn ui-btn-theme btn-sign" href="javascript:void(0)" data-action="add" onclick="PM_SetZFB()" data-platform="2">设置收款账号</a></div>
+                        </div>
+                        <div class="onlinepay-item-footer clearfix" id="PM_ZFB_Bottom_Open" style="display:none">
+                            <a href="javascript:void(0)" style="width:180px;" class="fl onlinepay-tip onlinepay-zhifubao-tip" onclick="PM_ZFB_ZFSM()">资费说明</a>
+                            <div class="fr"><a class="ui-btn ui-btn-theme btn-green" href="http://b.alipay.com" target="_blank">立即登录</a></div>
+                        </div>
+
+                    </li>
+
+
+
+                    <li class="onlinepay-item enabled">
+                        <div class="onlinepay-item-header clearfix" style="height:45px;margin-top:15px;">
+                            <div class="fl" style="width:240px;"><i class="icon-onlinepay icon-onlinepay-weixin" style="background-position: 0 -122px;"></i></div>
+                            <div class="fr onlinepay-status" id="PM_WX_NoOpen" style="">
+                                <p class="">未开通</p>
+                            </div>
+                            <div style="margin-left:215px;position:relative;display:none;cursor:default" onclick="PM_WX_Change()" id="PM_WX_Open_On">
+                                <i class="icon-onlinepay-checkbox" style="margin-top:5px;"></i>
+                                <span class="check-txt">启用</span>
+                            </div>
+                            <div style="margin-left:215px;position:relative;display:none;cursor:default" onclick="PM_WX_Change()" id="PM_WX_Open_Off">
+                                <i class="icon-onlinepay-checkbox_off" style="margin-top:5px;"></i>
+                                <span class="check-txt">停用</span>
+                            </div>
+                        </div>
+                        <div class="onlinepay-item-body">
+                            <p class="" style="" id="PM_WX_ZF_NoOpen">需您开通微信服务号，并与腾讯公司签约收款服务；交易手续费由腾讯公司向收款方收取。</p>
+                            <div class="account clearfix" style="margin-top:15px;display:none" id="PM_WX_ZF_Open">
+                                <div class="account-txt" title="123125224665" id="PM_WX_UName">123125224665</div>
+                                <div class="account-opt">
+                                    <a href="javascript:void(0)" class="btn-alipay-modify btn-sign" onclick="PM_WX_Edit()">修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="onlinepay-item-footer clearfix" id="PM_WX_bottom_NoOpen">
+                            <a href="/docs/dinghuoWeixinIntro.pdf" target="_blank" download="/docs/dinghuoWeixinIntro.pdf" style="width:180px;" class="fl onlinepay-tip">开通向导</a>
+                            <div class="fr"><a class="ui-btn ui-btn-theme btn-sign" href="javascript:void(0)" onclick="PM_SetWX()" data-platform="1">设置收款账户</a></div>
+                        </div>
+                        <div class="onlinepay-item-footer clearfix" id="PM_WX_bottom_Open" style="display:none">
+                            <a href="javascript:void(0)" style="width:180px;" class="fl onlinepay-tip onlinepay-zhifubao-tip" onclick="PM_WX_ZFSM()">资费说明</a>
+                            <div class="fr"><a class="ui-btn ui-btn-theme btn-green" href="https://pay.weixin.qq.com/index.php/home/login" target="_blank">立即登录</a></div>
+                        </div>
+                    </li>
+
+                    <!-- /weixin -->
+
+                </ul>
+            </div>
+        </div>
+        <div style="width:100%;margin-top:10px;height:25px;line-height:25px;"><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" style="display:none">打印(F7)</a>&nbsp;<a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('在线支付')">退出(X)</a> </span> </div>
+       
+
+        <form id="PM_Set_ZFB" style="display:none;">
+            <div class="div_row">
+                <span class="" style="margin-left:10px;"><b style="color:red;">*</b>支付宝企业账户：</span>
+            </div>
+            <div class="div_row">
+                <span style="float:left;margin-left:10px;"><input type="text" style="" id="PM_ZFB_APPId" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="" style="margin-left:10px;"><b style="color:red;">*</b>合作者身份（Partner ID）:</span>
+            </div>
+            <div class="div_row">
+                <span style="float:left;margin-left:10px;"><input type="text" style="" id="PM_ZFB_Key" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="" style="margin-left:10px;"><b style="color:red;">*</b>安全校验码（Key）:</span>
+            </div>
+            <div class="div_row">
+                <span style="float:left;margin-left:10px;"><input type="text" style="" id="PM_ZFB_MerchantNumber" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="" style="margin-left:10px;"><b style="color:red;">*</b>状态:</span>
+            </div>
+            <div class="div_row">
+                <span style="float:left;margin-left:10px;"><input type="radio" name="PM_ZFB_Status" value="1" checked="checked" />启用 <input type="radio" style="margin-left:20px;" value="0" name="PM_ZFB_Status" />停用 </span>
+            </div>
+
+            <dl class="pl20 pr20">
+                <dd class="lh22 cred">重要提醒:设置账号前,请确保您已签约支付宝"即时到账收款"与"移动支付"收款服务.<a href="/docs/支付宝在线收款服务说明v1.0.pdf?201606151605" target="_blank" download="/docs/dinghuoAlipayIntro.pdf" class="theme-color">查看帮助</a></dd>
+                <dt class="b"><i class="tip ui-icon-blue-info"></i> 如何设置支付宝签约信息?</dt>
+                <dd class="lh22">1、访问支付宝商户服务中心（<a href="https://b.alipay.com/" target="_blank" class="theme-color">b.alipay.com</a>）,用您的签约支付宝账号登陆.</dd>
+                <dd class="lh22">2、在“"我的商家服务"中,点击"查询 PID、Key",将查询的相应信息填写到上面相应输入框中.</dd>
+                <dd class="lh22">3、在上述打开的支付宝页面的"合作伙伴密钥管理"下,点击"RSA加密"后的"添加密钥"</dd>
+            </dl>
+            <div style="line-height:30px;margin-left:5%;">把下面的密钥复制到弹出框内(注意不要多余的空格):</div>
+            <div>
+                <textarea id="zfb_Key" style="width:90%;margin-left:5%;height:80px;" rows="5" cols="25"></textarea>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:right;">
+                <a class="easyui-linkbutton lbtn_a" onclick="ZFB_Save()">确定</a> <a class="easyui-linkbutton lbtn_a" style="margin-right:10px;margin-left:10px;" onclick="PM_SetZFB_close()">关闭(X)</a>
+            </div>
+        </form>
+
+        <form id="PM_Set_WX" style="display:none;">
+            <div class="div_row" style="margin-top:10px;">
+                <span class="span_left"><b style="color:red;">*</b>AppID(应用ID):</span><span style="float:left;"><input type="text" style="" id="PM_APPId" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row" style="font-size:12px;color:#ccc;width:auto;margin-left:30px;line-height:20px;height:20px;">获取路径：<a href="https://mp.weixin.qq.com/" class="help_a" target="_blank">公众平台</a>-开发者中心</div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>AppSecret(应用密钥):</span><span style="float:left;"><input type="text" style="" id="PM_Key" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row" style="font-size:12px;color:#ccc;width:auto;margin-left:30px;line-height:20px;height:20px;">获取路径：<a href="https://mp.weixin.qq.com/" class="help_a" target="_blank">公众平台</a>-开发者中心</div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>(Mchid)商户号:</span><span style="float:left;"><input type="text" style="" id="PM_MerchantNumber" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row" style="font-size:12px;color:#ccc;width:auto;margin-left:30px;line-height:20px;height:20px;">获取路径：<a href="https://mp.weixin.qq.com/" class="help_a" target="_blank">公众平台</a>-微信支付</div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>APPkey(API密钥):</span><span style="float:left;"><input type="text" style="" id="PM_APPKey" class="pol_txt" /> </span>
+            </div>
+            <div class="div_row" style="font-size:12px;color:#ccc;width:auto;margin-left:30px;line-height:20px;height:20px;">获取路径：<a href="https://mp.weixin.qq.com/" class="help_a" target="_blank">商户平台</a>-API安全-API秘钥</div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>状态:</span><span style="float:left;"><input type="radio" name="PM_Status" value="1" checked="checked" />启用 <input type="radio" style="margin-left:20px;" value="0" name="PM_Status" />停用 </span>
+            </div>
+            <div class="div_row" style="font-size:12px;color:#ff0000!important;width:auto;line-height:20px;height:20px;">
+                重要提醒：设置账号前，请确保您已在微信平台完成相关设置.<a href="/docs/dinghuoWeixinIntro.pdf" target="_blank" download="/docs/dinghuoWeixinIntro.pdf" class="help_a">查看帮助</a>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:right;">
+                <a class="easyui-linkbutton lbtn_a" onclick="WX_Save()">确定</a> <a class="easyui-linkbutton lbtn_a" style="margin-right:10px;margin-left:10px;" onclick="PM_SetWX_close()">关闭(X)</a>
+            </div>
+        </form>
+
+
+        <form id="PM_ZFB_ZFSM" style="display:none;">
+            <div class="ui_main" style="width: 540px; height: 480px;">
+            <div class="ui_icon" style="display: none;"></div>
+            <div class="ui_content" style="padding: 10px;"><div>
+                <b>支付平台：</b><br>支付宝（中国）网络技术有限公司<br><br><b>交易费用：</b>
+                <br>交易金额 * 0.6% /笔　　由支付宝向收款方扣取<br><br><b>资金结算说明：</b>
+                <br><img src="../images/zhifuZifeiIntro.png" style="width:530px;"><br>
+                <br>注：1）本公司银行账户"指账户户名与本企业的支付宝实名信息相同的账户。<br>
+                　   2）次日到账时间问题说明：部分银行为T+1个工作日到账，部分为T+1自然日到账，具体会在支付宝提现页面中展示。<br>
+                <br>以上信息仅供参考，具体执行以支付宝官方规定为准</div></div></div>
+            <div style="text-align:right;width:93%;"><a class="easyui-linkbutton lbtn_a" onclick="PM_ZFB_ZFSM_close()">确定</a> </div>
+        </form>
+
+        <form id="PM_WX_ZFSM" style="display:none;">
+            <div class="ui_main" style="width: 480px; height: 180px;">
+            <div class="ui_icon" style="display: none;"></div>
+            <div class="ui_content" style="padding: 10px;">
+                <div><b>支付平台：</b><br>腾讯公司微信支付<br><br><b>交易费用及结算规则：</b><br>交易手续费由微信向收款方扣取。根据商户经营类目，收取交易费率0.6%~ 2%，结算周期T+1~T+7不等。<a href="http://kf.qq.com/faq/140225MveaUz1501077rEfqI.html" target="_blank" class="theme-color">了解详细规则</a></div></div></div>
+            <div style="text-align:right;width:93%;"><a class="easyui-linkbutton lbtn_a" onclick="PM_WX_ZFSM_close()">确定</a> </div>
+        </form>
+
+        <input type="hidden" id="PM_ZFB_Edit" value="0" />
+        <input type="hidden" id="PM_WX_Edit" value="0" />
+    </div>
+    <script src="~/Scripts/PayMentMode.js"></script>
+</body>
+</html>

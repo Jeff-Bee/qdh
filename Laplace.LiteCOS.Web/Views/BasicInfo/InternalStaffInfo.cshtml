@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>内部职员</title>
+    <style type="text/css">
+      
+    </style>
+</head>
+<body>
+    <div style="width:100%;">
+         <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+             &nbsp; &nbsp;基本信息--内部职员
+         </div>
+        <div style="height:400px;overflow:auto;border:1px solid #ddd" id="Employee_List">
+            <table id="internalUser" style="">
+
+            </table>
+        </div>
+        <div style="width:100%;margin-top:5px;line-height:30px;">
+            <span style="float:left;">
+                <a class="easyui-linkbutton lbtn_a" onclick="addUser()">空白新增</a>
+                <a class="easyui-linkbutton lbtn_a" onclick="editInterForm(0)">复制新增</a>
+                <a class="easyui-linkbutton lbtn_a" onclick="editInterForm(1)">修改</a>
+                <a class="easyui-linkbutton lbtn_a" onclick="DelInterRow()">删除</a>
+                <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+            </span>
+            <span style="float:right;">
+                <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('职员信息')">退出(X)</a>
+            </span>
+        </div>
+       
+    </div>
+
+    <form id="addUser" style="display:none">
+        <input type="hidden" id="hid_EmployeeId" />
+        <div style="width:95%;margin:0 auto;padding:5px;border:1px solid #ccc;margin-top:2px;" class="user_top">
+            <div><span  class="span_left"><b style="color:red;">*</b>职员全名</span><span style="float:left"><input type="text" name="Interfullname" id="Interfullname" class="userTxt"/> </span><span class="span_left"><b style="color:red;">*</b>所属部门</span><span style="float:left;"><input id="InterdepId" style="float:left;" class="userTxt" /> </span> </div>
+            <div><span class="span_left"><b style="color:red;">*</b>职员编号</span><span style="float:left;"><input type="text" name="Intercode" id="Intercode" class="userTxt" /> </span><span style="float:left;width:100px;margin-left:10px;"><input type="checkbox" name="isInterasc" id="isInterasc" />编号递增 </span> </div>
+            <div><span class="span_left">绑定手机</span><span style="float:left;"><input type="text" name="Interphone" id="Interphone" class="userTxt" /> </span> </div>
+            <div><span class="span_left">备注</span><span style="float:left;"><input type="text" name="Interdemo" id="Interdemo" style="width:220px;" class="userTxt" /> </span> </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div style="margin-top:10px;line-height:30px;text-align:center;">
+            <a class="easyui-linkbutton" onclick="addInterSave(1)" id="addAndSave">保存并新增</a> <a class="easyui-linkbutton" onclick="addInterSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="closeInterAdd()">关闭(X)</a>
+        </div>
+    </form>
+    <script src="~/Scripts/InternalStaff.js"></script>
+</body>
+
+</html>

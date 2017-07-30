@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>设备信息</title>
+</head>
+<body>
+    <div style="width:100%;"> 
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;基本信息--设备信息
+        </div>
+        <div>
+            <div style="height:400px;border:1px solid #ddd;overflow:auto" id="Equip_List">
+                <table id="Equipmentinfo"></table>
+            </div>
+            <div style="width:100%;margin-top:5px;line-height:30px;">
+                <span style="float:left;width:60%;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="addEquapInfo()">空白新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editEquapForm(0)">复制新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editEquapForm(1)">修改</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="delEquapInfo()">删除</a>&nbsp;&nbsp;
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+                </span>
+                <span style="float:right;">
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                    <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('设备信息')">退出(X)</a>
+                </span>
+            </div>
+        </div>
+
+        <form id="equip_add" style="width:400px;display:none;">
+            <input type="hidden" id="hid_equipId" />
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>设备名称</span><span style="float:left;"><input type="text" class="userTxt" style="width:270px;" id="equipName" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>校验码</span><span style="float:left;"><input type="text" class="userTxt" id="equipJYM" /> </span><span class="span_left">车牌号</span><span style="float:left;width:100px;margin-right:0px;"><input type="text" class="userTxt" id="equipCarNumber" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>设备编号</span><span style="float:left;"><input type="text" class="userTxt" id="equipCode" /> </span><span class="span_left" style="width:70px;"><input type="checkbox" id="isEquipASC" />编号自增 </span>
+            </div>
+          
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>司机</span><span style="float:left;"><input type="text" class="userTxt" id="equipDriver" /> </span><span class="span_left">联系电话</span><span style="float:left;width:100px;margin-right:0px;"><input type="text" class="userTxt" id="equipPhone" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="span_left">备注</span><span style="float:left;"><input type="text" class="userTxt" style="width:270px;" id="equipNotes" /> </span>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:center;">
+                <a class="easyui-linkbutton" onclick="addEquapInfoSave(1)" id="addDepartment">保存并新增</a> <a class="easyui-linkbutton" onclick="addEquapInfoSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="addEquapClose()">关闭(X)</a>
+            </div>
+        </form>
+    </div>
+    <script src="~/Scripts/EquipmentInfomation.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/mycss.css">
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/function.js"></script>
+</head>
+<body class="addressbody">
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+    <header class="bar bar-nav bg-bule b-n">
+        <a href='@Url.Action("Index","Account")' class="icon icon-goback pull-left"></a>
+        <h1 class="title c-white">消息</h1>
+    </header>
+    <div class="segmented-control top-nav">
+        <a class="control-item active" href='@Url.Action("Index",new {type=1})'>
+            全部消息
+        </a>
+        <a class="control-item " href='@Url.Action("Index",new {type=2})'>
+            订单消息
+        </a>
+        <a class="control-item  " href='@Url.Action("Index",new {type=3})'>
+            官方消息
+        </a>
+    </div>
+
+    <div class="order-box  content">
+        <div class="control-content  active">
+            <div class="content-box text-center mt-120">
+                <p class="fs-17 c-gary1">您最近没有消息</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+
+    function selectType() {
+        if (@ViewBag.SelectType == "class") {
+            $(".control-item").removeClass("active");
+            $(".control-item").eq(1).addClass("active");
+        }
+    }
+
+    selectType();
+
+
+</script>

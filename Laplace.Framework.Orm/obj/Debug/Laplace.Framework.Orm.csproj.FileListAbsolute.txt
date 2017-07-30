@@ -1,0 +1,15 @@
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Laplace.Framework.Orm.dll.config
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Laplace.Framework.Orm.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Laplace.Framework.Orm.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Dapper.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\DapperExtensions.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Laplace.Framework.Log.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\System.Data.SQLite.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\log4net.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Laplace.Framework.Log.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\Dapper.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\System.Data.SQLite.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\bin\Debug\log4net.xml
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\obj\Debug\Laplace.Framework.Orm.csprojResolveAssemblyReference.cache
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\obj\Debug\Laplace.Framework.Orm.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.Framework.Orm\obj\Debug\Laplace.Framework.Orm.pdb

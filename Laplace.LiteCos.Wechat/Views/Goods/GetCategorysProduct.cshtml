@@ -1,0 +1,49 @@
+﻿@using Laplace.LiteCOS.Model
+@model List<BuyerProductView>
+
+
+@{
+    foreach (BuyerProductView productView in Model)
+    {
+        <div class="col-xs-6 plr-8" style="padding-bottom: 10px">
+            <div class="goods1-box bg-white" data-sellerid="@productView.SellerId" data-productid="@productView.ProductId">
+                <a href="javascript:;" onclick="showGoodsInfo('@productView.SellerId','@productView.ProductId')">
+                    <img id="imgId" src='@Url.Action("GetPic",new { productId=@productView.ProductId,  sellerId=@productView.SellerId })' alt="" width="123" height="130">
+                    <div class="money-box" style="margin-top: 20px;">
+                        <h3 class='goods_name' id="goods_name" style="margin-right: 0px;">@productView.ProductFullName</h3>
+                        <input type="hidden" name="goods_id" id="child_input" readonly="" value="39643">
+                    </div>
+                    <div class="money-box">
+                        <span class="all_price price">
+                            ￥@productView.Price1
+                        </span>
+                        <del id="city_price">￥@productView.Price1</del>
+                    
+                    </div>
+                    <div class="money-box">
+                        <span class="amount">库存：@productView.MaxOrder1</span>
+                    </div>
+                </a>
+                <span class="editcard_sum_plus sum-plus clearfix">
+                    <div class="fr">
+                        @* 控制去除按钮是否显示 *@
+                        @if (productView.ProductQuantity > 0)
+                        {
+                            <a class="btn-cut fl decrease " onclick="cnum($(this), 0)" href="javascript:;">-</a>
+                        }
+                        else
+                        {
+                            <a class="btn-cut fl decrease " onclick="cnum($(this), 0)" href="javascript:;" style='display: none'>-</a>
+                        }
+
+
+                        <div class="editcardnum fl">
+                            <input type="text" class="child_input" name="num" readonly="" value="@productView.ProductQuantity">
+                        </div>
+                        <a class="btn-plus fl increase" href="javascript:;" onclick="cnum($(this), 0)" id='123'>+</a>
+                    </div>
+                </span>
+            </div>
+        </div>
+    }
+}

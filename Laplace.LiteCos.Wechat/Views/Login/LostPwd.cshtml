@@ -1,0 +1,260 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="\js\jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="\vendor\bootstrap\v3\css\bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="\vendor\css\ratchet.min-1.css">
+    <link rel="stylesheet" type="text/css" href="\css\app.css">
+    <script type="text/javascript" src="\js\baidu_count.js"></script>
+    <style>
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #FFFFFF;
+        }
+
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #FFFFFF;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #FFFFFF;
+        }
+
+        :-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: #FFFFFF;
+        }
+    </style>
+
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+    @Styles.Render("~/Style/weui")
+    @Scripts.Render("~/Script/weui")
+    @*<script type="text/javascript" src="~/Scripts/weui/weui.min.js"></script>*@
+
+
+    <style>
+        .validation-summary-errors {
+            background: darkorange;
+            color: white;
+            line-height: 20px;
+            padding-left: 20px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+<body class="bg-bule">
+<header class="bar bar-nav bg-bule b-n">
+    <a href='@Url.Action("Login")' style="" class="icon icon-goback pull-left"></a>
+    <h1 class="title c-white">忘记密码</h1>
+</header>
+
+
+@using (Html.BeginForm(new {ViewBag.ReturnUrl}))
+{
+
+
+
+    <div class="form-box container mt-80">
+
+
+        @Html.ValidationSummary(true)
+
+  
+        <div class="input-box icon-username p-r mb-10">
+            <input class="c-white bg-bule b-b-2-bule " type="text" name="PhoneNumber" id="txtPhoneNumber" placeholder="输入手机号码" value="">
+        </div>
+        <div class="input-box yzm p-r mb-15 yzm1">
+            <div class="row">
+                <div class="col-xs-6" style="padding-right: 0px;">
+                    <input id="txtRegisterCode" class="c-white bg-bule b-b-2-bule  mt-10 " style="padding-right: 0px; padding-bottom: 8px" type="text" name="RegisterCode" placeholder="输入验证码" value="">
+                </div>
+                <div class="col-xs-6">
+                    <input id="btnGetCode" class="btn btn-block c-bule btn-public mb-15 b-n bg-l-bule" onclick="GetRegisterCode()" style="letter-spacing: 1px" type="button" value="发送验证码">
+                </div>
+            </div>
+        </div>
+        <div class="input-box icon-password p-r mb-20">
+            <input class="c-white bg-bule b-b-2-bule " type="password" name="Password" placeholder="输入新密码" value="">
+        </div>
+        <div class="input-box icon-password p-r mb-20">
+            <input class="c-white bg-bule b-b-2-bule " type="password" name="PasswordAgain" placeholder="确认密码" value="">
+        </div>
+        <button type="submit" class="btn btn-block c-bule btn-public mb-20 bg-l-bule">提交</button>
+    
+    </div>
+
+
+}
+
+
+
+    <script>
+        function showToast(text) {
+            var $toast = $('#toast');
+            if ($toast.css('display') != 'none') return;
+            $("#toastInfo").html(text);
+            $toast.fadeIn(200);
+            setTimeout(function () {
+                $toast.fadeOut(200);
+            }, 4000);
+
+        }
+
+        function showWarnToast(text) {
+            var $toast = $('#toast-warn');
+            if ($toast.css('display') != 'none') return;
+            $("#toastInfo-warn").html(text);
+            $toast.fadeIn(200);
+            setTimeout(function () {
+                $toast.fadeOut(200);
+            }, 4000);
+        }
+
+
+
+    </script>
+
+
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content" id="toastInfo">...</p>
+        </div>
+    </div>
+
+
+    <div id="toast-warn" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast" style="padding-top: 10px;color: white">
+            <i class="weui-icon-warn weui-icon_msg"></i>
+            <p class="weui-toast__content" style="color: white" id="toastInfo-warn"></p>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+    //$(document).ready(function () {
+    //    $("#txtPhoneNumber").val("15803818280");
+
+    //    $("#txtPhoneNumber").textbox('setValue', "15803818280");
+
+    //});
+
+
+
+
+    var count = 10;
+
+    function countdown() {
+        $("#btnGetCode").val(count + "s后再次获取");
+        count--;
+        if (count > 0) {
+            setTimeout("countdown()", 1000);
+        } else {
+            //$("#btnGetCode").removeClass("unable");
+            //$("#btnGetCode").removeAttr("disabled");
+       //     $('#btnGetCode').linkbutton('enable');
+
+            $("#btnGetCode").val("获取验证码");
+        }
+    }
+
+
+
+
+
+    function GetRegisterCode(sender) {
+
+        var num = $("#txtPhoneNumber").val();
+        if (num == null || num == undefined || num == '') {
+            showWarnToast("请输入手机号!");
+            return;
+        } 
+        //$("#btnGetCode").attr("disabled", "disabled");
+        //$("#btnGetCode").addClass("unable");
+     //   $('#btnGetCode').linkbutton('disable');
+        count = 60;
+        countdown();
+
+
+
+
+        function successFunc(data, status) {
+
+            if (data.Success) {
+                showToast("验证码已发送!");
+            } else {
+                showWarnToast(data.Msg);
+            }
+
+
+           // $("#txtRegisterCode").textbox('setValue', data.Data);
+        }
+
+        function showAjaxErrorInfo(xmlHttpRequest, textStatus, errorThrown) {
+            //XMLHttpRequest.readyState: 状态码的意思
+            //0 － （未初始化）还没有调用send()方法
+            //1 － （载入）已调用send()方法，正在发送请求
+            //2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+            //3 － （交互）正在解析响应内容
+            //4 － （完成）响应内容解析完成，可以在客户端调用了
+
+
+
+            console.log("status:" + xmlHttpRequest.status);
+            console.log("readyState:" + xmlHttpRequest.readyState);
+            console.log("textStatus:" + textStatus);
+
+
+
+            $("#txtRegisterCode").textbox('setValue', "error:" + xmlHttpRequest.readyState);
+        }
+
+        //'<%= Url.Action("GetRegisterCode") %>'
+  //      var serviceURL = "'"+ @Url.Action("LostPwd")+"'";
+        
+        var param = "{ 'phoneNumber':'" + num + "'}";
+        console.log(num);
+        console.log(param);
+
+
+        $.ajax({
+            type: "POST",
+            url: 'GetChangePasswordVerificationCode',
+            data: "{ 'phoneNumber':'" + num + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: showAjaxErrorInfo
+        });
+
+
+
+    }
+
+    </script>
+
+
+</body>
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>部门信息</title>
+</head>
+<body>
+    <div style="width:100%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;基本信息--部门信息
+        </div> 
+        <div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="Dep_List">
+                <table id="Departmentinfo"></table>
+            </div>
+            <div style="width:100%;margin-top:5px;line-height:30px;">
+                <span style="float:left;width:60%;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="addDepInfo()">空白新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editDepForm(0)">复制新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editDepForm(1)">修改</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="delDepInfo()">删除</a>&nbsp;&nbsp;
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+                </span>
+                <span style="float:right;">
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                    <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('部门信息')">退出(X)</a>
+                </span>
+            </div>
+        </div>
+
+        <form id="dep_add" style="width:400px;display:none;">
+            <input type="hidden" id="hid_depId" />
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>部门名称</span><span style="float:left;"><input type="text" class="userTxt" style="width:175px;" id="depName" /> </span>
+            </div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>部门编号</span><span style="float:left;"><input type="text" class="userTxt" id="depCode" /> </span><span class="span_left"><input type="checkbox" id="isDepASC" />编号自增 </span>
+            </div>
+            <div class="div_row">
+                <span class="span_left">备注</span><span style="float:left;"><input type="text" class="userTxt" style="width:175px;" id="depNotes" /> </span>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:center;">
+                <a class="easyui-linkbutton" onclick="addDepInfoSave(1)" id="addDapt">保存并新增</a> <a class="easyui-linkbutton" onclick="addDepInfoSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="addDepClose()">关闭(X)</a>
+            </div>
+        </form>
+    </div>
+    <script src="~/Scripts/DeparentmentList.js"></script>
+</body>
+</html>

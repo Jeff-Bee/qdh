@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D71145C-0215-4069-B80D-B391CC891B09}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Laplace.Framework</RootNamespace>
+    <AssemblyName>Laplace.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NoSms|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\NoSms\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DapperExtensions, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DapperExtensions.1.4.4\lib\net40\DapperExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSLib.Extension">
+      <HintPath>..\packages\extension.fishlee.net.1.3.1.0\lib\net40\FSLib.Extension.dll</HintPath>
+    </Reference>
+    <Reference Include="FSLib.Network, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8bf54bd6729f490c, processorArchitecture=MSIL">
+      <HintPath>..\packages\network.fishlee.net.2.0.0.0\lib\net40\FSLib.Network.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Laplace.Framework.Cryptography\DES\Des.cs">
+      <Link>Laplace.Framework.Cryptography\DES\Des.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Cryptography\DES\DESKey.cs">
+      <Link>Laplace.Framework.Cryptography\DES\DESKey.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Cryptography\DES\DESKeyType.cs">
+      <Link>Laplace.Framework.Cryptography\DES\DESKeyType.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Cryptography\DES\TripleDES.cs">
+      <Link>Laplace.Framework.Cryptography\DES\TripleDES.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\ConcurrentDictionaryExtensions.cs">
+      <Link>Laplace.Framework.Extensions\ConcurrentDictionaryExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\DateTimeExtensions.cs">
+      <Link>Laplace.Framework.Extensions\DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\DecimalExtensions.cs">
+      <Link>Laplace.Framework.Extensions\DecimalExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\DictionaryExtensions.cs">
+      <Link>Laplace.Framework.Extensions\DictionaryExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\EnumExtensions.cs">
+      <Link>Laplace.Framework.Extensions\EnumExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\IntegerExtensions.cs">
+      <Link>Laplace.Framework.Extensions\IntegerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\LatinWordExtensions.cs">
+      <Link>Laplace.Framework.Extensions\LatinWordExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\ListExtensions.cs">
+      <Link>Laplace.Framework.Extensions\ListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\NameValueCollectionExtensions.cs">
+      <Link>Laplace.Framework.Extensions\NameValueCollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\ObjectExtensions.cs">
+      <Link>Laplace.Framework.Extensions\ObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\StringExtensions.cs">
+      <Link>Laplace.Framework.Extensions\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\TimeSpanExtensions.cs">
+      <Link>Laplace.Framework.Extensions\TimeSpanExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\TypeExtensions.cs">
+      <Link>Laplace.Framework.Extensions\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Extensions\WcfExtensions.cs">
+      <Link>Laplace.Framework.Extensions\WcfExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\ByteHelper.cs">
+      <Link>Laplace.Framework.Helper\ByteHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\CPRestHelper.cs">
+      <Link>Laplace.Framework.Helper\CPRestHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\Exception\ExceptionHelper.cs">
+      <Link>Laplace.Framework.Helper\Exception\ExceptionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\GpsHelper.cs">
+      <Link>Laplace.Framework.Helper\GpsHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\JsonHelper.cs">
+      <Link>Laplace.Framework.Helper\JsonHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\NamedPipe\NamedPipeClient.cs">
+      <Link>Laplace.Framework.Helper\NamedPipe\NamedPipeClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\NamedPipe\NamedPipeServer.cs">
+      <Link>Laplace.Framework.Helper\NamedPipe\NamedPipeServer.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\NetworkHelper.cs">
+      <Link>Laplace.Framework.Helper\NetworkHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\StringHelper.cs">
+      <Link>Laplace.Framework.Helper\StringHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\Thread\QueueThreadBase.cs">
+      <Link>Laplace.Framework.Helper\Thread\QueueThreadBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\ValidCheckHelper.cs">
+      <Link>Laplace.Framework.Helper\ValidCheckHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\WcfHelper.cs">
+      <Link>Laplace.Framework.Helper\WcfHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Helper\WindowsService\WindowsServiceHelper.cs">
+      <Link>Laplace.Framework.Helper\WindowsService\WindowsServiceHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Log\InvalidLogException.cs">
+      <Link>Laplace.Framework.Log\InvalidLogException.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Log\Logger.cs">
+      <Link>Laplace.Framework.Log\Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Log\LoggingInitializationException.cs">
+      <Link>Laplace.Framework.Log\LoggingInitializationException.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Log\LoggingLevel.cs">
+      <Link>Laplace.Framework.Log\LoggingLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Orm\SqlHelper.cs">
+      <Link>Laplace.Framework.Orm\SqlHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Utilities\EnumerableExtensions.cs">
+      <Link>Laplace.Framework.Utilities\EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Utilities\Errors.cs">
+      <Link>Laplace.Framework.Utilities\Errors.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Utilities\Guard.cs">
+      <Link>Laplace.Framework.Utilities\Guard.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\AC.cs">
+      <Link>Laplace.Framework.Win32\Const\AC.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\CDDS.cs">
+      <Link>Laplace.Framework.Win32\Const\CDDS.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\CDRF.cs">
+      <Link>Laplace.Framework.Win32\Const\CDRF.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\GWL.cs">
+      <Link>Laplace.Framework.Win32\Const\GWL.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\HWND.cs">
+      <Link>Laplace.Framework.Win32\Const\HWND.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\ICC.cs">
+      <Link>Laplace.Framework.Win32\Const\ICC.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\LPSTR.cs">
+      <Link>Laplace.Framework.Win32\Const\LPSTR.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\NM.cs">
+      <Link>Laplace.Framework.Win32\Const\NM.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\SWP.cs">
+      <Link>Laplace.Framework.Win32\Const\SWP.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\TTDT.cs">
+      <Link>Laplace.Framework.Win32\Const\TTDT.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\TTF.cs">
+      <Link>Laplace.Framework.Win32\Const\TTF.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\TTI.cs">
+      <Link>Laplace.Framework.Win32\Const\TTI.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\TTM.cs">
+      <Link>Laplace.Framework.Win32\Const\TTM.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\TTN.cs">
+      <Link>Laplace.Framework.Win32\Const\TTN.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\TTS.cs">
+      <Link>Laplace.Framework.Win32\Const\TTS.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\ULW.cs">
+      <Link>Laplace.Framework.Win32\Const\ULW.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\WinUser.cs">
+      <Link>Laplace.Framework.Win32\Const\WinUser.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\WM.cs">
+      <Link>Laplace.Framework.Win32\Const\WM.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\WS.cs">
+      <Link>Laplace.Framework.Win32\Const\WS.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Const\WS_EX.cs">
+      <Link>Laplace.Framework.Win32\Const\WS_EX.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Enum\SystemMetrics.cs">
+      <Link>Laplace.Framework.Win32\Enum\SystemMetrics.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Enum\TRACKMOUSEEVENT_FLAGS.cs">
+      <Link>Laplace.Framework.Win32\Enum\TRACKMOUSEEVENT_FLAGS.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\NativeMethods.cs">
+      <Link>Laplace.Framework.Win32\NativeMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\BLENDFUNCTION.cs">
+      <Link>Laplace.Framework.Win32\Struct\BLENDFUNCTION.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\INITCOMMONCONTROLSEX.cs">
+      <Link>Laplace.Framework.Win32\Struct\INITCOMMONCONTROLSEX.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\NMCUSTOMDRAW.cs">
+      <Link>Laplace.Framework.Win32\Struct\NMCUSTOMDRAW.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\NMHDR.cs">
+      <Link>Laplace.Framework.Win32\Struct\NMHDR.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\NMTTCUSTOMDRAW.cs">
+      <Link>Laplace.Framework.Win32\Struct\NMTTCUSTOMDRAW.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\NMTTDISPINFO.cs">
+      <Link>Laplace.Framework.Win32\Struct\NMTTDISPINFO.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\PAINTSTRUCT.cs">
+      <Link>Laplace.Framework.Win32\Struct\PAINTSTRUCT.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\POINT.cs">
+      <Link>Laplace.Framework.Win32\Struct\POINT.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\RECT.cs">
+      <Link>Laplace.Framework.Win32\Struct\RECT.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\TIME.cs">
+      <Link>Laplace.Framework.Win32\Struct\TIME.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\TOOLINFO.cs">
+      <Link>Laplace.Framework.Win32\Struct\TOOLINFO.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\TRACKMOUSEEVENT.cs">
+      <Link>Laplace.Framework.Win32\Struct\TRACKMOUSEEVENT.cs</Link>
+    </Compile>
+    <Compile Include="..\Laplace.Framework.Win32\Struct\TT_HITTESTINFO.cs">
+      <Link>Laplace.Framework.Win32\Struct\TT_HITTESTINFO.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Laplace.Framework.Log\Laplace.Framework.Log.csproj">
+      <Link>Laplace.Framework.Log\Laplace.Framework.Log.csproj</Link>
+    </Content>
+    <Content Include="..\Laplace.Framework.Log\Readme.txt">
+      <Link>Laplace.Framework.Log\Readme.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Laplace.Framework.Log\Config\log4net.config">
+      <Link>Laplace.Framework.Log\Config\log4net.config</Link>
+    </None>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Laplace.Framework.Helper\Print\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

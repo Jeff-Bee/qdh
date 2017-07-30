@@ -1,0 +1,108 @@
+﻿@model Laplace.LiteCOS.Model.BuyerInfo
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑地址</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/mobile-select-area.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/mycss.css">
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/function.js"></script>
+    <script type="text/javascript" src="/js/dialog.js"></script>
+    <script type="text/javascript" src="/js/mobile-select-area.js"></script>
+    <script type="text/javascript" src="/js/mobiscroll_date.js"></script>
+    <script type="text/javascript" src="/js/mobiscroll.js"></script>
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+</head>
+<body class="addressbody">
+    <div class="contbody whitebg">
+        <header class="bar bar-nav bg-bule b-n">
+            <a href='@Url.Action("Index")' class="icon icon-goback pull-left"></a>
+            <a href="javascript:;" class="pull-right listbtn del_btn"></a>
+            <h1 class="title c-white">编辑地址</h1>
+        </header>
+        <br><br>
+        <div class="editbox">
+            <form action='@Url.Action("Edit")' id='ajaxform' method="POST">
+                <ul class="edituladdress">
+                    <li class="editliaddress">
+                        <span class="editaddresspanIco editaddresspanIco01"></span>
+                        <div class="editliaddressdiv">
+                            <input type="text" value="@Model.ContactName" name="user" class="editliaddressput editliaddressputmax">
+                        </div>
+                    </li>
+                    <li class="editliaddress">
+                        <span class="editaddresspanIco editaddresspanIco02"></span>
+                        <div class="editliaddressdiv">
+                            <input type="text" value="@Model.MobilePhone" name="phone" class="editliaddressput editliaddressputmax">
+                        </div>
+                    </li>
+                    <li class="editliaddress">
+                        <span class="editaddresspanIco editaddresspanIco03"></span>
+                        <div class="editliaddressdiv">
+                            <div class="editlicity clearfix">
+                                <!--<div class="editlicityinfo">
+                                    <input type="text" value="北京" class="editliaddressput  editliaddressputmax editliaddressputmin" readonly />
+                                    <span class="editselectIco"></span>
+                                </div>
+                                <div class="editlicityinfo">
+                                    <input type="text" value="北京" class="editliaddressput  editliaddressputmax editliaddressputmin" readonly />
+                                    <span class="editselectIco"></span>
+                                </div>
+                                <div class="editlicityinfo">
+                                    <input type="text" value="北京" class="editliaddressput  editliaddressputmax editliaddressputmin" readonly />
+                                    <span class="editselectIco"></span>
+                                </div>-->
+                                <div class="">
+                                    <input type="text" id="txt_area2" class="editliaddressput editliaddressputmax" name="address" readonly="" value="河南 郑州 中原区" data-value="41,4101,410102">
+                                    <input type="hidden" id="hd_area" name="city" value="41,4101,410102">
+                                    <input type="hidden" id="address_id" name="address_id" value="10800">
+                                    <script class="resources library" src="/js/area.js" type="text/javascript"></script>
+                                    <script>
+								var selectArea2 = new MobileSelectArea();
+								selectArea2.init({trigger:'#txt_area2',value:$('#txt_area2').data('value'),data:json,eventName:'click'});
+                                    </script>
+
+                                </div>
+                            </div>
+                            <input type="text" name="address" value="@Model.Address" class="editliaddressput editliaddressputmax">
+                        </div>
+                    </li>
+                </ul>
+                <input type="submit" class="editliaddressbtn" value="提交">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+	$(document).ready(function () {
+	    $(document).on('click', '.del_btn', function() {
+	        if (confirm("确定要删除这地址吗?")) {
+	            var id = $("#address_id").val();
+	            $.ajax({
+	                type: "POST",
+	                url: "/Address/DelAddress",
+	                dataType: "json",
+	                data: { 'id': id },
+	                success: function(data) {
+	                    if (data.success == 1) {
+	                        alert('删除成功');
+	                        window.location.href = "/Address/Index";
+	                    } else {
+	                        alert('删除失败');
+	                    }
+	                }
+	            });
+	        }
+	    });
+	});
+    </script>
+
+</body>
+</html>

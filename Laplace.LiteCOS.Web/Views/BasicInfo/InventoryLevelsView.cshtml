@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>库存状态</title>
+
+</head>
+<body>
+    <div style="min-width:1200px;display:block;width:100%;" class="easyui-layout">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;库存状态
+        </div>
+        <input type="hidden" id="hid_ILVpType" value="-1" />
+        <div style="height:25px;line-height:25px;margin-bottom:10px;"><span style="float:left;margin-left:10px;"> 仓库 :  全部仓库</span><span style="float:left;margin-left:40px;"><input id="ilv_PurchaseUnit" class="pol_txt" style="height:22px;" name="ilv_PurchaseUnit" /> </span><span style="float:left;margin-left:5px;"><input type="text" class="pol_txt" style="height:20px;" id="ilv_sContent" /> </span><span style="float:left;margin-left:5px;"><a class="easyui-linkbutton" style="" iconCls="icon-search" onclick="Search_Click()"></a> </span> <span style="float:right;margin-right:10px;">过滤:<input id="ilv_glSelect" class="pol_txt" style="height:22px;" /><a class="easyui-linkbutton" style="margin-left:15px;" data-options="iconCls:'icon-reload'," onclick="ILV_ReflashList()">刷新</a> <a class="easyui-linkbutton" style="display:none" iconCls="icon-config-yellow">列配置</a> </span> </div>
+       <div style="width:100%;">
+           <div style="width:240px;height:305px;float:left;border:1px solid #ccc;border-right:none" id="ilv_left">
+               <ul id="ilv_pType"></ul>
+           </div>
+           <div style="float:left;width:1100px;border:1px solid #ccc;height:305px;overflow:auto" id="ilv_right">
+               <table id="ilv_pList">
+
+               </table>
+           </div>
+           <div style="width:100%;margin-top:5px;line-height:30px;">
+               <span style="float:left;display:none;">
+                   <a class="easyui-linkbutton lbtn_a">列表</a>
+                   <a class="easyui-linkbutton lbtn_a">商品分布</a>
+                   <a class="easyui-linkbutton lbtn_a">明细账本</a>
+                   <a class="easyui-linkbutton lbtn_a">序列号</a>
+                   <a class="easyui-linkbutton lbtn_a">期初库存</a>
+               </span>
+               <span style="float:right;">
+                   <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                   <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('库存状态')">退出(X)</a>
+               </span>
+           </div>
+       </div>
+      <form id="ILV_OrderList" style="display:none;height:310px;overflow:auto;">
+          <table id="ilv_OrderList_List" style="height:310px;">
+
+          </table>
+          <div style="width:100%;margin-top:10px;">
+              <span style="float:right;margin-right:10px;">
+                  <a class="easyui-linkbutton lbtn_a" onclick="ILV_CloseOrderList()">关闭</a>
+              </span>
+          </div>
+      </form>
+    </div>
+    <script src="~/Scripts/InventoryLevelsView.js"></script>
+</body>
+</html>

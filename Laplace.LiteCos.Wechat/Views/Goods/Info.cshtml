@@ -1,0 +1,199 @@
+﻿
+@model ProductInfo
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css" />
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/mycss.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/function.js"></script>
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+</head>
+<body>
+    <div class="contbody pb140">
+        <header class="bar bar-nav bg-bule b-n">
+            <a href="javascript:;" onclick="javascript:history.go(-1);" class="icon icon-goback pull-left"></a>
+            <h1 class="title c-white">商品详情</h1>
+        </header>
+
+        @if (Model != null)
+        {
+
+            <div class="swiper-container mt-56">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src='@Url.Action("GetPic", new {productId = @Model.ProductId, sellerId = @Model.SellerId})' />
+                    </div>
+                    @*  <div class="swiper-slide"><img src="http://img.bingtuanego.com/ac/09/ac096aebed498d96cb64e8a53bfd46fe.jpg" /></div>*@
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+            <div class="product_info">
+                <dl class="productdl product_info_dl clearfix">
+                    <dt>@Model.ProductFullName</dt>
+                    <dd><span class="redfont">￥@Model.Price1</span><span class="grayfont">￥36.00</span></dd>
+                </dl>
+            </div>
+
+            <div class="product_info mt10">
+                <p class="payNavtit">产品参数</p>
+                <ul class="pro_parameterul">
+                    <li><span class="parame_name fl">品牌</span><span class="parame_txt fl"></span></li>
+                    <li><span class="parame_name fl">品名</span><span class="parame_txt fl">@Model.ProductFullName</span></li>
+                    <li><span class="parame_name fl">单位</span><span class="parame_txt fl">@Model.ProductUnit</span></li>
+                    <li><span class="parame_name fl">规格</span><span class="parame_txt fl">@Model.ProductSpec</span></li>
+                    <li><span class="parame_name fl">产地</span><span class="parame_txt fl">@Model.Place</span></li>
+                    @*<li><span class="parame_name fl">省份</span><span class="parame_txt fl">内蒙古</span></li>*@
+                    <li><span class="parame_name fl">包装方式</span><span class="parame_txt fl">@Model.Package</span></li>
+                </ul>
+            </div>
+
+            <div class="toogle-goods">
+                <p class='carts'>点击收起商品<span class="icon icon-top-cart"></span></p>
+            </div>
+
+
+            <div style="margin-left: 20px;">
+                <div>购买数量</div>
+                <div>
+                    <input type="button" style="border: 1px gray solid; width: 30px;" value="-" />
+                    <input type="text" style="border: 1px gray solid; width: 100px;" value="" />
+                    <input type="button" style="border: 1px gray solid; width: 30px;" value="+" />
+
+                </div>
+            </div>
+
+
+
+            <div class="product_info mt10">
+                <p class="payNavtit">图文详情</p>
+                <div class="product_infodeataildiv">
+                    <p class="detailpro"></p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>
+                <span>
+                    商品信息获取失败
+                </span>
+            </div>
+        }
+
+    </div>
+
+
+    @if (Model != null)
+    {
+        <div class="bottomprice product_order_price">
+            <div class="bottompricediv">
+                <dl class="bottompricedl fl">
+                    <dt>单价 : <span class="redfont">@Model.Price1</span>元</dt>
+                </dl>
+                <span class="bottompricebtn fr" onclick="addToCert()">加入购物车</span>
+            </div>
+        </div>
+    }
+
+
+
+    <script type="text/javascript" src="/js/swiper.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: false,
+            autoplay: 3000
+        });
+        $('.bottompricebtn').click(function () {
+            var all_price = $(this).siblings('#city_price').attr('value'); //
+            var price = $(this).siblings("#all_price").attr('value'); //
+            var names = $(this).siblings("#goods_name").attr('value');
+            var num = 1;
+            var val = 1;
+            var type = $(this).siblings("#type").attr('value'); //
+            var goods_id = $(this).siblings("#goods_id").attr('value'); //
+            var activity_id = $(this).siblings('#activity_id').attr('value'); //
+            if (activity_id != '') {
+                activity_id = activity_id;
+            } else {
+                activity_id = 0;
+            };
+            var imgadd = $(this).siblings('#goods_thumb').attr('value'); //市场数量
+            var unit = $(this).siblings('#goods_unit').attr('value'); //规格
+            var receiving_num = $(this).siblings('#receiving_num').attr('value'); //买送数量
+            var free_num = $(this).siblings('#receiving_num').attr('name'); //买送数量
+            var actign = $(this).siblings('#activity_goods_name').attr('value'); //活动商品名称
+            var amount = $(this).siblings('#amount').attr('value'); //活动商品名称
+            var info = { 'free_num': free_num, 'receiving_num': receiving_num, 'type_h': 0, 'state': '1', 'names': names, 'count': num, 'id': goods_id, 'price': price, 'imgadd': imgadd, 'unit': unit, 'all_price': all_price, 'type': type, 'activityId': activity_id, 'amount': amount, 'actign': actign };
+
+            $.ajax({
+                type: 'POST',
+                url: "/goods/getinfo",
+                //dataType : 'josn',
+                data: { 'info': info },
+                success: function (data) {
+                    obj = eval("(" + data + ")");
+                    if (obj.code == 1) {
+                        window.location.href = '/cart/index?goods_id=' + obj.goods_id + "&activity_goods=" + obj.activity_goods;
+                    } else {
+                        alert('购买失败');
+                    }
+                }
+            });
+        });
+        //商品参数隐藏和显示
+        $(document).ready(function () {
+            $(".pro_parameterul li").hide();
+            var flag = 1;
+            for (var i = 0; i < 4; i++) {
+                $($(".pro_parameterul li")[i]).show();
+            }
+            var liList = $(".pro_parameterul li").length;
+            if (liList < 4) {
+                return false;
+            }
+            var start = liList - 4;
+            $(this).find('.carts').html('点击显示全部<span class="icon icon-down-cart "></span>');
+            $(".toogle-goods").click(function () {
+                var num = start;
+                if (flag) {
+                    for (var i = num; i <= liList; i++) {
+                        $($(this).parent().find('.pro_parameterul li')[i]).show();
+                        $(this).find('.carts').html('点击收起全部<span class="icon  icon-top-cart"></span>');
+                    }
+                    flag = 0;
+                } else {
+                    for (var i = num + 1; i < liList; i++) {
+                        $($(".pro_parameterul li")[i]).hide();
+                    }
+                    $(this).find('.carts').html('点击显示全部<span class="icon icon-down-cart "></span>');
+                    flag = 1;
+                }
+            });
+            return true;
+        });
+
+
+        function addToCert() {
+            alert("加入购车成功");
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>

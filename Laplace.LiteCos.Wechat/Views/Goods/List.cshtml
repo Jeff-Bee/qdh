@@ -1,0 +1,596 @@
+﻿@using System.Web.Optimization
+@using Laplace.LiteCOS.Model
+@model List<BuyerProductView>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.SellerName</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css">
+
+
+    <link rel="stylesheet" type="text/css" href="/vendor/zepto/plugins/pgwmodal/pgwmodal.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/mycss.css">
+
+
+
+
+
+    <style type="text/css">
+        #pgwModal .pm-body {
+            position: static;
+            max-width: 0;
+        }
+
+        .pgwModal .pm-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10000;
+            height: 50%;
+            overflow: auto;
+        }
+
+        .pgwModal .pm-body {
+            background: transparent;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+        .dropload-refresh, .dropload-update, .dropload-load, .dropload-noData {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .pgwModal .pm-close {
+            display: none !important;
+        }
+
+        .pgwModal .pm-title {
+            display: none !important;
+        }
+
+
+        .goods_name {
+            /*width:80%;*/
+            height: 32px;
+            overflow: hidden;
+            /*text-overflow: ellipsis;*/
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            font-size: 14px;
+            /*-o-text-overflow:ellipsis;*/
+            /*white-space:nowrap;*/
+            word-wrap: break-word;
+        }
+    </style>
+
+
+
+    @Styles.Render("~/Style/weui")
+    @Scripts.Render("~/Script/weui")
+    @*<script type="text/javascript" src="~/Scripts/weui/weui.min.js"></script>*@
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.json.min.js"></script>
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+    <script type="text/javascript" src="/vendor/zepto/plugins/pgwmodal/pgwmodal.min.js"></script>
+
+
+</head>
+<body>
+    <header class="bar bar-nav bg-bule b-n">
+        <a href='@Url.Action("Search","Goods")' class="icon icon-search2 pull-right"></a>
+        <h1 class="title c-white">@ViewBag.SellerName</h1>
+    </header>
+    <nav class="bar bar-tab nav-bar">
+        <a class="tab-item active" href='@Url.Action("List","Goods")'>
+            <span class="icon icon-market" style="background: url(/images/icon_shangcheng_hover.png) no-repeat center;background-size:24px 24px"></span>
+            <span class="tab-label">商城</span>
+        </a>
+        <a class="tab-item shopcar2" href="javascript:;" onclick="navToCert()">
+            <span class="icon icon-shopcar1"></span>
+            <span class="tab-label">购物车</span>
+            <span class="icon-circle1" id="badge_cart" style="background:#000000">0</span>
+        </a>
+        <a class="tab-item shopcar2" href="javascript:;" onclick="navToMyAccount()">
+            <span class="icon icon-mine"></span>
+            <span class="tab-label">我的账户</span>
+            <span class="icon-circle2"></span>
+        </a>
+    </nav>
+    <div class="content" style="padding-top: 56px;">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                @*<div class="swiper-slide">
+                        <a href="" target="_self">
+                            <img src="http://img.bingtuanego.com/b4/ad/b4add13e657bcd9d3cba8cba673f8a7d.jpg" style="width: 100%; max-height: 187px">
+                        </a>
+                    </div>*@
+                <div class="swiper-slide">
+                    <a href="javascript:;" target="">
+                        <img src="/images/home/home_pic1.png" style="width: 100%; max-height: 187px">
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="table-box ptb-15 container">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="limit-list text-center">
+                        <a href="/goods/list">
+                            <span class="limit">
+                                <i class="icon-clock"></i>
+                            </span>
+                            <span class="limit-buy">促销商品</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="limit-list text-center">
+                        <a href="/goods/list">
+                            <span class="limit" style="background: #53b930;">
+                                <i class="icon-buy"></i>
+                            </span>
+                            <span class="limit-buy">新品推荐</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="limit-list text-center">
+                        <a href="/goods/list">
+                            <span class="limit" style="background: #3baae4;">
+                                <i class="icon-brand"></i>
+                            </span>
+                            <span class="limit-buy">收藏商品</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="limit-list text-center">
+                        <a href="/goods/list">
+                            <span class="limit" style="background: #3baae4;">
+                                <i class="icon-brand"></i>
+                            </span>
+                            <span class="limit-buy">最近购买</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="categorybar">
+
+            <div class="pull-right" style="padding-top: 10px;margin-right: 20px;">
+                <span>
+                    <img src="/images/ic_grid.png" style="width: 30px;" />
+                </span>
+            </div>
+
+
+
+            <div class="segmented-control all-sort mt-0" style="width: 60%">
+                <a class="control-item active" href="javascript:;" onclick="getProductByClass('@ViewBag.SellerId', 0)">
+                    全部
+                </a>
+                @*<a class="control-item " href="javascript:;" id="modal_btn1">
+                        按品牌 <i class="icon-up1"></i>
+                    </a>*@
+                <a class="control-item " href="javascript:;" id="modal_btn">
+                    按品类 <i class="icon-up1"></i>
+                </a>
+            </div>
+
+
+
+
+        </div>
+
+
+
+        @* 展示产品信息*@
+        <div class="goods-box container" id="rev">
+            <div class="row goods_info">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @* 按品类查询 *@
+    <div id="modalContent" style="display: none; bottom: 0; left: 0;">
+        <ul class="goodsselect">
+            <li><a href='@Url.Action("List", "Goods", new {sellerId = @ViewBag.SellerId, classId = 0})'>全部品类</a></li>
+            @{
+                Html.RenderAction("GetSellerClass", "Seller", new { sellerId = @ViewBag.SellerId });
+            }
+        </ul>
+    </div>
+
+
+    <script type="text/javascript" src="/vendor/zepto/zepto.min.js"></script>
+    <script type="text/javascript" src="/vendor/zepto/plugins/swipeslide.min.js"></script>
+    <script type="text/javascript" src="/js/ly.js"></script>
+    <!-- <script type="text/javascript" src="/js/function.js"></script> -->
+    <script type="text/javascript" src="/vendor/zepto/plugins/pgwmodal/pgwmodal.min.js"></script>
+    <script type="text/javascript" src="/js/dropload.min.js"></script>
+    <script type="text/javascript" src="/js/swiper.min.js"></script>
+    <script type="text/javascript">
+        @*window.onload = function () {
+            var data = $("#goods_name").text();
+            if (!data) {
+                window.location = '@Url.RouteUrl(new {controller = "Login", action = "Index"})';
+            }
+
+        }*@
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            autoplay: 10000
+        });
+
+
+        getProductByClass(@ViewBag.SellerId, 0);
+
+
+        var classType=0;
+
+
+        $(function () {
+            $("#modal_btn").click(function () {
+
+                classType = 1;
+
+
+
+                loadClassType();
+
+                $.pgwModal({
+                    target: '#modalContent',
+                    closable: true,
+                    titleBar: true,
+                });
+            });
+            //$("#modal_btn1").click(function () {
+            //    classType = 1;
+
+            //    loadClassType();
+
+            //    $.pgwModal({
+            //        target: '#modalContent1',
+            //        closable: true,
+            //        titleBar: true,
+            //    });
+            //});
+            $(document).bind('PgwModal::Open', function () {
+                // Your code when the modal is opened.
+
+                $(".goodsselect>li").each(function () {
+                    console.log("goodsselect");
+                    //alert("open");
+                });
+
+                //$(".goodsselect>li").on('click', function() {
+                //    $(this).addClass("active").siblings("li").removeClass("active");
+                //    var str = $(".goodsselect>li.active>a").text();
+
+                //    $.pgwModal('close');
+                //}, false);
+            });
+
+
+            loadClassType();
+
+
+        });
+
+
+
+        function loadClassType() {  
+
+        console.log("classtype:"+classType);
+
+            $(".control-item").removeClass('active');
+            $(".control-item").eq(classType).addClass("active");
+        }
+
+
+        //<!-- ------------ "+" "-" 按钮点击时的处理 --------------------- -->
+        function cnum(object, price) {
+            var flag = 0;
+            var curPeople = Number(object.siblings().find("input[name='num']").val()); //获取当前数量
+            var goods_id = object.parents('.editcard_sum_plus').siblings().find('input[name="goods_id"]').val(); //商品id
+            var amount = object.parents('.goods1-box').find(".amount").attr('name'); //库存
+            var type = 0; //判断当单击的类型（+ or -）
+            if (object.hasClass("decrease")) { //点击减号
+                flag = -1;
+                curPeople -= 1;
+                if (curPeople == 1) {
+                    object.addClass("gray");
+                }
+
+                object.siblings().find("input").attr('value', curPeople);
+
+
+                if (curPeople == 0) {
+                    object.hide();
+                }
+
+                //type_h = 1; // 当前单击-号
+
+            } else if (object.hasClass("increase")) { //点击加号
+                flag = 1;
+                curPeople += 1;
+
+                if (curPeople > amount) {
+                    curPeople = amount;
+                    alert('库存量为' + amount);
+                    return false;
+                }
+                $('.icon-circle1').css('background', '#fb2727');
+                if (curPeople > 0) {
+                    object.siblings().removeClass("gray");
+                    object.siblings(".decrease").show();
+                }
+                object.siblings().find("input").attr('value', curPeople);
+                //type_h = 2; // 当前单击+号
+            }
+
+            //var result = 0;
+            //result = $('.icon-circle1').html();
+            //result = parseInt(result) + flag;
+            //if (result == 0) {
+            //    $('.icon-circle1').css('background', '000000');
+            //}
+            //$('.icon-circle1').html(result);
+
+
+
+            var product = $(object).closest('.goods1-box');
+
+            var lineInfo = getCartLine(product);
+
+            var orderdetail = $.toJSON(lineInfo);
+            //alert(orderdetail.toString() + " obj");
+            //alert("cartLineInfo:" + cartLineInfo);
+            $.ajax({
+                type: "POST",
+                url: "/Cart/UpdateCartLine",
+                dataType: "json",
+                data: { cartLineInfo: orderdetail },
+                success: function (data) {
+                    //  alert(data.Msg);
+
+                    if (data.IsSuccess) {
+                        $('.icon-circle1').html(data.Msg);
+                    } else {
+                        showWarnToast(data.Msg);
+                    }
+                }
+            });
+
+        };
+
+        //加载商品总数量
+        $(document).ready(function () {
+            $('.icon-circle1').html(0);
+
+            var id=@ViewBag.SellerId;
+
+            $.ajax({
+                type: "POST",
+                url: "/Cart/GetCartCount",
+                dataType: "json",
+                data: { sellerId:id},
+                success: function (data) {
+                    $('.icon-circle1').html(data.Msg);
+
+
+                    if (data.Msg > 0) {
+                        $('.icon-circle1').css('background','#fb2727');
+                    }
+                }
+            });
+
+        });
+
+
+        function showGoodsInfo(sellerid, productid) {
+            window.location = '@Url.Action("Info")' + '?sellerId=' + sellerid + "&productId=" + productid;
+            // alert(sellerid + ", " + productid);
+        }
+
+
+        function getProductByClass(sellerId, classid) {
+
+     
+
+            var url = "@Url.RouteUrl(new { action = "GetCategorysProduct", controller = "Goods"})";
+            url += "?classId=" + classid;
+            url += "&sellerId=" + sellerId;
+
+            var data = {};
+            $.post(url, data, function (result) {
+                //console.log("result"+result);
+                //console.log("data"+data);
+            //    console.log(result);
+                $("#rev .goods_info").html(result);
+               
+            });
+
+            $.pgwModal('close');
+
+            loadClassType();
+        }
+
+
+
+    </script>
+
+
+
+    <script>
+
+
+        //生成购物车中的一行信息
+        function getCartLine(productInfo) {
+            var lineCount = $(productInfo).find(".child_input").val();
+
+            var coun = parseInt(lineCount);
+            //var price = parseFloat($(productInfo).data("price"));
+            var sellerid = parseInt($(productInfo).data("sellerid"));
+            var productid = parseInt($(productInfo).data("productid"));
+            //var name = $(productInfo).data("productname");
+            var obj = { SellerId: sellerid, ProductId: productid, ProductQuantity: coun };
+
+
+            //var orderdetail = $.toJSON(obj);
+            //alert(orderdetail.toString() + " obj");
+            return obj;
+        }
+
+
+
+
+        ///添加商品到购物车
+        function addToCert() {
+
+            var curCount = parseInt($("#badge_cart").html());
+            if (curCount == 0) {
+                //  alert("什么也没有买~");
+                showWarnToast("什么也没有买~");
+                return false;
+            }
+
+
+            var mOrders = new Array();
+            var count = 0;
+            $(".goods1-box").each(function () {
+                mOrders[count++] = getCartLine(this);
+            });
+
+            var url = "@Url.RouteUrl(new { controller = "Product", action = "AddGoodsToCart"})";
+            var orderdetail = $.toJSON(mOrders);
+            //  alert(orderdetail);
+            //  console.log(params);
+            $.post(url, { cartLines: orderdetail }, function (data) {
+                if (data.IsSuccess) {
+                    window.location = "@Url.RouteUrl(new {action = "ShoppingCert", controller = "Product"})";
+                    showToast("成功添加到购物车");
+                } else {
+                    showWarnToast(data.Msg);
+                }
+            });
+
+            return false;
+        }
+
+
+
+        ///添加商品到购物车
+        function navToCert() {
+
+            window.location = "@Url.RouteUrl(new {action = "ShoppingCert", controller = "Product"})";
+            return false;
+        }
+
+
+        function navToMyAccount() {
+            // saveToCert();
+            window.location = "@Url.RouteUrl(new {action = "Index", controller = "Account"})";
+        }
+
+
+        ///保存商品到购物车 ,只保存,不跳转页面
+        function saveToCert() {
+
+            var curCount = parseInt($("#badge_cart").html());
+            if (curCount == 0) {
+                return false;
+            }
+
+
+            var mOrders = new Array();
+            var count = 0;
+            $(".goods1-box").each(function () {
+                mOrders[count++] = getCartLine(this);
+            });
+
+            var url = "@Url.RouteUrl(new { controller = "Product", action = "AddGoodsToCart"})";
+            var orderdetail = $.toJSON(mOrders);
+            //  alert(orderdetail);
+            //  console.log(params);
+            $.post(url, { cartLines: orderdetail }, function (data) {
+                if (data.IsSuccess) {
+                    showToast("成功添加到购物车");
+                } else {
+                    showWarnToast(data.Msg);
+                }
+            });
+
+            return false;
+        }
+
+
+    </script>
+
+
+    <script>
+        function showToast(text) {
+            var $toast = $('#toast');
+            if ($toast.css('display') != 'none') return;
+            $("#toastInfo").html(text);
+            $toast.fadeIn(100);
+            setTimeout(function () {
+                $toast.fadeOut(100);
+            }, 2000);
+
+        }
+
+        function showWarnToast(text) {
+            var $toast = $('#toast-warn');
+            if ($toast.css('display') != 'none') return;
+            $("#toastInfo-warn").html(text);
+            $toast.fadeIn(100);
+            setTimeout(function () {
+                $toast.fadeOut(100);
+            }, 2000);
+        }
+
+
+
+    </script>
+
+
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content" id="toastInfo">...</p>
+        </div>
+    </div>
+
+    <div id="toast-warn" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast" style="padding-top: 10px;color: white">
+            <i class="weui-icon-warn weui-icon_msg"></i>
+            <p class="weui-toast__content" style="color: white" id="toastInfo-warn"></p>
+        </div>
+    </div>
+</body>
+</html>

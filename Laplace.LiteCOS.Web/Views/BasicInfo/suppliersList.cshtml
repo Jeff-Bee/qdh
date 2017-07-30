@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>供应商</title>
+</head>
+<body>
+    <div style="width:100%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;供应商
+        </div>
+        <div>
+            <div style="height:310px;border:1px solid #dddddd;overflow:auto" id="supp_list">
+                <table id="suppInfo"></table>
+            </div>
+            <div style="width:100%;margin-top:5px;line-height:30px;">
+                <span style="float:left;width:60%;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="addSuppliers()">空白新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editForm(1)">复制新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editForm(0)">修改</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="delSuppliser()">删除</a>&nbsp;&nbsp;
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+                </span>
+                <span style="float:right;">
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                    <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('供应商')">退出(X)</a>
+                </span>
+            </div>
+        </div>
+
+        <form id="addsuppInfo" style="display:none;">
+            <input type="hidden" id="hid_SupplierId" />
+            <div style="width:97%;margin:0 auto;border:1px solid #ccc;padding:5px;margin-top:2px;" class="u_div">
+                <div><span class="span_left"><b style="color:red;">*</b>单位名称</span><span><input type="text" class="userTxt" style="width:280px;" name="suppName" id="suppName" /> </span> </div>
+                <div><span class="span_left"><b style="color:red;">*</b>单位编号</span><span style="float:left;"><input type="text" class="userTxt" name="suppCode" id="suppCode" /> </span><span class="span_left" style="width:70px;"><input type="checkbox" name="isSuppasc" id="isSuppasc" />编码递增 </span> </div>
+                <div><span class="span_left"><b style="color:red;">*</b>手机 </span><span style="float:left;"><input type="text" class="userTxt" name="suppPhone" id="suppPhone" /> </span><span class="span_left">联系人</span><span style="float:left;"><input type="text" class="userTxt" name="suppContact" id="suppContact" /> </span>  </div>
+                <div><span class="span_left">税号</span><span style="float:left;"><input type="text" class="userTxt" name="suppTaxnum" id="suppTaxnum" /> </span><span class="span_left"><b style="color:red;">*</b>所属地区</span><span style="float:left;"><input id="suppArea" class="userTxt" style="height:20px;" /> </span> </div>
+                <div><span class="span_left">电话</span><span style="float:left;"><input type="text" class="userTxt" name="suppTel" id="suppTel" /> </span><span class="span_left"><b style="color:red;">*</b>换货天数</span><span style="float:left;"><input type="text" class="userTxt" name="supExchangeDay" value="0" onblur="CheckNum($(this))" id="supExchangeDay" /> </span> </div>
+                <div><span class="span_left">电子邮件</span><span style="float:left;width:110px;"><input type="text" class="userTxt" name="suppEmail" id="suppEmail" /> </span><span class="span_left" style="width:75px;"><b style="color:red;">*</b>换货比例(%)</span><span style="float:left;"><input type="text" class="userTxt" name="suppExchangePercent" value="100" onblur="CheckNum($(this))" id="suppExchangePercent" /> </span></div>
+                <div><span class="span_left"><b style="color:red;">*</b>地址</span><span style="float:left;"><input type="text" class="userTxt" name="suppAdress" style="width:280px;" id="suppAdress" /> </span></div>
+                <div><span class="span_left">开户银行</span><span style="float:left;"><input type="text" class="userTxt" style="width:280px;" name="suppAccount" id="suppAccount" /> </span></div>
+                <div><span class="span_left">银行账号</span><span style="float:left;"><input type="text" class="userTxt" style="width:280px;" name="suppBank" id="suppBank" /> </span></div>
+                <div><span class="span_left">备注</span><span style="float:left;"><input type="text" class="userTxt" style="width:280px;" name="suppNote" id="suppNote" /> </span></div>
+                <div style="clear:both;width:100%;"> </div>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:center;">
+                <a class="easyui-linkbutton" onclick="addSuppSave(1)">保存并新增</a> <a class="easyui-linkbutton" onclick="addSuppSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="closesuppAdd()">关闭(X)</a>
+            </div>
+            <script src="~/Scripts/SuppliersList.js"></script>
+        </form>
+
+        <form id="GetAreaList" style="display:none;width:240px;">
+            <div style="height:28px;line-height:28px"><input id="supAreaListSearch" style="height:22px;" />  <input type="text" id="supAreaSearchContent" class="userTxt" /> <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchSupArea()"></a> </div>
+            <table id="supAreaList" style="height:290px;overflow:auto;" >
+
+            </table>
+            <div style="margin-top:10px;"><a href="#" style="float:left" onclick="SupAreaChecked()" id="supAreaCheck">选中(K)</a><a href="#" style="float:right;margin-right:20px;" class="easyui-linkbutton" onclick="CloseCheckSupArea()">关闭(X)</a> </div>
+        </form>
+    </div>
+</body>
+</html>

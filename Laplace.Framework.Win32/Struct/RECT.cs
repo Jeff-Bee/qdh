@@ -1,0 +1,80 @@
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Drawing;
+
+namespace Laplace.Framework.Win32.Struct
+{
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RECT
+    {
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+
+        public RECT(int left, int top, int right, int bottom)
+        {
+            Left = left;
+            Top = top;
+            Right = right;
+            Bottom = bottom;
+        }
+
+        public RECT(Rectangle rect)
+        {
+            Left = rect.Left;
+            Top = rect.Top;
+            Right = rect.Right;
+            Bottom = rect.Bottom;
+        }
+
+        public Rectangle Rect
+        {
+            get
+            {
+                return new Rectangle(
+                    Left,
+                    Top,
+                    Right - Left,
+                    Bottom - Top);
+            }
+        }
+
+        public Size Size
+        {
+            get
+            {
+                return new Size(Right - Left, Bottom - Top);
+            }
+        }
+
+        public static RECT FromXYWH(
+            int x, int y, int width, int height)
+        {
+            return new RECT(x,
+                            y,
+                            x + width,
+                            y + height);
+        }
+
+        public static RECT FromRectangle(Rectangle rect)
+        {
+            return new RECT(rect.Left,
+                             rect.Top,
+                             rect.Right,
+                             rect.Bottom);
+        }
+    }
+
+
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SIZE
+    {
+        public Int32 cx;
+        public Int32 cy;
+
+        public SIZE(Int32 cx, Int32 cy) { this.cx = cx; this.cy = cy; }
+    }
+}

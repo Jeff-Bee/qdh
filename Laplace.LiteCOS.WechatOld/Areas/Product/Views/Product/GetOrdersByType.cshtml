@@ -1,0 +1,81 @@
+﻿@using Laplace.LiteCOS.Model
+@using Laplace.LiteCOS.Wechat.Areas.Product.Models
+@model List<SellerOrderRunViewModel>
+
+
+@{
+    foreach (SellerOrderRunViewModel run in Model)
+    {
+        <div class="order-preview">
+            <div class="order-no weui-flex order-preview-line header">
+                <div style="font-size: 12px;">订单编号:@run.Code</div>
+                <div class="weui-flex__item" style="font-size: 12px; color: gray; text-align: right; padding-right: 10px; padding-top: 5px;">
+                    @run.OrderStateString
+                </div>
+            </div>
+
+            <div>
+                @{
+                    foreach (SellerOrderDetail detail in run.Details)
+                    {
+                        <div class="weui-flex order-preview-line">
+                            <div>
+                                <img class="img-product" src="@Url.RouteUrl(new {area="Product",controller="Product",action="GetPic"})?productId=@detail.ProductId&sellerId=@detail.SellerId" alt="">
+                            </div>
+                            <div class="weui-flex__item order-preview-content">
+                                <div class="p_name nowrap" href="#">@detail.ProductName </div>
+                                <div>
+                                    <span class="p_price">&yen;@detail.ProductPrice * @detail.ProductQuantity</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="weui-flex order-preview-line footer" style="background: #F0EFEF">
+
+
+                    <div style="margin-right: 20px;margin-top: 5px;vertical-align: middle;">
+                        总价:<span class="p_price big">&yen;@run.Amount</span>
+                    </div>
+
+                    <div class="weui-flex__item">
+                        <div style="font-size: 12px;">
+                            地址:@ViewBag.Addr
+                        </div>
+                        <div style="font-size: 12px;">
+                            电话:@ViewBag.Phone
+                        </div>
+                    </div>
+
+
+                    <div class="weui-flex__item" style="padding-right: 10px; text-align: right;">
+                        @*  <a class="weui-btn-area weui-btn weui-btn_mini weui-btn_plain-primary">去支付</a>*@
+                        @if (run.OrderState == (int)ESellerOrderState.BuyerOrder)
+                        {
+                        <a onclick="cancelOrder('@run.OrderId','@run.SellerId')" class="weui-btn weui-btn_mini weui-btn_default">取消订单</a>
+                        }
+                        else if (run.OrderState == (int)ESellerOrderState.SellerDelivery)
+                        {
+                        <a onclick="receiveOrder('@run.OrderId','@run.SellerId')" class="weui-btn weui-btn_mini weui-btn_default">确认收货</a>
+                        }
+                        else if (run.OrderState == (int)ESellerOrderState.SellerConfirm)
+                        {
+                        <a onclick="cancelOrder('@run.OrderId','@run.SellerId')" class="weui-btn weui-btn_disabled weui-btn_mini weui-btn_default">待发货</a>
+                        }
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+                    }
+}
+
+
+@*<script>
+  
+    $(".p_name").css("width", "100px;");
+</script>*@

@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Demo</title>
+</head>
+<body class="easyui-layout">
+   
+    <div style="float:left;width:200px;border-right:1px solid #ccc;">
+        <div style="width:100%;background-color:#1976bb;line-height:30px;">设备列表</div>
+        <div style="width:100%;height:600px;overflow:auto;">
+            <div style="width:100%;background-color:#e1cc4b;line-height:30px;text-align:center;">我的定位设备</div>
+            <div style="width:100%;">
+                <table style="width:105px;margin-left:40px;" id="equipmentList">
+                    <tr>
+                        <td><img src="~/images/equipment.png" style="width:50px;height:20px;" /> </td>
+                        <td class="eqCode">150010</td>
+                    </tr>
+                    <tr>
+                        <td><img src="~/images/equipment.png" style="width:50px;height:20px;" /> </td>
+                        <td class="eqCode">150011</td>
+                    </tr>
+                    <tr>
+                        <td><img src="~/images/equipment.png" style="width:50px;height:20px;" /> </td>
+                        <td class="eqCode">150012</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div style="float:left;padding:30px 0 0 30px;">
+        <div style="width:300px;height:200px;line-height:30px;">
+            <input type="hidden" id="hid_eqCarId" />
+            <div style="width:100%;">
+                <span style="float:left;width:70px;" class="userTxt">设备代码:</span><span style="float:left;"><input type="text" placeholder="请输入6位设备代码" id="eqcode" /> </span>
+            </div>
+            <div style="width:100%;clear:both;">
+                <span style="float:left;width:70px;" class="userTxt">校 验 码:</span><span style="float:left;"><input type="text" placeholder="请输入3位设备验证码" id="eqjym" /> </span>
+            </div>
+            <div style="width:100%;clear:both;">
+                <span style="float:left;width:70px;" class="userTxt">设备名称:</span><span style="float:left;"><input type="text" placeholder="请输入设备名称" id="eqname" /> </span>
+            </div>
+            <div style="clear:both;width:100%;height:10px;"> </div>
+            <div style="height:30px;line-height:30px;text-align:center;"><a href="#" class="easyui-linkbutton btn" id="equipmentAdd">新建</a> <a href="#" class="easyui-linkbutton btn">保存</a> <a href="#" class="easyui-linkbutton btn">修改</a> <a href="#" class="easyui-linkbutton btn">删除</a> <a href="#" class="easyui-linkbutton btn">退出</a> </div>
+        </div>
+    </div>
+</body>
+</html>

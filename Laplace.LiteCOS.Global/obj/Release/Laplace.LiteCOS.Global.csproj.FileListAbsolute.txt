@@ -1,0 +1,4 @@
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Global\bin\Release\Laplace.LiteCOS.Global.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Global\bin\Release\Laplace.LiteCOS.Global.pdb
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Global\obj\Release\Laplace.LiteCOS.Global.dll
+D:\兼职\趣订购\源码\trunk\Code\Laplace.LiteCOS.Global\obj\Release\Laplace.LiteCOS.Global.pdb

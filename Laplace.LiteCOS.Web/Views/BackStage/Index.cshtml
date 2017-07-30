@@ -1,0 +1,282 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>趣订货管理系统</title>
+    <link href="~/Scripts/easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Scripts/easyui/themes/icon.css" rel="stylesheet" />
+    <link href="~/Content/product.css" rel="stylesheet" />
+</head>
+<body class="easyui-layout">
+    <div region="north" title="" style="height:70px;">
+        <div style="width:100%;height:40px;line-height:40px;border-bottom:1px solid #ccc"><span style="margin-left:20px;font-size:20px;font-weight:700;color:#58d9b6;float:left;">趣订货管理系统</span><div style="float:left;margin-left:20px;"><a href="#" class="easyui-menubutton" menu="#msg" iconCls="icon-mail" menuAlign="top" style="font-size:16px;" id="TotalMsg">消息<label id="totalMsgCount" style="color:red;">0</label></a></div> </div>
+        <div id="msg" style="width:130px;display:none">
+            <div onclick="OpenOrderManager()">新订单消息(<label id="NewOrderMsg">0</label>)</div>
+            <div id="BusinessMsg">业务消息(0)</div>
+            <div id="SystemMsg">系统公告(0)</div>
+        </div>
+        <div style="width:100%;height:25px;line-height:25px;" class="bc_menu">
+            <ul style="margin-left:20px;"id="menuList">
+                @Html.Raw(ViewBag.menu)
+            </ul>
+            <span style="float:right;margin-right:10px;"><a href="javascript:;" id="user">@ViewBag.UserName</a> </span><span style="float:right">&nbsp;|&nbsp;</span> <span style="float:right;margin-right:10px;cursor:pointer;" onclick="OnlineConsulting()"><img src="~/images/R_040.png" style="vertical-align:middle" /> 客服在线</span><span style="float:right;margin-right:10px;"><img src="~/images/R_007.png" style="vertical-align:middle" /> 400-1234-5678</span>
+        </div>
+    </div>
+    <div region="west" style="width:60px;background-color:#205ca7;">
+        <div class="target_row" onclick="LeftNavite(1)">
+            <div class="target_row_img"><img src="~/images/Market_normal.png" class="market_img" id="Market" onmouseover="Let_Over(0)" onmouseout="Let_Out(0)" style="width:42px;margin-top:5px;" /> </div>
+            <div style="text-align:center;font-size:15px;">商城</div>
+        </div>
+        <div class="target_row" onclick="LeftNavite(2)">
+            <div class="target_row_img"><img src="~/images/saleoutstock_normal.png" id="Index_Sale" onmouseover="Let_Over(1)"  onmouseout="Let_Out(1)" style="width:42px;margin-top:5px;" /></div>
+            <div style="text-align:center;">销售</div>
+        </div>
+        <div class="target_row" onclick="LeftNavite(3)">
+            <div class="target_row_img"><img src="~/images/Stock_normal.png" id="Index_Stock" onmouseover="Let_Over(2)" onmouseout="Let_Out(2)" style="width:42px;margin-top:5px;"  /></div>
+            <div style="text-align:center;">进货</div>
+        </div>
+        <div class="target_row" onclick="LeftNavite(4)">
+            <div class="target_row_img"><img src="~/images/finance_hover.png" onmouseover="Let_Over(3)" id="index_info" onmouseout="Let_Out(3)" style="width:42px;margin-top:5px;" /></div>
+            <div style="text-align:center;font-size:15px;">资料</div>
+        </div>
+    </div>
+    <div region="center" class="index_center">
+        <div id="tabs">
+            <div title="导航页" style="padding:10px 0 0 10px;min-width:500px;overflow:auto;">
+                @*欢迎登录趣订货管理系统!*@
+                @*资料对应内容*@
+                <div id="index_dh" class="index_dh" style="text-align:center;">
+                    <div style="height:60px;" class="index_Info">
+                        <div style="" onclick="AddTab('商品信息','/BasicInfo/ProductInfo')">
+                            <div class="img">
+                                <img src="/images/商品.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>商品</div>
+                        </div>
+                        <div style="" onclick="AddTab('买家信息', '/BasicInfo/GetUserInfoList')">
+                            <div class="img">
+                                <img src="~/images/职员.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>买家信息</div>
+                        </div>
+                        <div style="" onclick="AddTab('供应商','/BasicInfo/suppliersList')">
+                            <div class="img">
+                                <img src="~/images/来往单位.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>供应商信息</div>
+                        </div>
+                    </div>
+                    <div style="height:60px;margin-top:100px;clear:both;margin-left:75px;" class="index_Info">
+
+                        <div style="" onclick="AddTab('职员信息','/BasicInfo/InternalStaffInfo')">
+                            <div class="img">
+                                <img src="~/images/03.职员.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>职员信息</div>
+                        </div>
+
+                        <div style="" onclick="AddTab('在线支付', '/BasicInfo/PayMentMode')">
+                            <div class="img">
+                                <img src="~/images/在线支付设置.png" style="margin-top:15px;height:75px;width:85px;" />
+                            </div>
+                            <div>在线支付</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                @*线下销售*@
+                <div style="height:60px;margin-top:15%;display:none;" class="index_dh index_Info" id="index_UnderLineSale">
+                    <div style="" onclick="AddTab('销售出库', '/BasicInfo/SalesOutOfTheLibrary')">
+                        <div class="img">
+                            <img src="~/images/销售出库.png" style="margin-top:15px;height:75px;" />
+                        </div>
+                        <div>销售出库</div>
+                    </div>
+                    <div style="" onclick="AddTab('销售报表', '/BasicInfo/SaleReport?type=outline')">
+                        <div class="img">
+                            <img src="~/images/销售报表.png" style="margin-top:15px;height:75px;" />
+                        </div>
+                        <div>销售报表</div>
+                    </div>
+
+                </div>
+
+                @*进货管理*@
+                <div style="height:60px;margin-top:15%;display:none;width:600px" class="index_dh index_Info" id="index_PurchaseOrder">
+                    <div style="" onclick="AddTab('供应商', '/BasicInfo/suppliersList')">
+                        <div class="img">
+                            <img src="~/images/来往单位.png" style="margin-top:15px;height:75px;" />
+                        </div>
+                        <div>供应商信息</div>
+                    </div>
+                    <div style="" onclick="AddTab('商品进货', '/BasicInfo/PurchaseOrderList')">
+                        <div class="img">
+                            <img src="~/images/商品进货.png" style="margin-top:15px;height:75px;" />
+                        </div>
+                        <div>商品进货</div>
+                    </div>
+
+                    <div style="" onclick="AddTab('库存状态', '/BasicInfo/InventoryLevelsView')">
+                        <div class="img">
+                            <img src="~/images/库存状态.png" style="margin-top:15px;height:75px;width:85px;" />
+                        </div>
+                        <div>库存状态</div>
+                    </div>
+
+                    <div style="" onclick="AddTab('进货报表', '/BasicInfo/PurchaseOrderReport')">
+                        <div class="img">
+                            <img src="~/images/销售报表.png" style="margin-top:15px;height:75px;width:85px;" />
+                        </div>
+                        <div>进货报表</div>
+                    </div>
+
+                </div>
+
+                @*商城对应内容*@
+                <div class="index_dh" id="index_Product" style="text-align:center;display:none;">
+                    <div style="height:60px;" class="index_Info">
+                        <div style="" onclick="AddTab('买家信息', '/BasicInfo/GetUserInfoList')">
+                            <div class="img">
+                                <img src="~/images/01.买家信息.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>买家信息</div>
+                        </div>
+                        <div style="" onclick="AddTab('商品上架', '/BasicInfo/ProductOnSale')">
+                            <div class="img">
+                                <img src="~/images/商品上架.png" style="margin-top:15px;height:75px;width:85px;" />
+                            </div>
+                            <div>商品上架</div>
+                        </div>
+                        <div style="" onclick="AddTab('订单管理', '/BasicInfo/OrderControl')">
+                            <div class="img">
+                                <img src="~/images/订单管理.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>订单管理</div>
+                        </div>
+                    </div>
+                    <div style="height:60px;margin-top:100px;" class="index_Info">
+                        <div style="" onclick="AddTab('图片轮播', '/BasicInfo/NewLine')">
+                            <div class="img">
+                                <img src="~/images/新品发布.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>图片轮播</div>
+                        </div>
+                        <div style="" onclick="AddTab('销售报表', '/BasicInfo/SaleReport?type=online')">
+                            <div class="img">
+                                <img src="~/images/销售报表.png" style="margin-top:15px;height:75px;width:85px;" />
+                            </div>
+                            <div>销售报表</div>
+                        </div>
+                        <div style="" onclick="AddTab('消息推送', '/BasicInfo/PromotionInfo')">
+                            <div class="img">
+                                <img src="~/images/促销信息.png" style="margin-top:15px;height:75px;" />
+                            </div>
+                            <div>消息推送</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="editUser" style="margin:0;padding:5px 0 0 5px;display:none;">
+        <div style="width:100%;margin-top:20px;">
+            <div style="float:left;width:47%;">
+                <fieldset>
+                    <legend>注册信息</legend>
+                    <p>用户编号:<input type="text" name="ucode" /> </p>
+                    <p>手机号码:<input type="text" name="uphone" /> </p>
+                    <p>微信账号:<input type="text" name="weicat" /> </p>
+                </fieldset>
+            </div>
+            <div style="float:left;width:47%;margin-left:5%;">
+                <fieldset>
+                    <legend>登录信息</legend>
+                    <p style="padding-left:21px;">商城名称:<input type="text" name="mall" /> </p>
+                    <p>管理员密码:<input type="text" name="adminpwd" /> </p>
+                    <p>操作员密码:<input type="text" name="opeartorpwd" /> </p>
+                </fieldset>
+            </div>
+        </div>
+        <div style="margin-top:20px;width:99%">
+            <fieldset>
+                <legend>登录信息</legend>
+                <p style="padding-left:21px;">联系人:<input type="text" name="mall" /> </p>
+                <p>公司名称:<input type="text" name="adminpwd" /> </p>
+                <p>公司地址:<input type="text" name="opeartorpwd" /> </p>
+                <p>电子邮箱:<input type="text" name="opeartorpwd" /> </p>
+                <p>所属行业:<input type="text" name="opeartorpwd" /> </p>
+                <p>所属省份:<input type="text" name="opeartorpwd" /> </p>
+            </fieldset>
+        </div>
+
+    </form>
+
+    <!--修改密码-->
+    <form id="editPwd" style="display:none;">
+        <div style="width:100%;">
+            <div style="width:97%;margin:5px auto;border:1px solid #ccc;">
+                <div style="line-height: 28px;color: brown;margin-top: 3px;word-wrap: break-word;word-break: break-all;">如何设置安全密码?</div>
+                <p>密码长度必须为8-20位，且同时包含字母、数字和符号，三种字符的组合。</p>
+                <p>避免使用太简单的密码，如：woaini1314，password。</p>
+                <p>避免使用有规律的数字或字母，如：123，321，aaa，ABC。</p>
+                <p>避免以3个连续特殊字符组合结尾，如:！@Html.Raw("@")#。</p>
+                <p>避免用公司名、用户名或联系人的拼音首字母开头。</p>
+            </div>
+            <div style="width:97%;margin:0 auto;">
+                <div style="line-height:40px;"><span style="float:left;width:100px;text-align:right;margin-right:5px;">原密码</span><input type="password" class="txt" name="oldPwd" /> </div>
+                <div style="line-height:40px;"><span style="float:left;width:100px;text-align:right;margin-right:5px;">新密码</span><input type="password" class="txt" name="newPwd" /> </div>
+                <div style="line-height:40px;"><span style="float:left;width:100px;text-align:right;margin-right:5px;">确认密码</span><input type="password" class="txt" name="verifyPwd" /> </div>
+            </div>
+        </div>
+    </form>
+
+    <!--修改注册信息-->
+    <form id="editUserInfo" style="display:none;">
+        <div style="width:100%;">
+            <div style="width:95%;margin-left:20px;line-height:40px;">
+                <span style="float:left;width:80px;text-align:right">手机号码:</span>
+                <input type="text" class="txt" onblur="CheckPhone($(this))" name="oldPhone" /><span style="margin-left:20px;">原手机号:<label id="old_phone" style="color:red;"></label> </span>
+            </div>
+            <div style="width:95%;margin-left:20px;line-height:40px;">
+                <span style="float:left;width:80px;text-align:right">联系人姓名:</span>
+                <input type="text" class="txt" name="name" />
+            </div>
+            <div style="width:95%;margin-left:20px;line-height:40px;">
+                <span style="float:left;width:80px;text-align:right">电子邮件:</span>
+                <input type="text" class="txt" onblur="CheckEmail($(this))" name="newEmail" />
+            </div>
+            <div style="width:95%;margin-left:20px;line-height:40px;">
+                <span style="float:left;width:80px;text-align:right">企业名称:</span>
+                <input type="text" class="txt" name="businessName" />
+            </div>
+            <div style="width:95%;margin-left:20px;line-height:40px;">
+                <span style="float:left;width:80px;text-align:right">所属行业:</span>
+                <input id="industry"  style="height:22px;width:170px;" class="txt"/>
+            </div>
+            <input type="hidden" id="hid_index_IndustryId" />
+        </div>
+    </form>
+
+    <!--用戶管理-->
+    <div id="userList" style="width:120px;display:none;">
+        <div onclick="EditPwd()">修改密码</div>
+        <div onclick="EditUserInfo()">修改注册信息</div>
+        <div onclick="Equit()">退出</div>
+    </div>
+    <script src="/Scripts/easyui/jquery.min.js"></script>
+    <script src="/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script src="/Scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/easyui/jquery.etree.js"></script>
+    <script src="~/Scripts/jquery-form.js"></script>
+    <script src="~/Scripts/Index.js"></script>
+</body>
+
+</html>

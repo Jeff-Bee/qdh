@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8FCC737B-551D-4C1F-8AD5-B798DAA60C68}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Laplace.LiteCOS.Model</RootNamespace>
+    <AssemblyName>Laplace.LiteCOS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DapperExtensions, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DapperExtensions.1.4.4\lib\net40\DapperExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuyerProductView.cs" />
+    <Compile Include="BuyerShoppingCart.cs" />
+    <Compile Include="BuyerShoppingCartViewModel.cs" />
+    <Compile Include="NewProductLaunch.cs" />
+    <Compile Include="SaleAds.cs" />
+    <Compile Include="SellerOnlinePaymentInfo.cs" />
+    <Compile Include="SellerDeliveryRun.cs" />
+    <Compile Include="SellerDeliveryCarRecord.cs" />
+    <Compile Include="SellerDeliveryCarRealData.cs" />
+    <Compile Include="SalersOrderDetail.cs" />
+    <Compile Include="SellerOrderDetail.cs" />
+    <Compile Include="SellerDeliveryCarInfo.cs" />
+    <Compile Include="SalersOrderRun.cs" />
+    <Compile Include="SellerOrderRun.cs" />
+    <Compile Include="SellerProductOnlineCustomerStrategy.cs" />
+    <Compile Include="SellerProductOnline.cs" />
+    <Compile Include="SellerAccountInfo.cs" />
+    <Compile Include="SellerBuyDetail.cs" />
+    <Compile Include="SellerStoreHouseInfo.cs" />
+    <Compile Include="SellerBuyInfo.cs" />
+    <Compile Include="SellerCustomerInfo.cs" />
+    <Compile Include="SellerStockPile.cs" />
+    <Compile Include="SellerSupplierInfo.cs" />
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="PictureInfo.cs" />
+    <Compile Include="SellerColumnConfig.cs" />
+    <Compile Include="SellerAreaInfo.cs" />
+    <Compile Include="SellerEmployeeInfo.cs" />
+    <Compile Include="SellerDeptInfo.cs" />
+    <Compile Include="ProductUnitInfo.cs" />
+    <Compile Include="ProductSpecInfo.cs" />
+    <Compile Include="ProductClassInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BuyerInfo.cs" />
+    <Compile Include="IndustryInfo.cs" />
+    <Compile Include="ProductInfo.cs" />
+    <Compile Include="SellerInfo.cs" />
+    <Compile Include="SmsLog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Laplace.LiteCOS.Common\Laplace.LiteCOS.Common.csproj">
+      <Project>{7eef917a-92c5-4135-b88a-558353944127}</Project>
+      <Name>Laplace.LiteCOS.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

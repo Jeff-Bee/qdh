@@ -1,0 +1,566 @@
+﻿body {
+}
+
+/*  折叠 */
+.layout-expand-west {
+    background-color:rgba(107, 156, 222, 1);
+}
+/*   主页显示样式  */
+
+    .index_Info>div{
+   width:120px;height:120px;margin-right:5%;float:left;
+   text-align:center;
+   vertical-align:bottom;
+    background-color:rgba(74, 159, 209, 1);
+     -moz-border-radius: 15px;      /* Gecko browsers */
+    -webkit-border-radius: 15px;   /* Webkit browsers */
+    border-radius:15px;            /* W3C syntax */
+}
+    .index_Info > div > div {
+        color:#fff;
+        
+    }
+.index_Info .img {
+    width:120px;height:100px;
+}
+    .index_Info div > img {
+        border:none;
+       
+    }
+.index_dh {
+    width:480px;
+    margin:0 auto;
+    margin-top:7%;
+}
+
+/*        趣订货后台主页        */
+* {
+    list-style: none;
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.bc_menu ul li {
+    float: left;
+    margin-left: 10px;
+}
+
+.target_row {
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid gray;
+    color: #fff;
+    font-size: 16px;
+}
+
+.target_row_img {
+    height: 55px;
+    line-height: 55px;
+    width: 100%;
+    text-align: center;
+}
+
+#editPwd p {
+    padding-left: 10px;
+    line-height: 28px;
+}
+
+#editUser input[type=text] {
+    width: 160px;
+    height: 22px;
+    line-height: 22px;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+}
+
+#editUserInfo .txt {
+    width: 170px;
+}
+
+#menuList li {
+    min-width: 80px;
+}
+
+.index_center .tabs-header {
+    background-color: #205ca7;
+}
+/* 退出统一样式 */
+.color_red {
+color:red;
+}
+
+/*    表格统一样式     */
+.datagrid-header-row {
+    color:#fff;
+    background-color:rgba(32, 92, 167, 1);
+}
+
+.lbtn_a {
+    width:60px;
+    text-align:center;
+}
+
+/*       商品信息      */
+.select_cls {
+    width: 120px;
+}
+
+.lft_lb {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .lft_lb > a {
+        width: 80px;
+    }
+
+#baseInfo div,#pos_baseInfo div {
+    line-height: 30px;
+    clear: both;
+}
+
+#baseInfo .span_left,#pos_baseInfo .span_left{
+    float: left;
+    width: 60px;
+    text-align: left;
+    margin-left:10px;
+}
+
+.span_left {
+    float: left;
+    width: 70px;
+    text-align: left;
+}
+
+.productTxt {
+    height: 20px;
+    width: 70px;
+    margin-left: 5px;
+    float: left;
+}
+
+.numberbox {
+    height: 22px;
+    width: 74px;
+    margin-left: 5px;
+    float: left;
+}
+
+#treeEdit div {
+    padding-left: 5px;
+}
+
+/*        客户信息        */
+#userInfo .span_left {
+    float: left;
+    width: 60px;
+}
+
+.u_div > div {
+    line-height: 30px;
+    clear: both;
+}
+
+.userTxt {
+    width: 95px;
+    height: 18px;
+    margin-right: 15px;
+}
+
+/*     内部职员信息     */
+#addUser .span_left {
+    float: left;
+    width: 60px;
+}
+
+#addUser .userTxt {
+    height: 18px;
+    width: 105px;
+}
+
+#addUser .user_top > div {
+    line-height: 30px;
+    clear: both;
+}
+
+/*      进货单   */
+.pol_title {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+.pol_search {
+    width: 100%;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    height: 50px;
+    line-height: 50px;
+}
+
+.pol_body {
+    width: 100%;
+}
+
+.pol_row {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+}
+
+.pol_txt {
+    width: 120px;
+    height: 20px;
+    line-height:20px;
+    border:1px solid rgba(149, 184, 231, 1);
+}
+
+/*      地区信息    */
+#addArea .user_top > div {
+    line-height: 30px;
+    clear: both;
+}
+
+/*   通用一行    */
+ .div_row {
+        line-height:35px;
+        height:35px;
+        width:100%;
+        }
+.btn {
+    padding:0px 5px;
+    height:24px;
+    line-height:20px;
+}
+
+/*   设备信息设备列表样式   */
+#equip_add .span_left {
+    width:60px;
+}
+
+.datagrid-cell-c1-SaleState {
+            text-align:left;
+        }
+
+#PI_AddInfo .span_left {
+    width:70px;
+    padding-left:0px;
+    text-align:right;
+}
+
+ .numberbox {
+        margin:0px;
+        }
+
+
+
+ .clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix:after {
+    overflow: hidden;
+}
+
+.clearfix li {
+    position: relative;
+    float: left;
+    
+    height: 30px;
+    line-height: 30px;
+    color: #888;
+    font-size: 14px;
+    text-align: left;
+    /* cursor: pointer; */
+}
+
+.clearfix li.on a {
+    color: #00b8d2;
+}
+
+
+.onlinepay-list .onlinepay-item.enabled {
+    background-color: #f5fffd;
+    border-color: #00be99;
+}
+.onlinepay-list .onlinepay-item {
+    float: left;
+    width: 288px;
+    height: 185px;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    padding: 20px 30px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.onlinepay-item-header {
+    margin-bottom: 0px;
+}
+
+.fl {
+    float: left!important;
+}
+
+
+
+.icon-onlinepay {
+    display: block;
+    height: 35px;
+    background: url(../images/online_pay_20151124.png) no-repeat;
+}
+
+.icon-onlinepay-zhifubao {
+    width: 110px;
+    background-position: 0 -42px;
+    height: 36px;
+}
+
+i {
+    font-style: normal;
+}
+
+.onlinepay-item-header .onlinepay-status {
+    line-height: 35px;
+    font-size: 14px;
+    color: #888;
+}
+
+.onlinepay-item-body {
+    height: 75px;
+}
+
+.onlinepay-item-body p {
+    line-height: 25px;
+    font-size: 14px;
+    color: #888;
+}
+
+.onlinepay-item-footer .onlinepay-tip {
+    line-height: 32px;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.ui-btn-theme {
+    color: #fff;
+    background-color: #099fb8;
+}
+.ui-btn {
+    min-width: 90px;
+    width: auto;
+    margin-bottom: 0;
+    font-weight: 400;
+    white-space: nowrap;
+    background-image: none;
+    padding: 0 5px;
+}
+
+.ui-btn, .ui-btn-txt {
+    display: inline-block;
+    line-height: 32px;
+    height: 32px;
+}
+.ui-btn, .ui-btn-noInfo {
+    border: 0;
+    text-align: center;
+}
+.ui-btn, .ui-btn-noInfo-ico {
+    font-size: 14px;
+    vertical-align: middle;
+}
+.ui-btn, .ui-icon-big-x, .ui-op {
+    cursor: pointer;
+}
+
+.icon-onlinepay-weixin {
+    width: 150px;
+    background-position: 0 -122px;
+    height: 38px;
+}
+.icon-onlinepay {
+    display: block;
+    height: 35px;
+    background: url(../images/online_pay_20151124.png) no-repeat;
+}
+
+.onlinepay-item-footer > a {
+    color:#555;
+}
+.onlinepay-item-footer > a:hover {
+    color:#0591aa;
+}
+
+.help_a {
+    color:#1596ad!important
+}
+#PM_Set_ZFB .div_row {
+    height:30px;
+    line-height:30px;
+    clear:both;
+}
+
+#PM_Set_ZFB .span_left {
+    
+}
+#PM_Set_ZFB .pol_txt
+{
+     width:260px;
+     height:25px;
+}
+
+#PM_Set_WX .span_left{
+    width:130px;
+    text-align:right;
+}
+
+#PM_Set_WX .pol_txt {
+    width:200px;
+    height:25px;
+}
+i {
+    font-style: normal;
+}
+.ui-icon-blue-info {
+    background-position: -21px -167px;
+    vertical-align: middle;
+}
+.ui-icon-blue-info, .ui-icon-info {
+    width: 15px;
+    height: 0;
+    padding-top: 15px;
+    display: inline-block;
+    background: url(/images/icon8.png) no-repeat;
+    overflow: hidden;
+    background-position: -20px -167px;
+}
+
+.pr20 {
+    padding-right: 0px!important;
+}
+.pl20 {
+    padding-left: 0px!important;
+}
+.cred {
+    color: #ff0000!important;
+}
+.lh22 {
+    margin-left:10px;
+    line-height: 22px!important;
+}
+
+.theme-color, a.theme-color:hover {
+    color: #1596ad!important;
+}
+.b {
+    font-weight: 700!important;
+    height:32px;
+    line-height:32px;
+}
+
+.onlinepay-item-header .onlinepay-icheckbox {
+    position: relative;
+    width: 35px;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+.icon-onlinepay-checkbox {
+      position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: url(/images/online_pay_20151124.png) -50px -170px no-repeat;
+    background-position: -10px -170px;
+}
+.icon-onlinepay-checkbox_off {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: url(/images/online_pay_20151124.png) -50px -170px no-repeat;
+    
+}
+
+input[name=checkRule] {
+    margin: 3px 3px 3px 4px;
+    vertical-align: middle;
+}
+.hidden {
+    display: none;
+}
+
+.onlinepay-item-body .account {
+    background-color: #fff;
+    border: 1px solid #eee;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+}
+
+.onlinepay-item-body .account .account-txt {
+    float: left;
+    width: 220px;
+    height: 47px;
+    overflow: hidden;
+    padding: 0 0 0 20px;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+.onlinepay-item-body .account {
+    background-color: #fff;
+    border: 1px solid #eee;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+}
+
+.onlinepay-item-body .account .account-opt {
+    float: right;
+    padding: 0 10px;
+}
+
+.onlinepay-item-body .account .account-opt a {
+    font-size: 12px;
+    color: #00b8d2;
+}
+.ui_main {
+    min-width: 6em;
+    min-width: 0\9;
+    text-align: center;
+}
+.ui_icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+.ui_content {
+    display: inline-block;
+    zoom: 1;
+    text-align: left;
+    line-height: 25px;
+}
+.ui_content, .ui_title, .ui_buttons input {
+    font: 14px;
+    color: #555555;
+}
+
+/*新品上线*/
+#NL_AddInfo .span_left {
+
+    text-align:right;
+    width:65px;
+}

@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="..\vendor\css\ratchet.min.css">
+    <link rel="stylesheet" type="text/css" href="..\css\app.css">
+    <script type="text/javascript" src="\js\jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="\js\baidu_count.js"></script>
+
+    <style type="text/css">
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #FFFFFF;
+        }
+
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #FFFFFF;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #FFFFFF;
+        }
+
+        :-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: #FFFFFF;
+        }
+    </style>
+
+
+    <style>
+        .validation-summary-errors {
+            background: darkorange;
+            color: white;
+            line-height: 30px;
+            padding-left: 20px;
+        }
+
+         .icon-logo {
+            width: 80px;
+            height: 80px;
+            background: url(/images/logo.png) no-repeat center center;
+            background-size: 100% 100%;
+        }
+    </style>
+
+
+
+
+
+</head>
+
+<body class="bg-bule">
+    <div class="car-logo" style="background: none;">
+        <span class="icon icon-logo"></span>
+    </div>
+
+
+    <div style="text-align: center; margin-bottom: 40px;">
+        <span style="text-align: center; color: white; font-size: 20px;">
+            @ViewBag.AppName
+    </span>
+</div>
+
+
+
+<script type="text/javascript">
+
+    function register() {
+
+        window.location = '@Url.Action("Register")';
+    }
+</script>
+
+
+
+
+<div class="form-box container ">
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.ValidationSummary(false, "", new { @class = "bg-danger text-danger" })
+
+
+        <div class="input-box icon-username p-r mb-20">
+            <input class="c-white bg-bule b-b-2-bule " type="text" id="txtName" name="LoginName" placeholder="输入用户名" value="">
+        </div>
+
+
+
+
+            <div class="input-box icon-password p-r mb-20">
+                <input class="c-white bg-bule b-b-c-2-white " id="txtPassword" type="password" name="Password" placeholder="输入密码" value="">
+            </div>
+            <input type="submit" name="sub" onclick="saveCookie()" class="btn btn-block c-bule btn-public mb-20 bg-l-bule b-n f-bold" value="登录">
+
+            <a href="javascript:;" onclick="register()" class="fs-15 c-white">快速注册</a>
+
+
+            <a href='@Url.Action("LostPwd")' class="fs-15 c-white pull-right">找回密码</a>
+    }
+
+
+
+    <a href="javascript:;" onclick="loginAsGuest()" class="fs-15 c-white pull-right" style="margin-top: 120px;">立即体验>></a>
+
+</div>
+
+
+
+
+
+<script src="/Scripts/js.cookie.js" type="text/javascript"></script>
+
+
+
+
+
+<script>
+
+
+        function init() {
+
+
+            var name = Cookies.get('name');
+            $('#txtName').val(name);
+
+            var pwd = Cookies.get('pwd');
+            $('#txtPassword').val(pwd);
+
+        }
+
+
+
+
+        function saveCookie() {
+
+
+            //alert('LoginName'+$("[name='LoginName']").val());
+            //alert('pwd' + $("[name='Password']").val());
+
+            Cookies.set('name', $('#txtName').val());
+            Cookies.set('pwd', $('#txtPassword').val());
+        }
+
+        function loadCookie() {
+
+            var name = Cookies.get('name');
+            var pwd = Cookies.get('pwd');
+            alert("loading");
+            $('#txtName').val(name);
+            $('#txtPassword').val(pwd);
+        }
+
+        //  loadCookie();
+
+        init();
+
+
+</script>
+
+
+
+<script>
+    function loginAsGuest() {
+
+
+        $.ajax({
+            url: '@Url.Action("LoginAsGuest","Login")',
+            type: 'post',
+            data: '',
+            success: function (data) {
+                //alert(data.Msg);
+                if (data.IsSuccess) {
+                    window.location = '@Url.Action("List","Goods")';
+                } else {
+                    alert(data.Msg);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                alert("登录失败：" + errorThrown);
+
+            }
+        });
+
+
+
+
+
+
+
+
+    }
+</script>
+
+
+</body>
+</html>

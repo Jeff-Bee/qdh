@@ -1,0 +1,400 @@
+﻿
+@using System.Web.Optimization
+@using Laplace.LiteCOS.Model
+@model List<BuyerShoppingCartViewModel>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>购物车</title>
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/jd_cart.css">
+    <link rel="stylesheet" href="~/css/site.css">
+
+    @Styles.Render("~/Styles/weuiCss")
+
+
+
+
+</head>
+<body>
+    <!--顶部通栏-->
+    <header class="jd_topBar">
+        <a href="#" onclick="goBack()" style="float: left;">
+            <img src="/images/back.png" class="ic-back" />
+        </a>
+        <h3 style="margin-right: 55px;">购物车</h3>
+    </header>
+    <!--安全提示-->
+    <div class="safety-tip">
+        @*<p class="fadeInDown animated">  您正在安全购物环境中，请放心购物</p>*@
+        <p class="fadeInDown animated"> 送货地址:@ViewBag.Addr</p>
+    </div>
+    <!--店铺-->
+    <div class="jd_shop" style="margin-bottom: 48px;">
+        <div class="jd_shop_tit">
+            <div class="shop_info">
+                <div class="jd_logo f_left">
+                    <img src="~/images/buy-logo.png" alt="">
+                    @{
+                        var m = Model.FirstOrDefault();
+                        if (m != null)
+                        {
+                            <span>@m.SellerName</span>
+                        }
+                        else
+                        {
+                            <span></span>
+                        }
+                    }
+                </div>
+                <div class="f_right tip m_r10">
+                </div>
+            </div>
+        </div>
+        <div class="jd_shop_con">
+            @{
+                if (Model != null)
+                {
+                    foreach (BuyerShoppingCartViewModel productInfo in Model)
+                    {
+                        <div class="product"
+                             data-productname="@productInfo.ProductName"
+                             data-price="@productInfo.Price"
+                             data-sellerid="@productInfo.SellerId"
+                             data-productunit="@productInfo.ProductUnit"
+                             data-productid="@productInfo.ProductId">
+                            <div class="shop_info clearfix">
+                                <a href="#" class="img_box f_left">
+                                    <img src="@Url.RouteUrl(new { controller = "Product", action = "GetPic"})?productId=@productInfo.ProductId&sellerId=@productInfo.SellerId" alt="">
+                                </a>
+                                <div class="info_box">
+                                    <a class="p_name" href="#">@productInfo.ProductName </a>
+                                    <div>
+
+                                        <span class="price_title">单价:</span>  <span class="p_price">  &yen;@productInfo.Price</span>
+
+                                        <div class="spinner" style="width: 100px; margin-left: 20px; display: inline-block; vertical-align: middle;">
+                                            <button class="decrease" onclick="decrease(this)">-</button>
+                                            <input type="text" class="lineCount" value="@productInfo.ProductQuantity" style="width: 50px; float: left; text-align: center; line-height: 21px;">
+                                            <button class="increase" onclick="increase(this)">+</button>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;">
+                                        <span class="price_title">总计:</span>
+                                        <span class="p_price lineTotal" style="font-weight: bold; font-size: 14px;"></span>
+
+                                        <div class="delete_box f_right">
+                                            <span class="delete_up"></span>
+                                            <span class="delete_down"></span>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+
+    <div class="jd_"></div>
+
+
+
+
+
+    <div class="jd_win">
+        <div class="jd_win_box">
+            <div class="jd_win_tit">你确定删除该商品吗？</div>
+            <div class="jd_btn clearfix">
+                <a href="#" class="cancle f_left">取消</a>
+                <a href="#" class="submit f_right">确定</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="weui-tabbar panel-footer panel-footer-noborder" style="position: fixed; right: 0; left: 0; border: none">
+        <div style="width: 66%;line-height:1.5rem; display: inline-block; ">
+            <span style="font-size: 20px;line-height: 43px;padding-left: 11px; ">实付款:&yen;<span id="totalmoney"></span></span>
+        </div>
+
+        <a id="btnSettle" onclick="onSettlement()" class="cartMenu" style="width: 34%;float: right">
+            <button>
+                提交订单
+            </button>
+        </a>
+    </div>
+
+    <script>
+    function showToast(text) {
+        var $toast = $('#toast');
+        if ($toast.css('display') != 'none') return;
+        $("#toastInfo").html(text);
+        $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+
+    }
+
+    function showWarnToast(text) {
+        var $toast = $('#toast-warn');
+        if ($toast.css('display') != 'none') return;
+        $("#toastInfo-warn").html(text);
+        $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+    }
+
+
+
+    </script>
+
+
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content" id="toastInfo">已发送验证码</p>
+        </div>
+    </div>
+
+
+    <div id="toast-warn" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast" style="color: white">
+            <i class="weui-icon-warn weui-icon_msg"></i>
+
+            <p class="weui-toast__content" id="toastInfo-warn"></p>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script id="deleteCartline">
+
+        var that;
+        $('.delete_box').on('click', function () {
+            $(this).children('.delete_up').css(
+                {
+                    transition: 'all 1s',
+                    'transformOrigin': "0 5px",
+                    transform: 'rotate(-30deg) translateY(2px)'
+                }
+            );
+            $('.jd_win').show();
+            that = $(this);
+        });
+
+        $('.cancle').on('click', function () {
+            $('.jd_win').hide();
+            $('.delete_up').css('transform', 'none');
+        });
+        $('.submit').on('click', function () {
+
+
+
+
+
+
+
+
+
+
+
+            var cartLine = that.closest(".product");
+            var sellerid = $(cartLine).data("sellerid");
+            var productid = $(cartLine).data("productid");
+            //var productunit = $(cartLine).data("productunit");
+
+            var params = { sellerId: sellerid, productId: productid };
+            var url = "@Url.RouteUrl(new {controller = "Product", action = "DeleteGoodsFromCart"})";
+            $.post(url, params, function (data) {
+                if (data.IsSuccess) {
+                    that.parent().parent().parent().parent().remove();
+                    $('.jd_win').hide();
+                } else {
+                    $('.jd_win').hide();
+                    alert("删除失败,请稍后重试");
+                }
+
+                getSum();
+            });
+
+        });
+
+
+
+
+
+
+
+
+    </script>
+
+
+    <script src="~/Scripts/cartjs.js"></script>
+    <script src="~/Scripts/jquery.json.min.js"></script>
+
+    <script id="updateCartCount">
+
+
+        function getSum() {
+
+            var totalprice = 0;
+
+            $(".product").each(function () {
+
+                var productInfo = $(this);
+                var lineCount = $(productInfo).find(".lineCount").val();
+                var coun = parseInt(lineCount);
+                var price = parseFloat($(productInfo).data("price"));
+
+                totalprice += coun * price;
+            });
+
+
+            $("#totalmoney").html(totalprice);
+        }
+
+        getSum();
+        caculateAll();
+
+        function caculateAll() {
+            $(".product").each(function () {
+                caculateLine(this);
+            });
+        }
+
+        function caculateLine(productInfo) {
+            var lineCount = $(productInfo).find(".lineCount").val();
+            var coun = parseInt(lineCount);
+            var price = parseFloat($(productInfo).data("price"));
+            $(productInfo).find(".lineTotal").html(coun * price);
+        }
+
+
+        function decrease(sender) {
+
+            var productInfo = $(sender).closest(".product");
+            var lineCount = $(productInfo).find(".lineCount").val();
+            if (lineCount > 1) {
+                $(productInfo).find(".lineCount").val(lineCount - 1);
+            }
+
+            caculateLine(productInfo);
+
+            getSum();
+        }
+
+
+        function increase(sender) {
+            var productInfo = $(sender).closest(".product");
+            var lineCount = $(productInfo).find(".lineCount").val();
+
+            var coun = parseInt(lineCount) + 1;
+            $(productInfo).find(".lineCount").val(coun);
+
+            caculateLine(productInfo);
+            getSum();
+
+            //$(productInfo).find(".lineTotal").html(coun * price);
+        }
+
+
+    </script>
+
+    <script>
+        function goBack() {
+            history.go(-1);
+        }
+    </script>
+
+
+    <script id="settleCart">
+        //结算
+        function onSettlement() {
+
+            //alert("开始结算");
+            //var str = "";
+
+
+            var mOrders = new Array();
+
+            var count = 0;
+
+            $(".product").each(function () {
+
+                mOrders[count++] = settleLine(this);
+
+
+                //str+="|"+settleLine(this);
+            });
+
+            //  alert($.toJSON(mOrders));
+            //  alert($(mOrders).toJson());
+            var orderdetail = $.toJSON(mOrders);
+
+            var url = "@Url.RouteUrl(new {controller="Product",action="AddSellerOrdersToDb"})";
+            $.post(url, { orderdetail: orderdetail }, function (data) {
+                if (data.IsSuccess) {
+                    window.location = "@Url.RouteUrl(new {controller="Product",action= "PreviewOrder"})";
+                    showToast(data.Msg);
+                } else {
+                    showWarnToast(data.Msg);
+                }
+
+            });
+
+
+        }
+
+
+        //$.fn.toJson = function () {
+        //    return JSON.stringify(this);
+        //}
+
+
+
+
+        function settleLine(productInfo) {
+
+            var lineCount = $(productInfo).find(".lineCount").val();
+            var coun = parseInt(lineCount);
+
+            var price = parseFloat($(productInfo).data("price"));
+            var sellerid = parseInt($(productInfo).data("sellerid"));
+            var productid = parseInt($(productInfo).data("productid"));
+            var productunit = $(productInfo).data("productunit");
+            var name = $(productInfo).data("productname");
+            var obj = { Price: price, SellerId: sellerid, ProductId: productid, ProductQuantity: coun, ProductName: name, ProductUnit: productunit };
+
+            return obj;
+        }
+
+
+
+    </script>
+
+
+
+
+
+
+</body>
+</html>

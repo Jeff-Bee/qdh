@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>更改手机号</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css" />
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css" />
+    <link rel="stylesheet" type="text/css" href="/vendor/zepto/plugins/pgwmodal/pgwmodal.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <script type="text/javascript" src="/vendor/zepto/zepto.min.js"></script>
+    <script type="text/javascript" src="/vendor/zepto/plugins/pgwmodal/pgwmodal.min.js"></script>
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+</head>
+<body>
+    <header class="bar bar-nav bg-bule b-n">
+        <a href='@Url.Action("SetList")' class="icon icon-goback pull-left"></a>
+        <h1 class="title c-white">更改手机号</h1>
+    </header>
+    <div class="content form-box container mt-80" style="margin-top: 35px!important;">
+        <form action='@Url.Action("SetPhone")' method="POST">
+            <div class="input-box mt-30 clearfix">
+                <span class="icon icon-gray-shuotou"></span>
+                <input class="b-n b-b-2-gray c-gray2 pull-right pl-0 w-95" type="text" id="phone" name="phone" placeholder="请输入手机号码" value="">
+            </div>
+            <div class="input-box yzm p-r mb-15 ">
+                <div class="row">
+                    <div class="col-xs-6 mt-10">
+                        <span class="icon icon-gray-yzm"></span>
+                        <input class="b-n b-b-2-gray c-gray2 pull-right pl-0 w-78" type="text" name="vcode" placeholder="请输入验证码" value="">
+                    </div>
+                    <div class="col-xs-6">
+                        <input class="btn btn-block c-white bg-gray mb-15 f-normal" id="times" onclick="verifycode()" type="button" style="letter-spacing: 1px;font-size: 16px" value="发送验证码">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" name="sub" class="btn btn-block button-bule b-n btn-public mt-25 f-normal" value="提交">
+        </form>
+    </div>
+    <script type="text/javascript">
+        function verifycode() {
+            var value = $('#phone').val();
+            $.ajax({
+                type: "POST",
+                url: "vcode",
+                dataType: "json",
+                data: "phone=" + value,
+                success: function (data) {
+                    if (data.success == 0) {
+                        alert(data.error);
+                    } else {
+                        settime();
+                    }
+                }
+            });
+        }
+        var countdown = 60;
+        function settime() {
+            if (countdown == 0) {
+                $('#times').removeAttr("disabled");
+                $('#times').attr("value", "重新发送验证码");
+                countdown = 60;
+                return;
+            } else {
+                $('#times').attr("disabled", true);
+                $('#times').attr("value", "重新发送(" + countdown + ")");
+                countdown--;
+            }
+            setTimeout("settime()", 1000);
+        }
+        $(document).on('submit', '.form-box', function () {
+            var account = $("input[name='phone']").val();
+            if (!account) { alert('手机号不能为空'); return false; }
+            var vcode = $("input[name='vcode']").val();
+            if (!vcode) { alert('验证码不能为空'); return false; }
+            var password = $("input[name='password' ]").val();
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+﻿@model Laplace.LiteCOS.Model.BuyerInfo
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>账户设置</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css" />
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+</head>
+<body>
+    <header class="bar bar-nav bg-bule b-n">
+        <a href='@Url.Action("Index","Account")' class="icon icon-goback pull-left"></a>
+        <h1 class="title c-white">账户设置</h1>
+    </header>
+    <div class="content" style="padding-top:40px">
+        <ul class="table-view table-cont">
+            <li class="table-view-cell">@Model.CompanyName</li>
+            <li class="table-view-cell">
+               
+                <a class="navigate-right" href='@Url.RouteUrl(new {action="SetName", name = Model.ContactName})'>
+                    <span class="badge pull-right info-cont">@Model.ContactName</span>
+                    联系人姓名
+                </a>
+            </li>
+            <li class="table-view-cell">
+                <a class="navigate-right" href='@Url.Action("SetPhone")'>
+                    <span class="badge pull-right info-cont">@Model.MobilePhone</span>
+                    联系人手机
+                </a>
+            </li>
+            <li class="table-view-cell">
+
+                <!--   /img/log/undefined.jpg -->
+                <a class="navigate-right" href="javascript:;" onclick="test()">
+                    <span class="badge pull-right info-cont"><img src="/images/undefined.png" class="pic-26-26" alt="" /></span>
+                    联系人头像
+                </a>
+            </li>
+            <li class="table-view-cell">
+                <a class="navigate-right" href='@Url.Action("SetPassword")'>
+                    <span class="badge pull-right info-cont">******</span>
+                    更改密码
+                </a>
+            </li>
+            <li class="table-view-cell">
+                <a class="navigate-right1" href="javascript:;">
+                    <span class="badge pull-right info-cont">审核中                </span>
+                    审核状态
+                </a>
+            </li>
+        </ul>
+        <div class="container">
+            <a href="javascript:;" onclick="javascript: if(confirm('确定要退出吗')) window.location='/login/logout';return false"><button class="btn btn-block button-red b-n mt-20">退出账号</button></a>
+        </div>
+    </div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        wx.config({
+            debug: false,
+            appId: 'wxe6e1cc76af59d8a1',
+            timestamp: 1483840213,
+            nonceStr: 'lHLIXKKkOwMKbBBR',
+            signature: 'a0b0dbddcebdfda02b1f24e3a31a604f5c180f67',
+            jsApiList: [
+                'uploadImage',
+                'previewImage',
+                'chooseImage'
+            ]
+        });
+    function test(){
+        wx.ready(function(){
+        var images = {
+             localId: [],
+             serverId: []
+             };
+        wx.chooseImage({
+            count: 1, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+              var localIds = res.localIds;
+                  syncUpload(localIds);
+            }
+        });
+        var syncUpload = function(localIds){
+        var localId = localIds.pop();
+         wx.uploadImage({
+         localId: localId,
+         success: function (res) {
+          var serverId = res.serverId;
+          if(serverId)
+          {
+                $.ajax({
+                     url : 'dowupload',
+                     type : 'post',
+                     data : 'serverId='+serverId,
+                     dataType:'json',
+                     async: true,
+                      success : function(res){
+//                          var str = JSON.stringify(res);
+//                            alert(str);
+                           if(res.success == 1){
+                               //window.location='location';
+                                location.reload();
+                             }else if(res == 0){
+                                 alert('下载失败');
+                           }else{
+                                 alert('更新失败');
+                           }
+                        },
+                      error : function(res){
+                           var str = JSON.stringify(res);
+                           location.reload();
+                          //alert('222');
+                      }
+                 });
+          }else{
+             alert('头像上传失败');
+          }
+        }
+        });
+};
+});
+ }
+    </script>
+</body>
+</html>

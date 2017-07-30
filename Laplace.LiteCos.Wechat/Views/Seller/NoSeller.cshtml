@@ -1,0 +1,56 @@
+﻿@model Laplace.LiteCOS.Model.BuyerInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/metro/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/mobile.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/EasyUI/themes/icon.css">
+
+
+
+
+
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/EasyUI/jquery.easyui.mobile.js"></script>
+    <script type="text/javascript" src="~/Scripts/EasyUI/easyui-lang-zh_CN.js"></script>
+   
+
+ 
+
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+
+
+</head>
+<body>
+    <div class="easyui-navpanel" id="pageCategory">
+        <header>
+            <div class="m-toolbar">
+                <span id="pageCategory-title" class="m-title">
+                    @ViewBag.Title
+                </span>
+            </div>
+        </header>
+        <div id="pageCategoryContent" style="height: 100%; padding: 10px;">
+            <p style="font-size: 20px;">
+                &nbsp;&nbsp; 系统尚未找到与您匹配的商城！请联系商家添加您的资料信息
+            </p>
+
+            <p style="font-size: 12px;">
+                注册手机号：@Model.MobilePhone
+            </p>
+        </div>
+
+
+    </div>
+</body>
+</html>

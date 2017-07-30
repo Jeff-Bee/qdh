@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>订单处理</title>
+</head>
+<body>
+    <div style="width:100%">
+        <input type="hidden" id="hid_OP_OrderId" value="@ViewBag.OrderId" />
+        <div style="width:100%;height:30px;line-height:30px;">
+            &nbsp;&nbsp;<span style="font-size:20px;">订单处理</span>
+        </div> 
+        <div>
+            <div class="OP_Top" style="line-height:25px;height:25px;margin:10px 0;">
+                <span style="float:left;">客户名称 : <input type="text" id="OP_customer_Name" class="pol_txt" style="height:20px;width:100px;" /></span>
+                <span style="float:left;margin-left:10px;">摘要 : <input type="text" id="OP_abstract" class="pol_txt" style="height:20px;width:180px;" /> </span>
+                <span style="float:left;margin-left:10px;">订单状态:<input type="text" id="OP_OrderStatus" style="height:20px;width:140px;font-size:12px;" /> </span>
+                <span style="float:right;">订单日期 : <label id="OP_date"></label> &nbsp;编号 : <input type="text" id="OP_code" class="pol_txt" style="height:20px;width:140px;" />&nbsp;<a class="easyui-linkbutton" style="display:none;" iconCls="icon-config-yellow">列配置</a>  </span>
+            </div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="OP_List">
+                <table id="OP_ProductList"></table>
+            </div>
+                <div style="width:100%;margin-top:10px;">
+                    <span style="float:left;">制单人 : <label id="OP_zdr">@ViewBag.UName</label></span><span style="float:right;width:120px;">合计金额 : <label id="op_TotalPrice"></label> </span><span style="float:right;margin-right:20px;width:120px;">合计数量:<label id="op_totalNum"></label> </span>
+                </div>
+                <div class="pol_row" style="clear:both;">
+                    <span style="float:left;">收款账户 <input type="text" id="op_payAccount" class="pol_txt" /></span><span style="float:left;">收款金额</span> <span style="float:left;padding-top:4px;"><input type="text" class="easyui-numberbox pol_txt" id="op_payCount" style="height:22px;line-height:22px;" data-options="min:0,precision:2" value="0" /> </span>
+                </div>
+                <div style="clear:both;width:100%;">
+                    <span style="float:right;margin-right:20px;"><a class="easyui-linkbutton lbtn_a" onclick="ExportOP()">打印(F7)</a>&nbsp;<a class="easyui-linkbutton lbtn_a color_red" style="width:85px;" onclick='op_Save()'>保存|退出(X)</a> </span><span style="float:right;margin-right:20px;"><a class="easyui-linkbutton lbtn_a" onclick="    OP_FirmOrder()" id="op_FirmOrder">确认订单</a>&nbsp;<a class="easyui-linkbutton lbtn_a" onclick="    OP_Deliver()" id="op_orderDeliver">发货</a>&nbsp;<a class="easyui-linkbutton lbtn_a" onclick="    OP_unsubscribe()" id="op_orderQUit">取消订单</a>&nbsp;<a class="easyui-linkbutton lbtn_a" onclick="    OP_resumedOrder()" id="op_resumedOrder">恢复订单</a>&nbsp;<a class="easyui-linkbutton lbtn_a" onclick="    Confirm_Pay()" id="op_orderFinish">确认收款</a>&nbsp;<a class="easyui-linkbutton lbtn_a" onclick="    OP_imposedOrderFinish()" id="op_imposedOrderFinish">确认收货</a> </span>
+                </div>
+            </div> 
+        <input type="hidden" id="op_hid_TPrice" />
+    </div>
+
+    <form id="OP_SelectCar" style="display:none;">
+        
+            <table id="OP_CarList" style="height:230px;overflow:auto;"></table>
+       
+        <div style="clear:both;margin-top:10px;">
+            <span style="float:left;margin-left:10px;"><a class="easyui-linkbutton lbtn_a" onclick="OP_SelectCar_Save()">确定</a> </span><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" onclick="OP_SelectCar_Quit()">退出</a> </span>
+        </div>
+    </form>
+
+    <form id="OP_ConfirmReceipt" style="display:none">
+        <div style="width:100%;margin-top:10px;line-height:35px;">
+            <span style="float:left;width:60px;">收款金额:</span><span style="float:left;"><input type="text" id="Confirm_Amount" class="easyui-numberbox pol_txt" data-options="precision:2" style="width:140px;" />元 </span>
+        </div>
+        <div style="width:100%;margin-top:20px;clear:both;line-height:35px;">
+            <span style="float:left;width:60px;">支付方式:</span><span style="float:left;"><input type="radio" name="PayType" checked="checked" />货到付款&nbsp;<input type="radio" disabled="disabled" name="PayType" />在线支付 </span>
+        </div>
+        <div style="width:100%;margin-top:30px;clear:both;line-height:35px;">
+            <span style="float:left;margin-left:10px;"><a class="easyui-linkbutton lbtn_a" onclick="OP_OrderFinish()">确认收款</a> </span><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" onclick="Confirm_Pay_Close()">取消</a> </span>
+        </div>
+    </form>
+
+    <div style="display: none;">
+        <iframe style="display: none" id="printIframe" src="@ViewBag.IframeUrl"></iframe>
+    </div>
+
+    <script src="~/Scripts/OrderProcess.js"></script>
+</body>
+</html>

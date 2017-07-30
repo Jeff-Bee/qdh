@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>注册</title>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+        }
+
+        * {
+            text-decoration: none;
+            list-style: none;
+        }
+
+        img {
+            border: none;
+            vertical-align: middle;
+        }
+
+        .top {
+            width: 100%;
+            height: 50px;
+            background-color: #efe9e9;
+            color: #4f4f4f;
+        }
+
+        .top_left {
+            float: left;
+            width: 50%;
+            font-weight: 700;
+            line-height: 50px;
+            margin-left: 30px;
+        }
+
+        .top_right {
+            float: right;
+            margin-right: 30px;
+            line-height: 40px;
+        }
+
+        .button {
+            border-radius: 15px;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            padding: 5px 15px;
+            border: 1px solid #669985;
+        }
+
+        .div_row {
+            line-height: 35px;
+            margin-top: 10px;
+            clear: both;
+        }
+
+        .div_row_left {
+            float: left;
+            width: 80px;
+            text-align: left;
+        }
+
+        .txt {
+            float: left;
+            line-height: 20px;
+        }
+
+        input[type=text] {
+            height: 22px;
+            line-height: 22px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" method="post" action="/UserCenter/Register_Step3">
+        <div class="top">
+            <div style="width:1000px;margin:0 auto;height:50px;">
+                <div class="top_left">趣订货| 注册账号 </div>
+                <div class="top_right">已有趣订货账号?<input type="button" value="登录" onclick="ReturnLogin()" class="button" style="margin-left:15px;color:#669985;height:25px;padding:0px 15px;width:65px;" /> </div>
+            </div>
+            <div style="width:1000px;margin:0 auto;height:500px;text-align:center;">
+                <div class="center" style="width:350px;margin:0 auto;">
+                    <div class="div_row"><img src="" />&nbsp;&nbsp;恭喜&nbsp;@ViewBag.Lname&nbsp;注册成功! </div>
+                    <div class="div_row"><input type="button" style="width:180px;background-color:#669985;color:#fff;padding:3px 15px;" onclick="ReturnLogin()" value="马上体验" class="button" /> </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/Register.js"></script>
+</body>
+</html>

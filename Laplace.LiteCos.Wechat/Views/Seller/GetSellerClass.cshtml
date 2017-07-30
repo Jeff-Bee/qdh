@@ -1,0 +1,18 @@
+﻿@using Laplace.LiteCOS.Model
+@model List<Laplace.LiteCOS.Model.ProductClassInfo>
+@{
+    Layout = null;
+}
+
+
+
+@{
+    foreach (ProductClassInfo classInfo in Model)
+    {
+        <li>
+            <a   onclick="getProductByClass('@classInfo.SellerId', '@classInfo.ClassId')" href='javascript:;'>@classInfo.Name</a>
+        </li>
+    }
+}
+
+

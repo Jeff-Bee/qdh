@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>买家信息</title>
+</head>
+<body>
+    <div style="width:100%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;基本信息--买家信息
+        </div>
+        <div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="Customer_List">
+                <table id="CustomerInfo"></table>
+            </div>
+            <div style="width:100%;margin-top:5px;line-height:30px;">
+                <span style="float:left;width:60%;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="addUserInfo()">空白新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editCustomerForm(1)">复制新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="editCustomerForm(0)">修改</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="delCustomer()">删除</a>&nbsp;&nbsp;
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+                </span>
+                <span style="float:right;">
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                    <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('买家信息')">退出(X)</a>
+                </span>
+            </div>
+        </div>
+
+        <form id="userInfo" style="display:none;">
+            <input type="hidden" id="supCustomerId" />
+            <div style="width:96%;margin:0 auto;border:1px solid #ccc;padding:5px;margin-top:2px;" class="u_div">
+                <div><span class="span_left"><b style="color:red;">*</b>客户名称</span><span><input type="text" class="userTxt" style="width:270px;" name="uname" /> </span> </div>
+                <div><span class="span_left">客户编号</span><span style="float:left;"><input type="text" class="userTxt" name="supCode" id="supCode" /> </span><span class="span_left" style="width:70px;"><input type="checkbox" name="isCustomerasc" id="isCustomerasc" />编码递增 </span> </div>
+                <div><span class="span_left"><b style="color:red;">*</b>手机 </span><span style="float:left;"><input type="text" class="userTxt" name="supPhone" id="supPhone" /> </span><span class="span_left">联系人</span><span style="float:left;"><input type="text" class="userTxt" name="supContact" id="supContact" /> </span>  </div>
+                <div><span class="span_left">税号</span><span style="float:left;"><input type="text" class="userTxt" name="supTaxnum" id="supTaxnum" /> </span><span class="span_left"><b style="color:red;">*</b>所属地区</span><span style="float:left;"><input id="supArea" class="userTxt" style="height:20px;" /> </span> </div>
+                <div><span class="span_left">电话</span><span style="float:left;"><input type="text" class="userTxt" name="supTel" id="supTel" /> </span><span class="span_left">微信号</span><span style="float:left;"><input type="text" class="userTxt" name="supWX" id="supWX" /> </span> </div>
+                <div><span class="span_left"><b style="color:red;">*</b>买家类型</span><span style="float:left;width:114px;"><input class="userTxt" name="supBuyerType" id="supBuyerType" style="height:20px;" /> </span><span class="span_left"><b style="color:red;">*</b>价格等级</span><span style="float:left;"><select id="priceLevel" class="userTxt" style="height:22px;width:99px;"><option value="1">等级一</option><option value="2">等级二</option><option value="3">等级三</option><option value="4">等级四</option><option value="5">等级五</option><option value="6">等级六</option><option value="7">等级七</option><option value="8">等级八</option> </select> </span></div>
+                <div>
+                    <span class="span_left">电子邮件</span><span style="float:left;"><input type="text" class="userTxt" name="supEmail" style="width:270px;" id="supEmail" /> </span>
+                </div>
+                <div><span class="span_left"><b style="color:red;">*</b>地址</span><span style="float:left;"><input type="text" class="userTxt" name="supAdress" style="width:270px;" id="supAdress" /> </span></div>
+                <div><span class="span_left">开户银行</span><span style="float:left;"><input type="text" class="userTxt" style="width:270px;" name="supAccount" id="supAccount" /> </span></div>
+                <div><span class="span_left">银行账号</span><span style="float:left;"><input type="text" class="userTxt" style="width:270px;" name="supBank" id="supBank" /> </span></div>
+                <div><span class="span_left">备注</span><span style="float:left;"><input type="text" class="userTxt" style="width:270px;" name="supNote" id="supNote" /> </span></div>
+                <div style="clear:both;width:100%;"> </div>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:center;">
+                <a class="easyui-linkbutton" onclick="addUserInfoSave(1)" id="customerAdd">保存并新增</a> <a class="easyui-linkbutton" onclick="addUserInfoSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="closeCustomerAdd()">关闭(X)</a>
+            </div>
+        </form>
+
+        <form id="GetCustomerAreaList" style="display:none;width:240px;">
+            <div style="height:28px;line-height:28px"><input id="custAreaListSearch" style="height:22px;" />  <input type="text" id="custAreaSearchContent" class="userTxt" /> <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchCustArea()"></a> </div>
+            <table id="custAreaList" style="height:290px;overflow:auto;"></table>
+            <div style="margin-top:10px;"><a href="#" style="float:left" class="lbtn_a" onclick="CustAreaChecked()" id="custAreaCheck">选中(K)</a><a href="#" style="float:right;margin-right:20px;" class="easyui-linkbutton lbtn_a" onclick="CloseCheckCustArea()">关闭(X)</a> </div>
+        </form>
+    </div>
+    <script src="~/Scripts/GetUserInfoList.js"></script>
+</body>
+</html>

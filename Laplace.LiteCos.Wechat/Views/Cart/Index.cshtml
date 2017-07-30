@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/mycss.css">
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+    <script type="text/javascript" src="/js/function.js"></script>
+    <style>
+        .goods_name {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .icon-shopcar1 {
+            background: url(/images/icon_gouwuche_hover.png) no-repeat center;
+            background-size: 24px 24px;
+        }
+
+        .productinfocentermr_0 {
+            margin-right: 0px;
+        }
+
+        .proml_60 {
+            margin-left: 55px;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body class="addressbody">
+    <div class="cardcontbody whitebg">
+        <header class="bar bar-nav bg-bule b-n">
+            <h1 class="title c-white">购物车</h1>
+        </header>
+        <div class="productlistbox mt-56" id="productlistbox">
+            <div class="content-box text-center mt-120">
+                <img src="/images/car-bule.png" width="75px" height="75px" class="mb-20" style="display:inline">
+                <a href='@Url.Action("List","Goods")'>
+                    <p class="fs-17 c-gary1">购物车空空如也<br>去挑几件好货吧!</p>
+                    <button class="btn btn-block c-white bg-bule b-n btn-public mb-20 f-n mt-50">知道了，去购物！</button>
+                </a>
+            </div>
+        </div>
+        <nav class="bar bar-tab nav-bar">
+            <a class="tab-item active" href='@Url.Action("List","Goods")'>
+                <span class="icon icon-market"></span>
+                <span class="tab-label" style="color:#929292;">冰团商城</span>
+            </a>
+            <a class="tab-item shopcar2" href='@Url.Action("Index")'>
+                <span class="icon icon-shopcar1"></span>
+                <span class="tab-label" style="color:#428bca;">购物车</span>
+                <span class="icon-circle1"></span>
+            </a>
+            <a class="tab-item shopcar2" href='@Url.Action("Index","Account")'>
+                <span class="icon icon-mine"></span>
+                <span class="tab-label">我的账户</span>
+                <span class="icon-circle2"></span>
+            </a>
+        </nav>
+        <!--弹层-->
+        <!-- <div class="window-overlay tx Not_auditedhidebox"> -->
+        <!-- 	<div class="window-overlaybg"></div> -->
+        <!-- 	<div class="window"> -->
+        <!-- 		<div class="mineditareadiv"><p class="mineditpro">抱歉，您的资料正在审核暂不能购买</p></div> -->
+        <!-- 		<div class="mineditbtn clearfix"> -->
+        <!-- 			<a href="#"><span class="editpabtn knowbtn submitinjuredbtn closehidebox">我知道了</span></a> -->
+        <!-- 		</div> -->
+        <!-- 	</div> -->
+        <!-- </div> -->
+    </div>
+</body>
+<script type="text/javascript">
+function cnum(object){
+   var pnum=0;
+   var responseurl="/goods/getinfo";
+   var num=$(object).siblings('.editcardnum').children('.child_input').val();//数量
+   var price=$(object).parent('.editcard_sum_plus').siblings('.productinfocenter').find('.redfont').attr('name');//价格
+   var all_price=$(object).parent('.editcard_sum_plus').siblings('.productinfocenter').find(".grayfont").attr('name');//市场价格
+   var names= $(object).parent('.editcard_sum_plus').siblings('.productinfocenter').find('dt').html();//名称
+   var activity_id= $(object).siblings('#activityId').attr('value');//商品活动ID
+   var type=$(object).parent('.editcard_sum_plus').siblings('.productinfocenter').find('.type').attr('name');
+   var goods_id= $(object).siblings('#goods_id').attr('value');//商品ID
+   var amount= $(object).siblings('#amount').attr('value');//商品库存
+   var imgadd= $(object).siblings('#img').attr('value');//商品图片
+   //修改商品的数量
+   if($(object).hasClass("decreases")){//点击减号
+  	 num=Number(num)-1;
+       if(num <= 0)
+       {
+    	   responseurl="/cart/editgoods";
+    	   num=0;
+       }else if(num == 1)
+       {
+          $(object).addClass("gray");
+       }
+	 $(object).siblings().find("input").attr('value',num);
+   }else if($(object).hasClass("increases")){//点击加号
+       num = Number(num)+1;
+       if(num > amount){
+      	 num = amount;
+      	 alert('库存量为'+amount);
+		   return false;
+       }
+		if(num > 0){
+			$(object).siblings().removeClass("gray");
+			$(object).siblings(".indexbtn_cut").show();
+		}
+		$(object).siblings().find("input").attr('value',num);
+   }
+   var nptotal=num*price;//计算所有价钱
+   $(object).siblings('.total').attr('value',nptotal);//设置所有价钱
+   //商品信息
+   var info={'state':'2','names':names,'count':num,'id':goods_id,'price':price,'imgadd':imgadd,'all_price':all_price,'type':type,'activityId':activity_id};
+   $.ajax({
+       type: "POST",
+       url: responseurl,
+       dataType: "json",
+       data:{'info':info,'goods_id':goods_id},
+       success: function(data){
+           if(data.code==200){
+        	  $(object).parents('.productinfo').remove();
+        	  if(!$(".clearfix").hasClass("productinfo")){
+      		    location.reload();
+      		  }
+            }
+        }
+      });
+	upnupr();
+}
+
+ //获取商品总数量
+ function upnupr(){
+	var totals=new Array();
+	var nums=0;
+	var tprice=0;
+	var goods_num=new Array;
+	var  receiving_num=new Array;
+	var len=$('.child_input').length;
+	var active_num=0;
+	var free_num=new Array();
+	for(var i=0;i<len;i++){
+		goods_num[i]=$($('.child_input')[i]).val();
+		if(goods_num[i]==1){
+		   $($('.child_input')[i]).parent('.editcardnum').siblings('.decreases').addClass("gray");
+	    }
+       receiving_num[i]=$($('.receiving_num')[i]).val();
+       free_num[i]=$($('.free_num')[i]).val();
+       if(receiving_num[i]!=0){
+      	    if( parseInt(goods_num[i]) >= parseInt(receiving_num[i]) ){
+    			$($('.shows')[i]).show();
+    			active_num= Math.floor(parseInt(goods_num[i])/parseInt(receiving_num[i])*parseInt(free_num[i]));
+        		if(active_num==0){
+    				active_num=1;
+        		}
+    			$($('.active_num')[i]).html('x'+active_num);
+      	    }else{
+      	    	$($('.shows')[i]).hide();
+
+          	}
+        }
+	}
+ 	 $('.total,.child_input').each(function(i){
+  		totals[i]=$(this).val();
+  	 });
+ 	for(var i=0;i<totals.length;i++){
+		  if(i%2==0){
+			  nums+=Number(totals[i]);
+		   }else if(i%2!=0){
+			  tprice+=Number(totals[i]);
+		   }
+	 }
+ 	$('.icon-circle1').html(nums);
+	//设置显示总数量和价钱
+	 if(nums==0){
+		 $('.icon-circle1').css('background','000000');
+	  }else{
+		  $('.icon-circle1').css('background','#fb2727');
+	  }
+	 $('.tprice').html(tprice.toFixed(2));
+}
+
+//加载商品总数量和总价格
+ $(document).ready(function(){
+	 upnupr();
+ });
+</script>
+</html>

@@ -1,0 +1,59 @@
+﻿@using Laplace.LiteCOS.Model
+@model List<BuyerProductView>
+
+
+<ul>
+    @{
+        if (Model != null)
+        {
+            foreach (BuyerProductView productView in Model)
+            {
+                <li>
+
+                    <div class="productinfo" style="background: white"
+                         data-sellerid="@productView.SellerId"
+                         data-productid="@productView.ProductId"
+                         data-price="@productView.Price1"
+                         data-productunit="@productView.ProductUnit"
+                         data-count="0"
+                         data-productname="@productView.ProductFullName">
+
+
+                        <div class="weui-flex order-preview-line">
+                            <div>
+                                <img class="img-product" src="@Url.RouteUrl(new {area="Product",controller="Product",action="GetPic"})?productId=@productView.ProductId&sellerId=@productView.SellerId" alt="">
+                            </div>
+                            <div class="weui-flex__item order-preview-content">
+                                <div class="goods-name">@productView.ProductFullName</div>
+                                <div class="goods-price">
+                                    <strong class="price">￥@productView.Price1</strong>
+                                </div>
+
+                                <div class="spinner" style="width: 100px; vertical-align: middle;">
+                                    <button class="decrease" onclick="decrease(this)">-</button>
+                                    <input data-count="0" type="text" onchange="calculateCertCount()" class="lineCount" value="@productView.ProductQuantity" style="width: 50px; float: left; text-align: center; line-height: 21px; behavior: url(#default#savehistory);">
+                                    <button class="increase" onclick="increase(this)">+</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    }
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

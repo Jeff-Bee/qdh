@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>订单管理</title>
+</head>
+<body>
+    <div style="width:100%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;订单管理
+        </div> 
+        <div>
+            <input type="hidden" value="@ViewBag.Type" id="oc_type" />
+            <div style="height:25px;line-height:25px;margin-bottom:10px;"><span style="float:left;margin-left:10px;"> [日期 ： <label id="show_start_time">2016-09-02</label> 至 <label id="show_end_time">2016-10-03</label>]</span><span style="float:left;margin-left:20px;"><input id="OC_Customer" style="height:20px;width:100px;" /> </span><span style="float:left;margin-left:20px;"><input id="oc_startTime" style="width:100px;height:20px;" /> 至 <input id="oc_endTime" style="width:100px;height:20px;" /><input type="text" class="pol_txt" style="width:160px;margin-left:10px;margin-right:10px;" id="oc_SearchContent" /><a class="easyui-linkbutton" iconCls="icon-search" onclick="SearchOC()"></a> </span><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton" style="display:none" iconCls="icon-config-yellow">列配置</a> </span><span style="float:right;margin-right:10px;"><input type="checkbox" id="oc_isAuto" style="vertical-align: middle;" />自动刷新&nbsp;<input id="oc_reflashTime" style="height:20px;width:100px;" /> </span> </div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="OC_List">
+                <table id="OC_OrderList"></table>
+            </div>
+            <div style="width:100%;margin-top:10px;height:25px;line-height:25px;"><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" style="display:none">打印(F7)</a>&nbsp;<a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('订单管理')">退出(X)</a> </span> </div>
+        </div>
+
+        
+    </div>
+    <script src="~/Scripts/OrderControl.js"></script>
+</body>
+</html>

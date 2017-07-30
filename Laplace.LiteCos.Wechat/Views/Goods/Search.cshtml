@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/vendor/bootstrap/v3/css/bs-col-sys.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css/ratchet.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/baidu_count.js"></script>
+    <style>
+        .table {
+            border: 1px solid #C5C5C5;
+            display: inline-block;
+            height: 5%;
+            width: 25%;
+            text-align: center;
+            background: #FFFFFF;
+            margin: 4px 10px 4px 18px;
+        }
+
+        .fm {
+            display: block;
+            font-size: 9px;
+            overflow: hidden;
+            white-space: nowrap;          
+            text-overflow: ellipsis;
+        }
+
+        #gfo {
+            position: absolute;
+            height: 285px;
+            width: 80%;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="bar bar-nav bg-bule b-n">
+        <a href='@Url.RouteUrl(new {controller="Goods",action="List"})' class="icon icon-goback pull-left"></a>
+        <h1 class="title c-white">搜索</h1>
+    </header>
+    <div class="content search-bg-box" style="padding-top:44px">
+        <div class="form-box mt-20 search1-box">
+            <form method="post" class="input-group w-95" action='@Url.RouteUrl(new {controller="Goods",action="List"})' id="subform" name="subform">
+                <input type="text" value="" name="goods_name" class="search1-text" onkeyup="myoninput()">
+                <a href="javascript:void(0)" name="submit" onclick="document.getElementById('subform').submit();return false">
+                    <i class="icon-search1"></i>
+                </a>
+            </form>
+            <div id="gfo">
+                <ul class="table-view " id="goods_info"></ul>
+            </div>
+        </div>
+
+        <span style="padding:1.5em;font-size:12px">热门搜索</span><br>
+        <!-- <div class="table" >
+          <div style="display:inline-block"><sapn class="fm">1热门搜索</sapn></div>
+          <div style="display:inline-block"><sapn class="fm">2热门搜索</sapn></div>
+        </div>
+         -->
+    </div>
+    <script>
+function myoninput(){
+        var value=$('.search1-text').val();
+        $.ajax({
+           type:'post',
+           url:'/goods/sech',
+           data:'value='+value,
+           dataType:'json',
+           success:function(data){
+    	   $(".activity").empty();
+       	     if(data.code==1){
+          	     var len=data.goods_info.length;
+           	     for(var i=0;i<len;i++){
+           	    	if(data.goods_info[i].activity_goods==null){
+           	    		activity_id=0;
+               	    }else{
+               	    	activity_id=data.goods_info[i].activity_goods.activity_id;
+                   	}
+           	    	$('#goods_info').append('<a class="activity" href="/goods/info?id='+data.goods_info[i].goods_id+'&activity_id='+activity_id+'"><li style="padding:4px 8px 4px 8px">'+data.goods_info[i].goods_name+'</li></a>');
+              	 }
+         	  }else{
+          		 $('#goods_info').append('<a class="activity" href="javascript:;"><li style="padding:4px 8px 4px 8px">暂无该商品</li></a>');
+             }
+           }
+        });
+	}
+    </script>
+</body>
+</html>

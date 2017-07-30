@@ -1,0 +1,227 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>商品信息</title>
+</head>
+<body>
+    <div class="easyui-layout" fit="true" style="width:99%;" id="pbody">
+        <div region="north" border="none" style="height:62px;">
+            <div style="margin-left:20px;font-size:20px;line-height:60px;">基本信息-商品信息</div>
+        </div>
+        <div data-options="region:'west',border:false,collapsible:true,title:'商品分类'" style="width:255px;border-right:3px solid #ccc;" id="p_West"><!---collapsible:true,title:'商品分类'-->
+            <div style="line-height:30px;display:none">商品分类</div>
+
+            <div style="line-height:40px;"><input class="easyui-textbox" data-options="prompt:'输入类别名称进行定位',width:150,height:25," id="positionname" /><a id="dw" href="#" style="margin-left:10px;" data-options="width:50," class="easyui-linkbutton lbtn_a" onclick="DixPosition()">定位</a> </div>
+            <div style="border:1px solid #ccc;width:220px;height:305px;border-right:none;" id="ptyleList">
+                <ul id="pType"></ul>
+
+            </div>
+            <div style="line-height:30px;text-align:left;">
+                <a href="#" class="easyui-linkbutton lbtn_a" style="margin-left:5px;" onclick="editNode()">编辑</a><a href="#" class="easyui-linkbutton lbtn_a" style="margin-left:5px;" onclick="delNode()">删除</a> <span style="color:gray;">右击节点可新增节点</span>
+            </div>
+        </div>
+        <div region="center" border="none" style="height:auto;width:75%;">
+            <div style="width:99%;padding-left:5px;">
+                <div style="line-height:40px;">
+                    当前商品所属分类：<label id="productType">\</label>
+                </div>
+                <input type="hidden" id="hid_pType" value="" />
+                <form id="product_search">
+                    <span style="float:left;">
+                        <input id="searchType" name="searchType" class="select_cls" /><input type="text" style="margin-left:5px;height:20px;" class="pol_txt" name="scontent" />
+                        <a href="#" style="margin-left:5px;width:50px;" class="easyui-linkbutton lbtn_a" onclick="searchList()">查询</a>
+                    </span>
+                    <span style="float:right;">
+                        过滤:<input id="glSelect" class="select_cls" name="glSelect" /><a href="#" class="easyui-linkbutton lbtn_a" style="margin-left:5px;" data-options="iconCls:'icon-reload'," onclick="reloadList()">刷新</a> <a class="easyui-linkbutton" iconCls="icon-config-yellow" onclick="deployColumn()">列配置</a>
+                    </span>&nbsp;
+                </form>
+                <div style="width:100%;clear:both;margin-top:10px;">
+                    <div id="pList" style="width:100%;height:305px;border:1px solid #dddddd;overflow:auto;">
+                        <table id="slist" style="width:99%"></table>
+                    </div>
+                    <div id="tb" style="width:100%;margin-top:5px;margin-bottom:5px;">
+                        <div style="float:left;">
+                            <a href="#" class="easyui-linkbutton lbtn_a" onclick="addNewRow()">空白新增</a>
+                            <a href="#" class="easyui-linkbutton lbtn_a" onclick="editAddNewRow()">复制新增</a>
+                            <a href="#" class="easyui-linkbutton lbtn_a" onclick="row_del()">删除</a>
+                            <a href="#" class="easyui-linkbutton lbtn_a" onclick="editProductForm()">修改</a>
+                        </div>
+                        <div style="float:right;margin-right:5px;">
+                            <a href="#" class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('商品信息')">退出(X)</a>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div id="lpz" class="easyui-menu" minWidth="80" style="display:none;">
+                    <div style="width:80px;" iconCls="icon-columnConfig" onclick="deployColumn()">列配置</div>
+                </div>
+            </div>
+        </div>
+        <!--   列配置-->
+        <form id="columnRepair" style="display:none;">
+            <div style="width:100%;">
+                <div style="width:70%;float:left;">
+                    <table id="cr" style="height:340px;"></table>
+                </div>
+                <div style="float:left;width:29%;">
+                    <div class="lft_lb"><a href="#" class="easyui-linkbutton lbtn_a" onclick="UpDown(1)">上移</a></div>
+                    <div class="lft_lb"><a href="#" class="easyui-linkbutton lbtn_a" onclick="UpDown(0)">下移</a></div>
+                    <div class="lft_lb"><a href="#" class="easyui-linkbutton lbtn_a" onclick="changeShow()">显示切换</a></div>
+                    <div class="lft_lb"><a href="#" class="easyui-linkbutton lbtn_a" onclick="UpdateHeader()">修改名称</a></div>
+                    <div class="lft_lb"><a href="#" class="easyui-linkbutton lbtn_a" onclick="ResetFormColumn()">还原默认设置</a></div>
+                    <div class="lft_lb"><a href="#" class="easyui-linkbutton lbtn_a" onclick="closeForm()">关闭</a></div>
+                </div>
+            </div>
+
+        </form>
+
+        <!--    修改头部标题显示  -->
+        <form id="updateHeader" style="display:none">
+            <div style="width:100%;line-height:30px;">
+                &nbsp;显示名称:<input type="text" style="width:120px;height:18px;" name="newHeader" /> <a href="#" class="easyui-linkbutton lbtn_a" onclick="UpdateHead()">确定</a>
+            </div>
+        </form>
+
+        <!------商品编辑------->
+        <div id="productInfo" style="display:none;width:636px;">
+            <div id="tabs" class="easyui-tabs" data-options="width:622,">
+                <div title="基本信息" id="baseInfo">
+                    <input type="hidden" id="hid_productId" />
+                    <div style="margin-top:20px;margin-left:10px;"><span class="span_left">所属分类</span>:<label id="editPType" style="margin-right:30px;">\</label><a href="javascript:;" id="pinfo_SelectProd" style="text-decoration:underline;color:black;display:none" onclick="pinfo_SelectProduct()">从库中选取</a> </div>
+                    <form id="pinfo1" style="margin-left:10px;">
+                        <div>
+                            <span class="span_left"><b style="color:red;">*</b>名称</span>
+                            <span style="float:left;"><input type="text" style="width:220px;" class="easyui-validatebox productTxt" data-options="required:true,missingMessage:'不为空'," name="pname" /> </span>
+                            <span class="span_left"><b style="color:red;">*</b>商品编号</span>
+                            <span style="float:left;"><input type="text" class="easyui-validatebox productTxt" data-options="required:true,missingMessage:'不为空'," name="pcode" /></span>
+                            <span class="span_left" style="width:100px;text-align:left;"><input type="checkbox" onclick="GetPTyoeCode($(this))" id="isProductasc" name="isProductasc" />编号递增</span>
+                        </div>
+                        <div>
+                            <span class="span_left">规格</span>
+                            <span style="float:left;"><input type="text" class="productTxt" name="pformat" /> </span>
+                            <span class="span_left">型号</span>
+                            <span><input type="text" class="productTxt" name="pxh" /> </span>
+                            <span class="span_left"><b style="color:red;">*</b>产地</span><span><input type="text" class="easyui-validatebox productTxt" data-options="required:true,missingMessage:'不为空'," name="phome" /> </span>
+                        </div>
+                        <div>
+                           
+                            <span class="span_left">条码</span>
+                            <span><input type="text" class="easyui-validatebox productTxt" name="pbarcode" /> </span>
+                            <span class="span_left">拼音码</span>
+                            <span><input type="text" class="productTxt" name="pPym" /></span>
+                            <span class="span_left">重量</span>
+                            <span><input type="text" value="1" style="float:left;height:22px;width:75px;" class="easyui-numberspinner" name="pkg" id="pkg" /></span>
+                            <span class="span_left">单位</span>
+                            <span style="float:left;"><input type="text" class="productTxt" name="punit" /> </span>
+                            
+                        </div>
+                        <div>
+                            <span class="span_left">售价1</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice1" id="pprice1" /></span>
+                            <span class="span_left">售价2</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice2" id="pprice2" /></span>
+                            <span class="span_left">售价3</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice3" id="pprice3" /></span>
+                            <span class="span_left">售价4</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice4" id="pprice4"/></span>
+                        </div>
+                        <div style="display:none;">
+                            <span class="span_left">售价5</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice5" id="pprice5"/></span>
+                            <span class="span_left">售价6</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice6" id="pprice6"/></span>
+                            <span class="span_left">售价7</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice7" id="pprice7"/></span>
+                            <span class="span_left">售价8</span>
+                            <span><input type="text" value="0" class="easyui-numberspinner" data-options="precision:2" style="float:left;height:22px;width:75px;" name="pprice8" id="pprice8"/></span>
+                        </div>
+                    </form>
+                    <div>
+
+                        <div style="margin-left:20px;">图片大小不能超过500Kb，格式必须为jpg，gif，png，bmp，建议分辨率为240*280</div>
+                    </div>
+                    <div style="width:90%;margin:0 auto;clear:both;">
+                        <form id="imgform1" action="/BasicInfo/fileUpload" method="post" enctype="multipart/form-data">
+                            <span style="float:left;width:30%;margin-right:1%;border:1px solid #ccc;padding:5px;">
+                                <img style="width:100%;height:160px;" id="picUrl1" />
+
+                                <input type="file" name="file1" style="width:59%;height:25px;float:left;margin-right:5px;" onchange="savePic($(this),1)" /><a class="easyui-linkbutton lbtn_a" style="float:left;" name="del1" onclick="delPicture(1)">删除</a>
+
+                                <input type="text" name="picname1" style="width:90%;height:22px;display:none;" disabled="disabled" placeholder="请输入图片名称" />
+                                
+                                <input type="hidden" name="picSrc1" />
+                                <input type="hidden" name="picId1" />
+                            </span>
+                        </form>
+                        <form id="imgform2" action="/BasicInfo/fileUpload" method="post" enctype="multipart/form-data">
+                            <span style="float:left;width:30%;margin-right:1%;border:1px solid #ccc;padding:5px;">
+                                <img style="width:100%;height:160px;" id="picUrl2" />
+                                <input type="file" name="file2" style="width:59%;height:25px;float:left;margin-right:5px;" onchange="savePic($(this),2)" />
+                                <a class="easyui-linkbutton lbtn_a" name="del2" style="float:left;" onclick="delPicture(2)">删除</a>
+                                <input type="text" name="picname2" style="width:90%;height:22px;display:none;" disabled="disabled" placeholder="请输入图片名称" />
+                                
+                                <input type="hidden" name="picSrc2" />
+                                <input type="hidden" name="picId2" />
+                            </span>
+                        </form>
+                        <form id="imgform3" action="/BasicInfo/fileUpload" method="post" enctype="multipart/form-data">
+                            <span style="float:left;width:30%;border:1px solid #ccc;padding:5px;">
+                                <img style="width:100%;height:160px;" id="picUrl3" />
+                                <input type="file" name="file3" style="width:59%;height:25px;float:left;margin-right:5px;" onchange="savePic($(this),3)" />
+                                <a class="easyui-linkbutton lbtn_a" style="float:left;" name="del3" onclick="delPicture(3)">删除</a>
+                                <input type="text" name="picname3" style="width:90%;height:22px;display:none;" disabled="disabled" placeholder="请输入图片名称" />
+                                
+                                <input type="hidden" name="picSrc3" />
+                                <input type="hidden" name="picId3" />
+                            </span>
+                        </form>
+                        <div style="clear:both;height:10px;width:98%;"> </div>
+                    </div>
+                    <div style="width:95%;margin:0 auto;border:1px solid #ccc;height:60px;line-height:60px;margin-bottom:10px;">
+                        <span style="float:left;margin:0 10px;height:60px;line-height:60px;"> 商品简介</span>
+                        <span style="float:right;height:40px;vertical-align:middle;width:88%">
+                            <textarea name="brochure" id="brochure" style="height:40px;vertical-align:middle;width:95%;" cols="30" rows="3"></textarea>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div style="width:100%;clear:both;text-align:right;margin-right:20px;margin-top:10px;"><a href="#" id="saveandadd" class="easyui-linkbutton" onclick="productAddSave(1)">保存并新增</a> <a href="#" class="easyui-linkbutton" onclick="productAddSave(0)">保存并关闭K</a> <a href="#" class="easyui-linkbutton lbtn_a" onclick="closePInfo()">关闭X</a>&nbsp;</div>
+        </div>
+
+        <!--------右键树编辑按钮---------->
+        <div id="treeEdit" style="display:none;position:fixed;z-index:1000;background-color:rgb(255, 255, 255);border:1px solid #ccc;line-height:25px;width:180px;font-size:12px;">
+            <div style="margin-top:10px;"><input type="radio" value="0" name="nodetype" />同级分类&nbsp;<input type="radio" name="nodetype" value="1" checked="checked" />子级分类 </div>
+            <div style="margin-left:10px;"><input type="text" class="easyui-validatebox" data-options="required:true," name="nName" style="width:100px;" /> </div>
+            <div style="margin-bottom:10px;margin-left:10px;margin-top:5px;"><a class="easyui-linkbutton lbtn_a" onclick="addNode()">添加分类</a><label style="display:none;color:red;" id="errormsg"></label> </div>
+            <input type="hidden" id="pid" />
+        </div>
+
+        <!--从库中选择商品-->
+        <form id="pinfo_SelectProduct" style="display:none;">
+            <div style="height:28px;line-height:28px"><input id="pinfo_SelectProduct_Search" style="height:22px;" />  <input type="text" id="pinfo_SelectProduct_Content" class="userTxt" /> <a class="easyui-linkbutton" iconCls="icon-search" onclick="pinfo_SelectProduct_Search()"></a> </div>
+            <table id="pinfo_SelectProduct_List"></table>
+            <div style="width:100%;margin-top:20px;">
+                <span style="float:left;margin-left:10px;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="pinfo_SProduct()">选中</a>
+                </span>
+                <span style="float:right;margin-right:10px;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="pinfo_SelectProduct_Close()">关闭(X)</a>
+                </span>
+            </div>
+        </form>
+    </div>
+    <input type="hidden" id="oldFields" />
+    <input type="hidden" id="oldTitle" />
+    <script src="/Scripts/ProductInfo.js"></script>
+
+
+</body>
+
+</html>

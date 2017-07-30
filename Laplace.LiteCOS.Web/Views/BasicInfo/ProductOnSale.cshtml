@@ -1,0 +1,107 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>商品上架</title>
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+    <div style="width:100%;"> 
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;商品上架
+        </div> 
+        <div>
+            <div style="height:25px;line-height:25px;margin-bottom:10px;"><span style="float:left;margin-left:10px;"> 仓库 :  全部仓库</span><span style="float:left;margin-left:40px;">选择客户 :  <input id="pos_Customer" style="height:20px;width:100px;" /> </span><span style="float:left;margin-left:40px;">产品分类 :  <input id="pos_ptype" style="height:20px;width:100px;" /> </span> </div>
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="POS_List">
+                <table id="pos_ProductList"></table>
+            </div>
+            <div style="width:100%;margin-top:10px;height:25px;line-height:25px;"><span style="float:left;margin-left:10px;"><a class="easyui-linkbutton lbtn_a" onclick="addPOSSave()">保存(K)</a> </span><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('商品上架')">退出(X)</a> </span> </div>
+        </div>
+    </div>
+    <form id="POS_ProductInfo" style="display:none">
+        <div id="pos_tabs" class="easyui-tabs" data-options="width:618,">
+            <div title="基本信息" id="pos_baseInfo" style="padding-left:5px;">
+                <div style="margin-top:20px;display:none;"><span class="span_left">所属分类</span>:<label id="POC_editPType">\</label></div>
+                <div id="pos_pinfo1" style="margin-top:20px;">
+                    <div>
+                        <span class="span_left">名称</span>
+                        <span style="float:left;"><input type="text" style="width:220px;" class="productTxt" name="POC_pname" /> </span>
+                        <span class="span_left">商品编号</span>
+                        <span style="float:left;"><input type="text" class="productTxt" name="POC_pcode" /></span>
+                        <span class="span_left" style="width:130px;text-align:left;margin-left:58px;display:none"><input type="checkbox" onclick="GetPTyoeCode($(this))" id="isProductasc" name="POC_isProductasc" />编号递增</span>
+                    </div>
+                    <div>
+                        <span class="span_left">规格</span>
+                        <span style="float:left;"><input type="text" class="productTxt" name="POC_pformat" /> </span>
+                        <span class="span_left">型号</span>
+                        <span><input type="text" class="productTxt" name="POC_pxh" /> </span>
+                        <span class="span_left">产地</span><span><input type="text" class="productTxt" name="POC_phome" /> </span>
+                    </div>
+                    <div>
+                        <span class="span_left">单位</span>
+                        <span style="float:left;"><input type="text" class="productTxt" name="POC_punit" /> </span>
+                        <span class="span_left">条码</span>
+                        <span><input type="text" class="productTxt"  name="POC_pbarcode" /> </span>
+                        <span class="span_left">拼音码</span>
+                        <span><input type="text" class="productTxt" name="POC_pym" /></span>
+                        <span class="span_left">重量</span>
+                        <span><input type="text" value="1" style="float:left;height:22px;width:75px;" class="easyui-numberspinner" name="POC_pkg" id="POC_pkg" /></span>
+                       
+                    </div>
+                    <div>
+                        <span class="span_left">售价1</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice1" id="POC_pprice1" /></span>
+                        <span class="span_left">售价2</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice2" id="POC_pprice2" /></span>
+                        <span class="span_left">售价3</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice3" id="POC_pprice3" /></span>
+                        <span class="span_left">售价4</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice4" id="POC_pprice4" /></span>
+                    </div>
+                    <div style="display:none;">
+                        <span class="span_left">售价5</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice5" id="POC_pprice5" /></span>
+                        <span class="span_left">售价6</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice6" id="POC_pprice6" /></span>
+                        <span class="span_left">售价7</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice7" id="POC_pprice7" /></span>
+                        <span class="span_left">售价8</span>
+                        <span><input type="text" value="1" class="easyui-numberspinner" data-options="precision:2"  style="float:left;height:22px;width:75px;" name="POC_pprice8" id="POC_pprice8" /></span>
+                    </div>
+                </div>
+                <div style="width:100%;clear:both;height:10px;">
+                </div>
+                <div style="width:90%;margin:0 auto;clear:both;">
+                    <span style="float:left;width:30%;margin-right:1%;border:1px solid #ccc;padding:5px;">
+                        <img style="width:100%;height:160px;" id="POC_picUrl1" />
+                    </span>
+                    <span style="float:left;width:30%;margin-right:1%;border:1px solid #ccc;padding:5px;">
+                        <img style="width:100%;height:160px;" id="POC_picUrl2" />
+                    </span>
+                    <span style="float:left;width:30%;border:1px solid #ccc;padding:5px;">
+                        <img style="width:100%;height:160px;" id="POC_picUrl3" />
+                    </span>
+                </div>
+                <div style="clear:both;width:100%;height:10px;"></div>
+                <div style="width:95%;margin:0 auto;border:1px solid #ccc;height:60px;line-height:60px;margin-bottom:20px;">
+                    <span style="float:left;margin:0 10px;height:60px;line-height:60px;"> 商品简介</span>
+                    <span style="float:right;height:40px;vertical-align:middle;width:88%">
+                        <textarea name="POC_brochure" id="POC_brochure" style="height:40px;vertical-align:middle;width:95%;" cols="30" rows="3"></textarea>
+                    </span>
+                </div>
+                <div style="width:100%;height:25px;line-height:25px;"><span style="float:right;margin-right:10px;"><a class="easyui-linkbutton lbtn_a" onclick="ClosePos()" style="padding:0px 5px;margin-bottom:12px;">关闭</a> </span> </div>
+            </div>
+            
+        </div>
+    </form>
+    <script src="~/Scripts/ProductOnSale.js"></script>
+</body>
+</html>

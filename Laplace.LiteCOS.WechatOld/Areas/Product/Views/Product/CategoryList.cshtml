@@ -1,0 +1,124 @@
+﻿@using Laplace.LiteCOS.Model
+@model List<Laplace.LiteCOS.Model.ProductClassInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="keywords" content="KEYWORDS..." />
+    <meta name="description" content="DESCRIPTION..." />
+    <meta name="author" content="DeathGhost" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name='apple-touch-fullscreen' content='yes'>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script src="/Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <title>分类</title>
+</head>
+<body>
+    <header>
+        <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+        <h1>@ViewBag.Title</h1>
+        @*<div style="height: 1rem;"></div>*@
+        <!--category list-->
+
+
+    </header>
+    <div style="height:1rem;"></div>
+    <aside class="class_tree">
+        <ul>
+            @{
+                if (Model != null)
+                {
+                    foreach (ProductClassInfo classInfo in Model)
+                    {
+                        <li>
+                            <a href="javascript:;" onclick="loadProductOfClass(this,'@classInfo.ClassId','@classInfo.SellerId')">
+                                <strong>@classInfo.Name</strong>
+                            </a>
+                        </li>
+                    }
+                }
+
+            }
+
+
+
+        </ul>
+    </aside>
+    <div class="category_cont">
+
+    </div>
+
+    <div class="hoverCart">
+        <a href="#">0</a>
+    </div>
+    <script>
+
+
+        $(document).ready(function () {
+            $(".class_tree ul li").eq(0).addClass("current_style");
+
+            $(".class_tree ul li").click(function () {
+                //  var liindex = $(".class_tree ul li").index(this);
+                $(this).addClass("current_style").siblings().removeClass("current_style");
+                //$(".tab_proList dd").eq(liindex).fadeIn(150).siblings(".tab_proList dd").hide();
+            });
+
+
+
+
+
+        });
+
+        function addToCert(sender) {
+            //飞入动画，具体根据实际情况调整
+            $(".hoverCart a").html(parseInt($(".hoverCart a").html()) + 1);/*测试+1*/
+            var shopOffset = $(".hoverCart").offset();
+            var cloneDiv = $(sender).parent().siblings(".goodsPic").clone();
+            var proOffset = $(sender).parent().siblings(".goodsPic").offset();
+            cloneDiv.css({ "position": "absolute", "top": proOffset.top, "left": proOffset.left });
+            $(sender).parent().siblings(".goodsPic").parent().append(cloneDiv);
+            cloneDiv.animate({
+                width: 0,
+                height: 0,
+                left: shopOffset.left,
+                top: shopOffset.top,
+                opacity: 1
+            }, "slow");
+
+        }
+
+
+        function loadProductOfClass(sender, classid, sellId) {
+            //alert("classid:" + classid + ":" + sellId);
+
+            //$(".category_cont").html("" + classid);
+
+            loadProducts(classid, sellId);
+
+        }
+
+        function loadProducts(classid, sellId) {
+            //alert("classid:" + classid + ":" + sellId);
+
+            var url = "@Url.RouteUrl(new { action = "GetCategorysProduct", controller = "Product"})";
+            url += "?classId=" + classid;
+            url += "&sellerId=" + sellId;
+
+            var data = {};
+            $.post(url, data, function (result) {
+                //console.log("result"+result);
+                //console.log("data"+data);
+                $(".category_cont").html(result);
+            });
+        }
+    </script>
+</body>
+</html>

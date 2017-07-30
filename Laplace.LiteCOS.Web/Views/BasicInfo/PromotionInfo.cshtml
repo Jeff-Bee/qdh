@@ -1,0 +1,109 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>消息推送</title>
+</head>
+<body>
+    <div style="width:99.5%;">
+        <div style="width:100%;height:50px;line-height:50px;font-size:20px;">
+            &nbsp;&nbsp;消息推送
+        </div>
+        <div style="width:100%;border:1px solid #ccc;height:50px;line-height:50px;">
+            <span style="float:left;margin-left:30px;">当前选中的信息<input type="text" style="width:150px;margin-left:10px;" id="PI_SelectRmark" /> </span>
+        </div>
+        <div>
+            <input type="hidden" id="pi_hid_AdsId" />
+            <div style="height:400px;overflow:auto;border:1px solid #ddd" id="PI_CXList">
+                <table id="CXList"></table>
+            </div>
+            <div style="width:100%;margin-top:5px;line-height:30px;">
+                <span style="float:left;width:60%;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="AddOrEditPI()">空白新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="EditFormPI(0)">复制新增</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="EditFormPI(1)">修改</a>
+                    <a class="easyui-linkbutton lbtn_a" onclick="DeletePI()">删除</a>&nbsp;&nbsp;
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">查询</a>
+                </span>
+                <span style="float:right;">
+                    <a class="easyui-linkbutton lbtn_a" style="display:none">打印(F)</a>
+                    <a class="easyui-linkbutton lbtn_a color_red" onclick="QuitTabs('消息推送')">退出(X)</a>
+                </span>
+            </div>
+        </div>
+
+        <div id="PI_AddInfo" style="display:none;padding-top:5px;">
+            <div style="width:100%;margin:0 auto;clear:both;">
+                <span class="span_left">图片:</span><span style="float:left;width:80%">
+                    <form id="pi_imgform1" action="/BasicInfo/fileUpload" method="post" enctype="multipart/form-data">
+                        <span style="float:left;width:95%;border:1px solid #ccc;padding:5px;">
+                            <img style="width:100%;height:100px;" id="pi_picUrl1" />
+                            <input type="file" name="pi_file1" style="width:75%;height:22px;float:left;" onchange="pi_savePic($(this),1)" />
+                            <a class="easyui-linkbutton lbtn_a" style="float:left;" name="del1" onclick="pi_delPicture(1)">删除</a>
+                            <input type="hidden" name="pi_picSrc1" id="pi_picSrc1" />
+                            <input type="hidden" name="pi_picId1" id="pi_picId1" />
+                        </span>
+                    </form>
+                </span>
+
+            </div>
+            <div class="div_row">
+                <span class="span_left"><b style="color:red;">*</b>标题:</span><span style="float:left;"><input type="text" id="PI_Title" style="width:312px;" class="pol_txt" /> </span>
+            </div>
+
+            <div class="div_row" style="clear:both;">
+                <span class="span_left"><b style="color:red;">*</b>内容:</span><span style="float:left;width:81%;height:100px;"><textarea id="PI_content" style="width:95%" cols="25" rows="6"></textarea> </span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left" style="width:85px;"><input type="radio" name="pi_stype" id="pi_productType" style="margin-right:5px;" />关联商品:</span><span style="float:left;"><input id="PI_ConnectionProduct" class="pol_txt" style="height:22px;" /> </span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left" style="width:85px;"><input type="radio" name="pi_stype" id="pi_linkType" style="margin-right:5px;" />关联链接:</span><span style="float:left;"> <input type="text" id="PI_Url" class="pol_txt" style="width:312px;" /> </span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left" style="width:85px;"><input type="radio" name="pi_stype" id="pi_autoColse" style="margin-right:5px;" checked="checked" />自动关闭:</span><span style="float:left;"><input id="PI_StaySpan" class="easyui-numberspinner pol_txt" value="5" style="width:60px;height:23px;margin:0px;" /> 秒后自动关闭页面</span>
+            </div>
+
+            <div class="div_row" style="clear:both;display:none;">
+                <span class="span_left"><b style="color:red;">*</b>接收终端:</span><span style="float:left;"><input id="PI_ReceiveType" style="height:22px;" class="pol_txt" /> </span><span class="span_left"><b style="color:red;">*</b>关联商品:</span>
+            </div>
+            <div class="div_row" style="clear:both;display:none">
+                <span class="span_left"><b style="color:red;">*</b>弹出时间:</span><span style="float:left;"><input id="PI_AlertSpan" class="easyui-numberspinner pol_txt" value="10" style="height:23px;margin:0px;width:110px;line-height:23px;" /> </span><span style="float:left">秒</span><span class="span_left"><b style="color:red;">*</b>停留时间:</span><span style="float:left;"></span><span style="float:left">秒</span>
+            </div>
+            <div class="div_row" style="clear:both;">
+                <span class="span_left"><b style="color:red;">*</b>有效时间:</span><span style="float:left;"><input id="PI_PushedStartTime" class="pol_txt" style="height:22px;" /></span><span class="span_left" style="width:35px;margin-left:25px;text-align:left;">到</span><span style="float:left;"><input id="PI_PushedEndTime" style="height:22px;" class="pol_txt" /> </span>
+            </div>
+
+            <div class="div_row" style="clear:both;display:none;">
+                <span class="span_left">备注:</span><span style="float:left"><input type="text" id="pi_Notes" class="pol_txt" style="width:312px;" /> </span>
+            </div>
+            <div style="margin-top:10px;line-height:30px;text-align:center;">
+                <a class="easyui-linkbutton" onclick="PI_AddSave(1)" id="addPI">保存并新增</a> <a class="easyui-linkbutton" onclick="PI_AddSave(0)">保存并关闭(K)</a> <a class="easyui-linkbutton" onclick="addPIClose()">关闭(X)</a>
+            </div>
+        </div>
+
+        <form id="PI_SelectProduct" style="display:none;">
+            <div style="height:28px;line-height:28px"><input id="PI_Search" style="height:22px;" />  <input type="text" id="PI_Content" class="userTxt" /> <a class="easyui-linkbutton" iconCls="icon-search" onclick="PI_searchProduct()"></a> </div>
+            <table id="PI_SelectProduct_list">
+
+            </table>
+            <div style="width:100%;margin-top:20px;">
+                <span style="float:left;margin-left:10px;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="PI_SProduct()">选中</a>
+                </span>
+                <span style="float:right;margin-right:10px;">
+                    <a class="easyui-linkbutton lbtn_a" onclick="PI_SelectProduct_Close()">关闭(X)</a>
+                </span>
+            </div>
+        </form>
+
+    </div>
+    <script src="~/Scripts/PromotionInfo.js" type="text/javascript"></script>
+</body>
+</html>

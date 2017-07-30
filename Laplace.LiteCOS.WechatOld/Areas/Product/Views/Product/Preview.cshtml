@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Preview</title>
+
+   
+    @Styles.Render("~/Styles/weuiCss")
+    @Scripts.Render("~/Scripts/weui")
+
+    @*@Styles.Render("~/Sytle/weuiCss")
+    @Scripts.Render("~/Script/weui")*@
+
+</head>
+<body>
+
+<div class="container" style="padding: 10px;">
+    <div class="page">
+        <div class="page__hd">
+            <h1 class="page__title">订单结算</h1>
+            <p class="page__desc"></p>
+        </div>
+        <div class="page__bd">
+            <div class="weui-form-preview">
+                <div class="weui-form-preview__hd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">付款金额</label>
+                        <em class="weui-form-preview__value">¥2400.00</em>
+                    </div>
+                </div>
+                <div class="weui-form-preview__bd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">商品</label>
+                        <span class="weui-form-preview__value">电动打蛋机</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">数量</label>
+                        <span class="weui-form-preview__value">100</span>
+                    </div>
+
+                </div>
+                <div class="weui-form-preview__ft">
+                    <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">操作</a>
+                </div>
+            </div>
+            <br>
+            <div class="weui-form-preview">
+                <div class="weui-form-preview__hd">
+                    <label class="weui-form-preview__label">付款金额</label>
+                    <em class="weui-form-preview__value">¥1200.00</em>
+                </div>
+                <div class="weui-form-preview__bd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">商品</label>
+                        <span class="weui-form-preview__value">电动打蛋机</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">标题标题</label>
+                        <span class="weui-form-preview__value">名字名字名字</span>
+                    </div>
+                  
+                </div>
+                <div class="weui-form-preview__ft">
+                    <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">辅助操作</a>
+                    <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">操作</button>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <a href="javascript:;" class="weui-btn weui-btn_primary">提交订单</a>
+    </div>
+</div>
+
+
+
+</body>
+</html>
